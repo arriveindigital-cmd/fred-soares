@@ -1,0 +1,697 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Roteiro — Reel · Paquetá / Posterior de Coxa · Dr. Fred Soares</title>
+<style>
+  :root {
+    --paper: #F7F6F2;
+    --ink: #0C0F22;
+    --ink2: #4A4D6A;
+    --accent: #D42B35;
+    --accent-dim: #F5D5D7;
+    --rule: #E2E1DD;
+    --screen-bg: #EEF0FA;
+    --screen-ink: #1A1E3A;
+    --nota-bg: #FFF9E6;
+    --nota-ink: #4A3B00;
+    --mono: "Courier New", "Courier", monospace;
+    --sans: system-ui, -apple-system, "Segoe UI", sans-serif;
+    --serif: Georgia, "Times New Roman", serif;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #0E1120;
+      --ink: #EAE9E4;
+      --ink2: #8A8DA8;
+      --accent: #E84555;
+      --accent-dim: #2A0E11;
+      --rule: #1E2240;
+      --screen-bg: #141830;
+      --screen-ink: #B8BDE8;
+      --nota-bg: #1C1800;
+      --nota-ink: #D4A820;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #0E1120;
+    --ink: #EAE9E4;
+    --ink2: #8A8DA8;
+    --accent: #E84555;
+    --accent-dim: #2A0E11;
+    --rule: #1E2240;
+    --screen-bg: #141830;
+    --screen-ink: #B8BDE8;
+    --nota-bg: #1C1800;
+    --nota-ink: #D4A820;
+  }
+  :root[data-theme="light"] {
+    --paper: #F7F6F2;
+    --ink: #0C0F22;
+    --ink2: #4A4D6A;
+    --accent: #D42B35;
+    --accent-dim: #F5D5D7;
+    --rule: #E2E1DD;
+    --screen-bg: #EEF0FA;
+    --screen-ink: #1A1E3A;
+    --nota-bg: #FFF9E6;
+    --nota-ink: #4A3B00;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { font-size: 15px; background: var(--paper); color: var(--ink); }
+
+  body {
+    font-family: var(--sans);
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.6;
+    padding: 2rem 1rem;
+  }
+
+  .doc {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    border-top: 3px solid var(--accent);
+    padding-top: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .header-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .brand {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .brand-name {
+    font-family: var(--sans);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .brand-role {
+    font-size: 0.75rem;
+    color: var(--ink2);
+    letter-spacing: 0.04em;
+  }
+
+  .doc-badge {
+    font-family: var(--sans);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--paper);
+    background: var(--ink2);
+    padding: 0.3em 0.7em;
+    border-radius: 2px;
+  }
+
+  .header h1 {
+    font-family: var(--serif);
+    font-size: 1.65rem;
+    font-weight: normal;
+    line-height: 1.3;
+    color: var(--ink);
+    text-wrap: balance;
+    margin-bottom: 1.25rem;
+  }
+
+  .header h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .meta-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 0.6rem 1.5rem;
+    padding: 1rem 1.25rem;
+    background: var(--screen-bg);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 4px 4px 0;
+  }
+
+  .meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  .meta-label {
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink2);
+  }
+
+  .meta-value {
+    font-size: 0.82rem;
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  /* ── BRIEFING VISUAL ── */
+  .section-title {
+    font-family: var(--sans);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink2);
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .briefing-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 2rem;
+    font-size: 0.83rem;
+  }
+
+  .briefing-table td {
+    padding: 0.55rem 0.75rem;
+    vertical-align: top;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .briefing-table td:first-child {
+    font-weight: 600;
+    color: var(--ink2);
+    white-space: nowrap;
+    width: 140px;
+    font-size: 0.78rem;
+    letter-spacing: 0.02em;
+  }
+
+  .briefing-table tr:last-child td { border-bottom: none; }
+
+  /* ── SCRIPT SECTIONS ── */
+  .script-section {
+    margin-bottom: 1.75rem;
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 0 1.25rem;
+  }
+
+  .time-col {
+    padding-top: 0.15rem;
+  }
+
+  .time-badge {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--paper);
+    background: var(--accent);
+    padding: 0.3em 0.55em;
+    border-radius: 3px;
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .scene-col {}
+
+  .scene-header {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .scene-label {
+    font-family: var(--sans);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .scene-name {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  .cam-note {
+    font-size: 0.75rem;
+    color: var(--ink2);
+    font-style: italic;
+    margin-bottom: 0.7rem;
+  }
+
+  .fala-block {
+    background: transparent;
+    border-left: 2px solid var(--rule);
+    padding: 0.6rem 0 0.6rem 1rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .fala-label {
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink2);
+    margin-bottom: 0.35rem;
+  }
+
+  .fala-text {
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    line-height: 1.65;
+    color: var(--ink);
+    white-space: pre-wrap;
+  }
+
+  .screen-block {
+    background: var(--screen-bg);
+    border-radius: 4px;
+    padding: 0.75rem 1rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .screen-label {
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--screen-ink);
+    opacity: 0.7;
+    margin-bottom: 0.35rem;
+  }
+
+  .screen-text {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    line-height: 1.6;
+    color: var(--screen-ink);
+    white-space: pre-wrap;
+  }
+
+  .nota-block {
+    background: var(--nota-bg);
+    border-radius: 4px;
+    padding: 0.6rem 0.9rem;
+    font-size: 0.78rem;
+    font-style: italic;
+    color: var(--nota-ink);
+    line-height: 1.55;
+  }
+
+  .nota-block strong {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 0.25rem;
+    opacity: 0.8;
+  }
+
+  .divider {
+    border: none;
+    border-top: 1px solid var(--rule);
+    margin: 1.5rem 0;
+  }
+
+  /* ── COVER ── */
+  .cover-box {
+    background: var(--ink);
+    color: var(--paper);
+    border-radius: 6px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .cover-box .section-title {
+    color: var(--accent);
+    border-bottom-color: rgba(255,255,255,0.1);
+  }
+
+  .cover-text {
+    font-family: var(--mono);
+    font-size: 0.9rem;
+    line-height: 1.7;
+    white-space: pre-wrap;
+    color: var(--paper);
+  }
+
+  /* ── LEGENDA ── */
+  .legenda-box {
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 2rem;
+    font-size: 0.85rem;
+    line-height: 1.7;
+    color: var(--ink);
+  }
+
+  .legenda-box p { margin-bottom: 0.75rem; }
+  .legenda-box p:last-child { margin-bottom: 0; }
+
+  /* ── CHECKLIST ── */
+  .checklist {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .checklist li {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.83rem;
+    color: var(--ink);
+  }
+
+  .checklist li::before {
+    content: "";
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 1.5px solid var(--rule);
+    border-radius: 3px;
+    flex-shrink: 0;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    border-top: 1px solid var(--rule);
+    padding-top: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .footer-brand {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink2);
+  }
+
+  .footer-date {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--ink2);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ── PRINT ── */
+  @media print {
+    body { padding: 0; background: white; color: #0C0F22; }
+    .doc { max-width: 100%; }
+    .cover-box { background: #0C0F22 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .screen-block { background: #EEF0FA !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .nota-block { background: #FFF9E6 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .script-section { break-inside: avoid; }
+  }
+
+  @media (max-width: 540px) {
+    .script-section { grid-template-columns: 1fr; }
+    .time-badge { margin-bottom: 0.5rem; }
+  }
+</style>
+</head>
+<body>
+<div class="doc">
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-meta">
+      <div class="brand">
+        <span class="brand-name">Dr. Fred Soares</span>
+        <span class="brand-role">Osteopata especialista em coluna · Intermares, Cabedelo</span>
+      </div>
+      <span class="doc-badge">Roteiro de Reel</span>
+    </div>
+
+    <h1>"O erro que faz a sua dor<br><em>voltar sempre</em>"</h1>
+
+    <div class="meta-grid">
+      <div class="meta-item">
+        <span class="meta-label">Mês</span>
+        <span class="meta-value">Junho 2026</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Código</span>
+        <span class="meta-value">R3 (substituição)</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Pilar</span>
+        <span class="meta-value">Resolução real — causa, não sintoma</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Gancho</span>
+        <span class="meta-value">Paquetá · Posterior de coxa · Copa</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Avatar</span>
+        <span class="meta-value">Atleta Ativa + Home Office</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Duração</span>
+        <span class="meta-value">55–60 segundos</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- BRIEFING VISUAL -->
+  <p class="section-title">Briefing Visual</p>
+  <table class="briefing-table">
+    <tr>
+      <td>Local</td>
+      <td>Consultório ou fundo neutro — tablet/TV com imagem do Paquetá para o B-roll de abertura</td>
+    </tr>
+    <tr>
+      <td>Posição</td>
+      <td>Em pé, direto pra câmera nas falas principais</td>
+    </tr>
+    <tr>
+      <td>Vestuário</td>
+      <td>Camisa social ou polo — sem jaleco</td>
+    </tr>
+    <tr>
+      <td>Tom</td>
+      <td>Empático e direto — traduz um caso famoso pra vida real do seguidor</td>
+    </tr>
+    <tr>
+      <td>Iluminação</td>
+      <td>Frontal limpa, sem sombras duras</td>
+    </tr>
+    <tr>
+      <td>Legenda na tela</td>
+      <td>Sim — obrigatória em todas as cenas</td>
+    </tr>
+    <tr>
+      <td>B-roll 1</td>
+      <td>Imagens de Paquetá mancando / saindo de campo (público ou licenciado)</td>
+    </tr>
+    <tr>
+      <td>B-roll 2</td>
+      <td>Atendimento em consultório, avaliação postural, técnica osteopática suave</td>
+    </tr>
+  </table>
+
+  <hr class="divider">
+  <p class="section-title">Script Completo</p>
+
+  <!-- CENA 1 -->
+  <div class="script-section">
+    <div class="time-col">
+      <span class="time-badge">0–4s</span>
+    </div>
+    <div class="scene-col">
+      <div class="scene-header">
+        <span class="scene-label">Gancho</span>
+        <span class="scene-name">B-roll Paquetá + Dr. Fred aparece</span>
+      </div>
+      <div class="fala-block">
+        <div class="fala-label">Fala</div>
+        <div class="fala-text">"O Paquetá pode ter perdido a Copa por uma lesão na coxa. Mas o que pode acabar de vez com a Copa dele... é o mesmo erro que faz a SUA dor voltar sempre."</div>
+      </div>
+      <div class="screen-block">
+        <div class="screen-label">Texto na tela</div>
+        <div class="screen-text">Paquetá.
+A lesão que derruba —
+e a que faz voltar.</div>
+      </div>
+      <div class="nota-block">
+        <strong>Nota de gravação</strong>
+        Pausa dramática antes de "é o mesmo erro". Olhar direto pra câmera no momento da virada pro espectador — esse é o gancho que prende.
+      </div>
+    </div>
+  </div>
+
+  <!-- CENA 2 -->
+  <div class="script-section">
+    <div class="time-col">
+      <span class="time-badge">4–14s</span>
+    </div>
+    <div class="scene-col">
+      <div class="scene-header">
+        <span class="scene-label">Validação</span>
+        <span class="scene-name">Direto pra câmera, tom empático</span>
+      </div>
+      <div class="fala-block">
+        <div class="fala-label">Fala</div>
+        <div class="fala-text">"A lesão de posterior de coxa é a que mais REPETE no futebol. Quase 1 em cada 5 jogadores se machuca de novo — e a segunda lesão afasta por mais tempo que a primeira. Sabe por quê? Porque a dor passa antes do corpo estar pronto."</div>
+      </div>
+      <div class="screen-block">
+        <div class="screen-label">Texto na tela</div>
+        <div class="screen-text">1 em cada 5 voltam a se machucar.
+A dor passa.
+O corpo, não.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CENA 3 -->
+  <div class="script-section">
+    <div class="time-col">
+      <span class="time-badge">14–28s</span>
+    </div>
+    <div class="scene-col">
+      <div class="scene-header">
+        <span class="scene-label">Reframe</span>
+        <span class="scene-name">Corte, meio corpo</span>
+      </div>
+      <div class="fala-block">
+        <div class="fala-label">Fala</div>
+        <div class="fala-text">"E isso não é só com atleta. É aquela dor nas costas que 'melhorou' e voltou. O ombro que travou de novo. Quando você trata só o sintoma, o corpo cobra depois. O problema não é a dor — é a causa que ninguém investigou."</div>
+      </div>
+      <div class="screen-block">
+        <div class="screen-label">Texto na tela</div>
+        <div class="screen-text">Tratou o sintoma.
+A causa ficou.
+O corpo cobra depois.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CENA 4 -->
+  <div class="script-section">
+    <div class="time-col">
+      <span class="time-badge">28–45s</span>
+    </div>
+    <div class="scene-col">
+      <div class="scene-header">
+        <span class="scene-label">Prova</span>
+        <span class="scene-name">B-roll: atendimento, avaliação, técnica suave</span>
+      </div>
+      <div class="fala-block">
+        <div class="fala-label">Fala</div>
+        <div class="fala-text">"Na osteopatia, a gente não empurra sua dor pra debaixo do tapete. A gente avalia o corpo inteiro, encontra a origem e trata — com técnica suave, sem estalar nada. É por isso que a maioria dos meus pacientes resolve em 4 a 5 sessões. Não é milagre: é tratar a causa certa."</div>
+      </div>
+      <div class="screen-block">
+        <div class="screen-label">Texto na tela</div>
+        <div class="screen-text">Avaliação do corpo inteiro.
+Sem estalar.
+4–5 sessões. Resolvido.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CENA 5 -->
+  <div class="script-section">
+    <div class="time-col">
+      <span class="time-badge">45–58s</span>
+    </div>
+    <div class="scene-col">
+      <div class="scene-header">
+        <span class="scene-label">Fechamento + CTA</span>
+        <span class="scene-name">Close, tom direto</span>
+      </div>
+      <div class="fala-block">
+        <div class="fala-label">Fala</div>
+        <div class="fala-text">"O Paquetá tem uma equipe inteira cuidando pra ele não voltar antes da hora. E você, quantas vezes já voltou 'antes da hora' pra sua rotina? Se a sua dor vive indo e voltando, me chama no WhatsApp — link na bio. Vamos descobrir a causa de verdade."</div>
+      </div>
+      <div class="screen-block">
+        <div class="screen-label">Texto na tela</div>
+        <div class="screen-text">Sua dor vive voltando?
+A causa ainda não foi tratada.
+📍 Intermares, Cabedelo</div>
+      </div>
+      <div class="nota-block">
+        <strong>Nota de gravação</strong>
+        "E você, quantas vezes já voltou 'antes da hora'" — pausar, olhar pro espectador como se a pergunta fosse pessoal.
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- COVER -->
+  <div class="cover-box">
+    <p class="section-title">Cover / Thumbnail</p>
+    <div class="cover-text">Paquetá perdeu a Copa.
+O mesmo erro
+faz sua dor voltar sempre.</div>
+  </div>
+
+  <!-- LEGENDA -->
+  <p class="section-title">Legenda para Publicação</p>
+  <div class="legenda-box">
+    <p>Paquetá pode ter perdido a Copa por uma lesão de posterior de coxa. Mas o que assusta mais não é a lesão em si — é a chance de se machucar de novo.</p>
+    <p>Quase 1 em cada 5 jogadores com essa lesão volta a se machucar. A segunda lesão é mais grave que a primeira. Sabe por quê? Porque a dor passa antes do corpo estar pronto.</p>
+    <p>Isso não é só futebol. É aquela dor nas costas que "melhorou" e voltou três meses depois. O ombro que travou de novo. O tornozelo que foi "só uma entorse" e virou crônico.</p>
+    <p>Quando você trata o sintoma, o corpo fica quieto por um tempo. Mas a causa continua lá.</p>
+    <p>Na osteopatia, a avaliação vai na origem — no corpo inteiro, não só no ponto de dor. Com técnica suave, sem estalar. Em média 4 a 5 sessões, resolvido de vez.</p>
+    <p>Se a sua dor vive voltando: manda mensagem. Link na bio.</p>
+    <p>📍 Intermares, Cabedelo.</p>
+  </div>
+
+  <!-- CHECKLIST -->
+  <p class="section-title">Checklist Pré-Publicação</p>
+  <ul class="checklist">
+    <li>Vídeo gravado e editado</li>
+    <li>B-roll do Paquetá/Copa: público ou licenciado</li>
+    <li>Legendas na tela revisadas conforme script</li>
+    <li>Cover/thumbnail definida</li>
+    <li>Legenda copiada e revisada</li>
+    <li>Aprovação de Erik</li>
+    <li>Publicar: Terça ou Quinta, 12–14h ou 19–21h</li>
+  </ul>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <span class="footer-brand">Arrive In Digital · Dr. Fred Soares · Jun 2026</span>
+    <span class="footer-date">roteiro-reel-paqueta-posterior</span>
+  </footer>
+
+</div>
+</body>
+</html>

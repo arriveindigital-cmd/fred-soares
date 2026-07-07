@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Playbook de Posicionamento — Dr. Fred Soares</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #111318;
+      --surface:   #1a1d26;
+      --surface2:  #20242f;
+      --border:    rgba(255,255,255,0.07);
+      --gold:      #c9973a;
+      --gold-lt:   #e8b86b;
+      --gold-dim:  rgba(201,151,58,0.12);
+      --white:     #f4f1ec;
+      --muted:     #8a8d99;
+      --serif:     'Cormorant Garamond', Georgia, serif;
+      --sans:      'DM Sans', system-ui, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: var(--sans);
+      font-size: 15px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NOISE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.025;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* ── COVER ── */
+    .cover {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 80px 40px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cover::before {
+      content: '';
+      position: absolute;
+      top: -200px; right: -200px;
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(201,151,58,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .cover-inner {
+      text-align: center;
+      max-width: 680px;
+      position: relative;
+      animation: fadeUp 1s ease both;
+    }
+
+    .cover-label {
+      font-family: var(--sans);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 32px;
+    }
+
+    .cover-name {
+      font-family: var(--serif);
+      font-size: clamp(52px, 8vw, 88px);
+      font-weight: 300;
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+
+    .cover-name em {
+      font-style: italic;
+      color: var(--gold-lt);
+    }
+
+    .cover-subtitle {
+      font-family: var(--sans);
+      font-size: 13px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 56px;
+    }
+
+    .cover-rule {
+      width: 1px;
+      height: 80px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+      margin: 0 auto 48px;
+    }
+
+    .cover-tag {
+      display: inline-block;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      padding: 10px 20px;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      border-radius: 2px;
+    }
+
+    /* ── SECTION WRAPPER ── */
+    .section {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 80px 40px;
+    }
+
+    .section + .section { border-top: 1px solid var(--border); }
+
+    .section-label {
+      font-family: var(--sans);
+      font-size: 10px;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+
+    .section-title {
+      font-family: var(--serif);
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 300;
+      line-height: 1.15;
+      margin-bottom: 40px;
+    }
+
+    .section-title em { font-style: italic; color: var(--gold-lt); }
+
+    /* ── DECLARAÇÃO ── */
+    .declaracao-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--gold);
+      padding: 40px 44px;
+      border-radius: 2px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .declaracao-card::before {
+      content: '\201C';
+      position: absolute;
+      top: -10px; left: 28px;
+      font-family: var(--serif);
+      font-size: 120px;
+      color: var(--gold);
+      opacity: 0.08;
+      line-height: 1;
+    }
+
+    .declaracao-text {
+      font-family: var(--serif);
+      font-size: clamp(16px, 2.2vw, 22px);
+      font-weight: 400;
+      line-height: 1.65;
+      color: var(--white);
+    }
+
+    /* ── MENSAGEM CENTRAL ── */
+    .mensagem-central {
+      background: var(--gold-dim);
+      border: 1px solid rgba(201,151,58,0.25);
+      border-radius: 2px;
+      padding: 48px;
+      text-align: center;
+    }
+
+    .mensagem-central p {
+      font-family: var(--serif);
+      font-size: clamp(20px, 3vw, 32px);
+      font-style: italic;
+      font-weight: 300;
+      line-height: 1.4;
+      color: var(--gold-lt);
+    }
+
+    /* ── PILARES ── */
+    .pilares-grid {
+      display: grid;
+      gap: 24px;
+    }
+
+    .pilar {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+
+    .pilar:hover { border-color: rgba(201,151,58,0.3); }
+
+    .pilar-header {
+      padding: 28px 32px 20px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .pilar-num {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 10px;
+    }
+
+    .pilar-title {
+      font-family: var(--serif);
+      font-size: 22px;
+      font-weight: 400;
+      line-height: 1.2;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+
+    .pilar-frase {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 15px;
+      color: var(--gold-lt);
+    }
+
+    .pilar-body {
+      padding: 24px 32px 28px;
+    }
+
+    .pilar-contexto {
+      font-size: 14px;
+      color: rgba(244,241,236,0.75);
+      margin-bottom: 20px;
+      line-height: 1.7;
+    }
+
+    .provas-label {
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+
+    .provas-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .provas-list li {
+      display: flex;
+      gap: 12px;
+      font-size: 13.5px;
+      color: rgba(244,241,236,0.8);
+      line-height: 1.5;
+    }
+
+    .provas-list li::before {
+      content: '—';
+      color: var(--gold);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    /* ── TOM DE VOZ ── */
+    .tom-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+
+    @media (max-width: 600px) { .tom-grid { grid-template-columns: 1fr; } }
+
+    .tom-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      padding: 28px 28px 24px;
+    }
+
+    .tom-card-label {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    .tom-card.e .tom-card-label { color: var(--gold); }
+
+    .tom-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .tom-tag {
+      padding: 5px 12px;
+      border-radius: 2px;
+      font-size: 12px;
+      letter-spacing: 0.06em;
+    }
+
+    .tom-card.e .tom-tag { background: var(--gold-dim); color: var(--gold-lt); border: 1px solid rgba(201,151,58,0.2); }
+    .tom-card.nao .tom-tag { background: rgba(255,255,255,0.04); color: var(--muted); border: 1px solid var(--border); text-decoration: line-through; }
+
+    .tom-exemplos {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .tom-exemplo {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 2px solid var(--gold);
+      padding: 16px 20px;
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 15px;
+      color: rgba(244,241,236,0.85);
+      line-height: 1.6;
+      border-radius: 0 2px 2px 0;
+    }
+
+    /* ── FRASES ÂNCORA ── */
+    .ancoras-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .ancora {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      padding: 24px 28px;
+      transition: border-color 0.2s;
+    }
+
+    .ancora:hover { border-color: rgba(201,151,58,0.4); }
+
+    .ancora-num {
+      font-family: var(--serif);
+      font-size: 32px;
+      font-weight: 300;
+      color: var(--gold);
+      opacity: 0.4;
+      line-height: 1;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .ancora-text {
+      font-family: var(--serif);
+      font-size: clamp(17px, 2.2vw, 22px);
+      font-weight: 600;
+      color: var(--white);
+      line-height: 1.3;
+    }
+
+    /* ── FRASES PROIBIDAS ── */
+    .proibidas-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .proibidas-table th {
+      text-align: left;
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 0 16px 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .proibidas-table td {
+      padding: 16px;
+      vertical-align: top;
+      font-size: 13.5px;
+      border-bottom: 1px solid var(--border);
+      line-height: 1.5;
+    }
+
+    .proibidas-table tr:last-child td { border-bottom: none; }
+
+    .proibida-frase {
+      font-family: var(--serif);
+      font-style: italic;
+      color: rgba(244,241,236,0.5);
+      text-decoration: line-through;
+      text-decoration-color: rgba(201,151,58,0.5);
+    }
+
+    .proibida-razao { color: rgba(244,241,236,0.7); }
+
+    /* ── NARRATIVA ── */
+    .narrativa-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      position: relative;
+    }
+
+    .narrativa-steps::before {
+      content: '';
+      position: absolute;
+      left: 20px; top: 40px; bottom: 40px;
+      width: 1px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+    }
+
+    .narrativa-step {
+      display: flex;
+      gap: 28px;
+      padding: 28px 0;
+    }
+
+    .narrativa-dot {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--serif);
+      font-size: 14px;
+      color: var(--gold);
+      flex-shrink: 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .narrativa-content {}
+
+    .narrativa-step-title {
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+
+    .narrativa-step-text {
+      font-size: 14px;
+      color: rgba(244,241,236,0.8);
+      line-height: 1.7;
+    }
+
+    .narrativa-step-text strong { color: var(--white); font-weight: 500; }
+
+    /* ── RODAPÉ ── */
+    .footer {
+      border-top: 1px solid var(--border);
+      padding: 40px;
+      text-align: center;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .footer-logo {
+      font-family: var(--serif);
+      font-size: 12px;
+      letter-spacing: 0.2em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    .footer-logo span { color: var(--gold); }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── PRINT ── */
+    @media print {
+      body { background: #fff; color: #111; }
+      .cover::before, body::before { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- COVER -->
+  <div class="cover">
+    <div class="cover-inner">
+      <div class="cover-label">Playbook de Posicionamento</div>
+      <h1 class="cover-name">Dr. <em>Fred</em><br>Soares</h1>
+      <div class="cover-subtitle">Osteopata · Coluna · Intermares, Cabedelo</div>
+      <div class="cover-rule"></div>
+      <div class="cover-tag">Documento estratégico — uso interno · Arrive In Digital · Mai/2026</div>
+    </div>
+  </div>
+
+  <!-- DECLARAÇÃO DE POSICIONAMENTO -->
+  <div class="section">
+    <div class="section-label">01 — Declaração de Posicionamento</div>
+    <h2 class="section-title">Quem é o Dr. Fred<br>para o mercado</h2>
+    <div class="declaracao-card">
+      <p class="declaracao-text">
+        Para quem vive com dor recorrente de coluna em Intermares e Cabedelo e já se frustrou com fisioterapia que alivia mas não resolve — o Dr. Fred Soares é o <strong>osteopata especialista</strong> que entrega resolução real em poucas sessões, com formação de referência mundial e técnica que não assusta. Diferente das clínicas convencionais, ele vai na causa, não no sintoma.
+      </p>
+    </div>
+  </div>
+
+  <!-- MENSAGEM CENTRAL -->
+  <div class="section">
+    <div class="section-label">02 — Mensagem Central</div>
+    <h2 class="section-title">O que o paciente<br>precisa <em>ouvir primeiro</em></h2>
+    <div class="mensagem-central">
+      <p>"Você não precisa conviver com a dor.<br>Precisa de alguém que vai na causa."</p>
+    </div>
+  </div>
+
+  <!-- PILARES -->
+  <div class="section">
+    <div class="section-label">03 — Messaging House</div>
+    <h2 class="section-title">Os três pilares<br>do posicionamento</h2>
+    <div class="pilares-grid">
+
+      <div class="pilar">
+        <div class="pilar-header">
+          <div class="pilar-num">Pilar 01</div>
+          <div class="pilar-title">Resolução real, não alívio temporário</div>
+          <div class="pilar-frase">"Não é mais uma sessão. Em 4 a 5 consultas, o problema está resolvido."</div>
+        </div>
+        <div class="pilar-body">
+          <p class="pilar-contexto">A fisioterapia convencional trata o sintoma. A osteopatia avançada vai na causa. O resultado é diferente — e o número de sessões também.</p>
+          <div class="provas-label">Provas</div>
+          <ul class="provas-list">
+            <li>Média de 4–5 sessões por protocolo</li>
+            <li>Case: paciente com ciática + perda de força no pé — recuperação de 100% da mobilidade</li>
+            <li>Frase do Dr. Fred: <em>"Eu resolvo rápido. Não adianta fazer planos longos porque eu fico com a pessoa boa e pagando consulta."</em></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="pilar">
+        <div class="pilar-header">
+          <div class="pilar-num">Pilar 02</div>
+          <div class="pilar-title">O único com essa formação em Intermares</div>
+          <div class="pilar-frase">"Osteopatia de Madrid. Mestrado pela USP. 20 anos. Agora no seu bairro."</div>
+        </div>
+        <div class="pilar-body">
+          <p class="pilar-contexto">Formação de referência mundial, no bairro. Não existe alternativa equivalente em Intermares — verificado no benchmark.</p>
+          <div class="provas-label">Provas</div>
+          <ul class="provas-list">
+            <li>Curso de Osteopatia — Instituto de Madrid (referência mundial na área)</li>
+            <li>Mestrado pela USP</li>
+            <li>10 anos de docência no SENAC</li>
+            <li>+10.000 pacientes em 20 anos de carreira</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="pilar">
+        <div class="pilar-header">
+          <div class="pilar-num">Pilar 03</div>
+          <div class="pilar-title">Técnica suave, sem medo</div>
+          <div class="pilar-frase">"Sem estralos. Sem trauma. Funciona para atletas, adultos e idosos."</div>
+        </div>
+        <div class="pilar-body">
+          <p class="pilar-contexto">A maior objeção antes do primeiro contato é o medo da manipulação. Este pilar elimina a barreira antes da primeira mensagem.</p>
+          <div class="provas-label">Provas</div>
+          <ul class="provas-list">
+            <li>Osteopatia ≠ quiropraxia — técnica diferente, sem manipulação brusca</li>
+            <li>Atende idosos com sucesso com a mesma técnica</li>
+            <li>Case: paciente idosa com medo de manipulação — virou paciente fiel e indica outros</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- NARRATIVA -->
+  <div class="section">
+    <div class="section-label">04 — Narrativa</div>
+    <h2 class="section-title">Como contar a história —<br><em>o paciente é o herói</em></h2>
+    <div class="narrativa-steps">
+
+      <div class="narrativa-step">
+        <div class="narrativa-dot">1</div>
+        <div class="narrativa-content">
+          <div class="narrativa-step-title">O herói e o que ele quer</div>
+          <p class="narrativa-step-text">Você tem uma vida ativa. Trabalha, treina, cuida da casa. E tem uma dor que não some de vez — aparece, passa com analgésico, volta. <strong>Você quer simplesmente se mover sem dor e voltar à sua rotina normal.</strong></p>
+        </div>
+      </div>
+
+      <div class="narrativa-step">
+        <div class="narrativa-dot">2</div>
+        <div class="narrativa-content">
+          <div class="narrativa-step-title">O problema que aparece no caminho</div>
+          <p class="narrativa-step-text">
+            <strong>Externo:</strong> Dor musculoesquelética recorrente — torcicolo, lombar, ciática — que não é resolvida de vez.<br><br>
+            <strong>Interno:</strong> A frustração de já ter tentado fisioterapia, melhorado um pouco, gastado tempo e dinheiro — e o problema ter voltado. A sensação de que "é assim mesmo, tenho que conviver."<br><br>
+            <strong>Filosófico:</strong> Você não deveria ter que conviver com isso. Tem que existir uma solução de verdade — não mais uma sessão de alívio.
+          </p>
+        </div>
+      </div>
+
+      <div class="narrativa-step">
+        <div class="narrativa-dot">3</div>
+        <div class="narrativa-content">
+          <div class="narrativa-step-title">O guia aparece</div>
+          <p class="narrativa-step-text">O Dr. Fred Soares é osteopata especialista em coluna com 20 anos de carreira e formação pelo Instituto de Madrid. Já tratou mais de 10.000 pacientes. E agora está em Intermares, a dois passos de você. <strong>Ele entende a sua frustração — e sabe onde está a causa.</strong></p>
+        </div>
+      </div>
+
+      <div class="narrativa-step">
+        <div class="narrativa-dot">4</div>
+        <div class="narrativa-content">
+          <div class="narrativa-step-title">O plano — simples e claro</div>
+          <p class="narrativa-step-text">
+            <strong>1. Primeira consulta:</strong> Avaliação completa + primeiro tratamento na mesma sessão.<br>
+            <strong>2. Proposta de plano:</strong> No final, ele te diz quantas sessões você vai precisar — e por quê.<br>
+            <strong>3. Tratamento:</strong> 4–5 sessões em média, 1–2x por semana.<br>
+            <strong>4. Alta:</strong> Quando o problema estiver resolvido — não quando o plano acabar.
+          </p>
+        </div>
+      </div>
+
+      <div class="narrativa-step">
+        <div class="narrativa-dot">5</div>
+        <div class="narrativa-content">
+          <div class="narrativa-step-title">A transformação</div>
+          <p class="narrativa-step-text">
+            <strong>Antes:</strong> Dor que aparece e volta, sessões que não resolvem, medo de ir e não saber quanto vai custar.<br><br>
+            <strong>Depois:</strong> Você entende o que causava a dor, sabe como evitar que volte — e o problema está resolvido de verdade. Não aliviado. <strong>Resolvido.</strong>
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- TOM DE VOZ -->
+  <div class="section">
+    <div class="section-label">05 — Tom de Voz</div>
+    <h2 class="section-title">Como o Dr. Fred<br><em>fala</em></h2>
+    <div class="tom-grid">
+      <div class="tom-card e">
+        <div class="tom-card-label">É</div>
+        <div class="tom-tags">
+          <span class="tom-tag">Direto</span>
+          <span class="tom-tag">Confiante</span>
+          <span class="tom-tag">Acolhedor</span>
+          <span class="tom-tag">Técnico sem ser hermético</span>
+        </div>
+      </div>
+      <div class="tom-card nao">
+        <div class="tom-card-label">Não é</div>
+        <div class="tom-tags">
+          <span class="tom-tag">Modesto</span>
+          <span class="tom-tag">Alarmista</span>
+          <span class="tom-tag">Jargão médico</span>
+          <span class="tom-tag">Genérico</span>
+        </div>
+      </div>
+    </div>
+    <div class="provas-label" style="margin-bottom: 12px; font-size:10px; letter-spacing:.18em; text-transform:uppercase; color:var(--muted)">Como ele fala — exemplos reais</div>
+    <div class="tom-exemplos">
+      <div class="tom-exemplo">"Vou te avaliar na primeira consulta. Só depois de mexer em você eu vou saber quantas sessões você vai precisar — não tem como saber antes."</div>
+      <div class="tom-exemplo">"Não precisa ter medo de estalo. A minha técnica não precisa disso para funcionar."</div>
+      <div class="tom-exemplo">"Eu não faço planos longos porque eu resolvo rápido. Se o problema foi embora, não tem por que você continuar pagando consulta."</div>
+    </div>
+  </div>
+
+  <!-- FRASES ÂNCORA -->
+  <div class="section">
+    <div class="section-label">06 — Frases-Âncora</div>
+    <h2 class="section-title">Prontas para usar<br>em qualquer canal</h2>
+    <div class="ancoras-list">
+      <div class="ancora">
+        <div class="ancora-num">1</div>
+        <div class="ancora-text">"20 anos resolvendo dor. Agora em Cabedelo."</div>
+      </div>
+      <div class="ancora">
+        <div class="ancora-num">2</div>
+        <div class="ancora-text">"Osteopatia com formação de Madrid — no seu bairro."</div>
+      </div>
+      <div class="ancora">
+        <div class="ancora-num">3</div>
+        <div class="ancora-text">"Eu não alivio. Eu vou na causa."</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FRASES PROIBIDAS -->
+  <div class="section">
+    <div class="section-label">07 — Frases Proibidas</div>
+    <h2 class="section-title">O que nunca deve<br><em>aparecer</em> na comunicação</h2>
+    <table class="proibidas-table">
+      <thead>
+        <tr>
+          <th style="width:42%">Frase</th>
+          <th>Por que não</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="proibida-frase">"Alívio"</span></td>
+          <td class="proibida-razao">Ele resolve — não alivia. Usar "alívio" contradiz o posicionamento de resolução.</td>
+        </tr>
+        <tr>
+          <td><span class="proibida-frase">"Cura"</span></td>
+          <td class="proibida-razao">Risco jurídico — vedado para profissionais de saúde no Brasil.</td>
+        </tr>
+        <tr>
+          <td><span class="proibida-frase">"Resultado garantido"</span></td>
+          <td class="proibida-razao">Risco jurídico.</td>
+        </tr>
+        <tr>
+          <td><span class="proibida-frase">"Fisioterapia completa"</span></td>
+          <td class="proibida-razao">Ele faz osteopatia. Usar "fisio" contradiz o frame de referência e apaga o diferencial.</td>
+        </tr>
+        <tr>
+          <td><span class="proibida-frase">"Atendo todos os tipos de problema"</span></td>
+          <td class="proibida-razao">Contradiz a especialização em coluna — e especialização é o diferencial.</td>
+        </tr>
+        <tr>
+          <td><span class="proibida-frase">"Tratamento longo" / "várias sessões"</span></td>
+          <td class="proibida-razao">Reforça a principal objeção do ICP — o medo de comprometer tempo e dinheiro.</td>
+        </tr>
+        <tr>
+          <td><span class="proibida-frase">"Técnica avançada e inovadora"</span></td>
+          <td class="proibida-razao">Vazio. Substituir sempre pelo nome real: "osteopatia com formação pelo Instituto de Madrid".</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-logo">Elaborado por <span>Arrive In Digital</span> · Mai/2026</div>
+  </div>
+
+</body>
+</html>
