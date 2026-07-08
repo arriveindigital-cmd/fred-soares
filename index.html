@@ -67,10 +67,11 @@
       font-family: var(--font);
       font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
       text-transform: uppercase; color: rgba(255,255,255,0.3);
-      background: none; border: none; cursor: pointer;
+      background: none; border: 0; outline: none; cursor: pointer;
       border-bottom: 2px solid transparent;
-      transition: all 0.15s;
+      transition: color 0.15s, border-color 0.15s;
     }
+    .month-tab:focus { outline: none; }
     .month-tab:hover { color: rgba(255,255,255,0.7); }
     .month-tab.active { color: var(--red); border-bottom-color: var(--red); }
     .month-page { display: none; }
@@ -919,13 +920,13 @@
 
         <!-- C4 Carrossel Ombro -->
         <div class="pcard" data-format-j="carrossel">
-          <div class="thumb carr-th">
-            <div class="thumb-icon">⬛</div>
-            <div class="thumb-label">Carrossel · 6 slides</div>
-            <div class="prod-label">Arte em produção</div>
+          <div class="thumb" onclick="lb(['04-operacional/conteudo/2026-07/Carrossel%20C4%20-%20Dor%20no%20Ombro/images/slide-01.png','04-operacional/conteudo/2026-07/Carrossel%20C4%20-%20Dor%20no%20Ombro/images/slide-02.png','04-operacional/conteudo/2026-07/Carrossel%20C4%20-%20Dor%20no%20Ombro/images/slide-03.png','04-operacional/conteudo/2026-07/Carrossel%20C4%20-%20Dor%20no%20Ombro/images/slide-04.png','04-operacional/conteudo/2026-07/Carrossel%20C4%20-%20Dor%20no%20Ombro/images/slide-05.png'])">
+            <img src="04-operacional/conteudo/2026-07/Carrossel%20C4%20-%20Dor%20no%20Ombro/images/slide-01.png" alt="">
+            <span class="badge badge-carrossel">Carrossel</span>
+            <span class="scount">5 slides</span>
           </div>
           <div class="cbody">
-            <div class="pnum">C4 · Carrossel · Home Office + Atleta · S2 · 6 slides</div>
+            <div class="pnum">C4 · Carrossel · Home Office + Atleta · S2 · 5 slides</div>
             <div class="ptitle">Dor no ombro: não é o mouse</div>
             <div class="pganche">"2 horas de reunião. Mouse o dia inteiro. E dói o ombro. Você culpou o mouse. O problema pode ser outro."</div>
           </div>
@@ -1046,10 +1047,10 @@
 
         <!-- C8 Carrossel Voltar ao movimento -->
         <div class="pcard" data-format-j="carrossel">
-          <div class="thumb carr-th">
-            <div class="thumb-icon">⬛</div>
-            <div class="thumb-label">Carrossel · 6 slides</div>
-            <div class="prod-label">Arte em produção</div>
+          <div class="thumb" onclick="lb(['04-operacional/conteudo/2026-07/Carrossel%20C8%20-%20Retorno%20Movimento/images/slide-01.png','04-operacional/conteudo/2026-07/Carrossel%20C8%20-%20Retorno%20Movimento/images/slide-02.png','04-operacional/conteudo/2026-07/Carrossel%20C8%20-%20Retorno%20Movimento/images/slide-03.png','04-operacional/conteudo/2026-07/Carrossel%20C8%20-%20Retorno%20Movimento/images/slide-04.png','04-operacional/conteudo/2026-07/Carrossel%20C8%20-%20Retorno%20Movimento/images/slide-05.png','04-operacional/conteudo/2026-07/Carrossel%20C8%20-%20Retorno%20Movimento/images/slide-06.png'])">
+            <img src="04-operacional/conteudo/2026-07/Carrossel%20C8%20-%20Retorno%20Movimento/images/slide-01.png" alt="">
+            <span class="badge badge-carrossel">Carrossel</span>
+            <span class="scount">6 slides</span>
           </div>
           <div class="cbody">
             <div class="pnum">C8 · Carrossel · Home Office + Atleta · S4 · 6 slides</div>
