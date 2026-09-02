@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dr. Fred Soares · Mês 4 · Planejamento de Conteúdo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy:      #353552;
+      --dark:      #1a1b2e;
+      --darker:    #12131f;
+      --navy-mid:  #474970;
+      --red:       #BD2839;
+      --red-dark:  #B12939;
+      --white:     #FFFFFF;
+      --offwhite:  #F0EFEF;
+      --gray:      #DAD9DF;
+      --gray-blue: #9091A4;
+      --text:      #3A3A4F;
+      --font: 'Montserrat', sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--darker); font-family: var(--font); color: var(--white); overflow-x: hidden; }
+
+    /* ─── NAV ─── */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 14px 48px;
+      display: flex; justify-content: space-between; align-items: center;
+      background: rgba(18,19,31,0.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .nav img { height: 20px; }
+    .nav-links { display: flex; gap: 24px; }
+    .nav-links a {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: rgba(255,255,255,0.4);
+      text-decoration: none; transition: color 0.2s;
+    }
+    .nav-links a:hover { color: white; }
+    .nav-tag {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--red);
+      padding: 4px 12px; border: 1px solid rgba(189,40,57,0.35);
+      border-radius: 100px;
+    }
+    .nav-burger {
+      display: none; flex-direction: column; gap: 5px;
+      background: none; border: none; cursor: pointer; padding: 4px;
+    }
+    .nav-burger span { display: block; width: 22px; height: 2px; background: rgba(255,255,255,0.6); border-radius: 2px; }
+
+    /* ─── UTILS ─── */
+    .red { color: var(--red); }
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.65s ease, transform 0.65s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+    .d1 { transition-delay: 0.08s; } .d2 { transition-delay: 0.16s; }
+    .d3 { transition-delay: 0.24s; } .d4 { transition-delay: 0.32s; }
+    section { min-height: 100vh; display: flex; align-items: center; padding: 120px 48px 80px; }
+    .container { max-width: 1200px; margin: 0 auto; width: 100%; }
+    .section-head { margin-bottom: 56px; }
+    .section-head .label { font-size: 10px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); margin-bottom: 10px; display: block; }
+    .section-head h2 { font-size: clamp(32px, 4vw, 52px); font-weight: 800; line-height: 1.08; letter-spacing: -0.025em; }
+    .section-head p { font-size: 16px; color: var(--gray-blue); margin-top: 10px; line-height: 1.5; max-width: 520px; }
+
+    /* ─── HERO ─── */
+    #hero { background: var(--dark); position: relative; overflow: hidden; padding: 0; align-items: stretch; }
+    #hero .photo-side { position: absolute; right: 0; top: 0; bottom: 0; width: 50%; overflow: hidden; }
+    #hero .photo-side img { width: 100%; height: 100%; object-fit: cover; object-position: center top; filter: saturate(0.75) brightness(0.6); }
+    #hero .photo-side::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to right, var(--dark) 0%, rgba(26,27,46,0.35) 55%, transparent 80%); }
+    #hero .dots { position: absolute; inset: 0; background-image: radial-gradient(circle, rgba(71,73,112,0.18) 1px, transparent 1px); background-size: 24px 24px; pointer-events: none; z-index: 1; }
+    #hero .content { position: relative; z-index: 2; max-width: 1200px; margin: 0 auto; width: 100%; padding: 0 48px; display: flex; flex-direction: column; justify-content: center; min-height: 100vh; }
+    #hero .eyebrow { font-size: 10px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); margin-bottom: 24px; display: flex; align-items: center; gap: 10px; }
+    #hero .eyebrow::before { content: ''; display: block; width: 24px; height: 2px; background: var(--red); }
+    #hero h1 { font-size: clamp(48px, 6vw, 84px); font-weight: 900; line-height: 1.02; letter-spacing: -0.03em; max-width: 580px; }
+    #hero .sub { font-size: clamp(14px, 1.6vw, 20px); font-weight: 400; color: var(--gray-blue); margin-top: 20px; line-height: 1.5; max-width: 440px; }
+    #hero .meta { display: flex; gap: 36px; margin-top: 48px; flex-wrap: wrap; }
+    #hero .meta-item span:first-child { display: block; font-size: 36px; font-weight: 900; color: var(--red); letter-spacing: -0.02em; line-height: 1; }
+    #hero .meta-item span:last-child { font-size: 11px; font-weight: 600; color: var(--gray-blue); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 4px; display: block; }
+    #hero .scroll-hint { position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%); font-size: 9px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.2); display: flex; flex-direction: column; align-items: center; gap: 6px; }
+    #hero .scroll-hint::after { content: ''; width: 1px; height: 28px; background: linear-gradient(to bottom, rgba(255,255,255,0.2), transparent); animation: ph 2s ease-in-out infinite; }
+    @keyframes ph { 0%,100%{opacity:.3} 50%{opacity:1} }
+
+    /* ─── FEED ─── */
+    #feed { background: var(--darker); }
+    #feed .container { display: flex; gap: 56px; align-items: flex-start; }
+    .phone {
+      background: #fff; border-radius: 22px; overflow: hidden; width: 340px; flex-shrink: 0;
+      box-shadow: 0 28px 80px rgba(0,0,0,0.65);
+      transition: transform 0.35s cubic-bezier(.22,1,.36,1), box-shadow 0.35s ease;
+    }
+    .phone:hover {
+      transform: translateY(-10px) scale(1.025);
+      box-shadow: 0 44px 100px rgba(0,0,0,0.75), 0 0 0 1px rgba(189,40,57,0.18), 0 0 40px rgba(189,40,57,0.08);
+    }
+    .phone-hd { padding: 12px 16px 10px; border-bottom: 1px solid #eee; }
+    .phone-hd .uname { font-size: 14px; font-weight: 800; color: #000; }
+    .phone-hd .row { display: flex; align-items: center; gap: 14px; margin-top: 8px; }
+    .phone-hd .av { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; border: 2px solid var(--red); flex-shrink: 0; }
+    .phone-hd .stats { display: flex; gap: 16px; }
+    .phone-hd .st span:first-child { display: block; font-size: 13px; font-weight: 700; color: #000; text-align: center; }
+    .phone-hd .st span:last-child { font-size: 10px; color: #888; text-align: center; display: block; }
+    .phone-bio { padding: 6px 16px 10px; }
+    .phone-bio .nm { font-size: 12px; font-weight: 700; color: #000; }
+    .phone-bio .sp { font-size: 11px; color: #555; }
+    .phone-bio .ph { font-size: 11px; font-weight: 700; color: var(--red); margin-top: 2px; }
+    .pgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+    .pgrid .cell { aspect-ratio: 1/1; overflow: hidden; position: relative; cursor: pointer; }
+    .pgrid .cell img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.3s; }
+    .pgrid .cell:hover img { transform: scale(1.06); }
+    .pgrid .cell.reel { background: var(--dark); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; }
+    .pgrid .cell.foto { background: linear-gradient(135deg, #1a2030, #2a2b40); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; }
+    .reel-ic { width: 24px; height: 18px; border: 2px solid rgba(255,255,255,0.5); border-radius: 3px; position: relative; display: flex; align-items: center; justify-content: center; font-size: 9px; color: var(--red); }
+    .reel-ic::before { content:''; position:absolute; right:-7px; top:-5px; border:5px solid transparent; border-left:8px solid rgba(255,255,255,0.5); transform:rotate(-15deg); }
+    .pgrid .cell.reel span, .pgrid .cell.foto span { font-size: 7px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.7); }
+    .prod-b { position: absolute; bottom: 5px; left: 50%; transform: translateX(-50%); background: var(--red); color: white; font-size: 6px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 2px 6px; border-radius: 100px; white-space: nowrap; }
+    .feed-side { flex: 1; }
+    .feed-legend { display: flex; flex-direction: column; gap: 12px; margin-top: 28px; }
+    .fl-item { display: flex; align-items: center; gap: 12px; font-size: 13px; font-weight: 500; color: var(--gray-blue); }
+    .fl-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+    .fl-item strong { font-weight: 700; color: white; }
+    .cta-box { margin-top: 28px; padding: 18px 22px; background: rgba(189,40,57,0.07); border: 1px solid rgba(189,40,57,0.15); border-radius: 10px; }
+    .cta-box .lbl { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--red); margin-bottom: 6px; }
+    .cta-box strong { display: block; font-size: 16px; font-weight: 700; color: white; line-height: 1.3; }
+    .cta-box small { font-size: 12px; color: var(--gray-blue); margin-top: 3px; display: block; }
+
+    /* ─── ESTRATÉGIA ─── */
+    #estrategia { background: var(--dark); }
+    .promise { background: rgba(189,40,57,0.08); border: 1px solid rgba(189,40,57,0.2); border-radius: 10px; padding: 24px 32px; margin-bottom: 44px; }
+    .promise p { font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--red); margin-bottom: 8px; }
+    .promise blockquote { font-size: clamp(20px, 2.4vw, 30px); font-weight: 800; line-height: 1.2; letter-spacing: -0.02em; font-style: normal; }
+    .pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .pillar { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; padding: 22px; border-top: 3px solid var(--red); }
+    .p-num { font-size: 38px; font-weight: 900; color: rgba(255,255,255,0.07); letter-spacing: -0.05em; line-height: 1; margin-bottom: 10px; }
+    .pillar h3 { font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--red); margin-bottom: 10px; }
+    .pillar .quote { font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.7); line-height: 1.4; margin-bottom: 10px; font-style: italic; }
+    .pillar .desc { font-size: 13px; color: var(--gray-blue); line-height: 1.55; }
+    .pillar .proofs { list-style: none; margin-top: 14px; padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.05); display: flex; flex-direction: column; gap: 7px; }
+    .pillar .proofs li { font-size: 11px; font-weight: 500; color: rgba(255,255,255,0.35); display: flex; gap: 7px; line-height: 1.4; }
+    .pillar .proofs li::before { content: '—'; color: var(--red); flex-shrink: 0; font-size: 10px; }
+
+    /* ─── CONTEÚDOS ─── */
+    #conteudos { background: var(--darker); min-height: auto; padding-bottom: 100px; }
+    .filter-bar { display: flex; gap: 8px; margin-bottom: 40px; flex-wrap: wrap; }
+    .filter-btn {
+      padding: 8px 18px; border-radius: 100px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.04);
+      color: rgba(255,255,255,0.45); font-family: var(--font);
+      font-size: 12px; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; cursor: pointer; transition: all 0.15s;
+    }
+    .filter-btn:hover { background: rgba(255,255,255,0.1); color: white; }
+    .filter-btn.active { background: var(--red); border-color: var(--red); color: white; }
+    .filter-count { display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; background: rgba(255,255,255,0.15); font-size: 10px; font-weight: 700; margin-left: 6px; }
+    .filter-btn.active .filter-count { background: rgba(255,255,255,0.25); }
+    .posts-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 20px; }
+    .pcard {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 14px; overflow: hidden;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .pcard.hidden { display: none; }
+    .pcard:hover { border-color: rgba(189,40,57,0.25); }
+    .pcard .thumb { aspect-ratio: 4/5; overflow: hidden; position: relative; background: var(--dark); cursor: pointer; }
+    .pcard .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s; }
+    .pcard .thumb:hover img { transform: scale(1.04); }
+    .pcard .thumb .badge { position: absolute; top: 10px; left: 10px; color: white; font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 9px; border-radius: 100px; }
+    .badge-card { background: var(--navy-mid); }
+    .badge-reel { background: var(--red); }
+    .badge-carrossel { background: #8B6914; }
+    .badge-foto { background: #1a5c3a; }
+    .pcard .thumb .scount { position: absolute; top: 10px; right: 10px; font-size: 9px; font-weight: 700; color: rgba(255,255,255,0.7); background: rgba(0,0,0,0.5); padding: 3px 8px; border-radius: 100px; }
+    .pcard .thumb.reel-th { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; background: linear-gradient(135deg, #12131f 0%, #2a2b40 100%); }
+    .reel-bi { width: 40px; height: 32px; border: 2.5px solid rgba(255,255,255,0.4); border-radius: 5px; display: flex; align-items: center; justify-content: center; font-size: 12px; color: var(--red); }
+    .reel-th .prod-label { position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); background: var(--red); color: white; font-size: 7px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 10px; border-radius: 100px; white-space: nowrap; }
+    .pcard .cbody { padding: 18px 20px 0; }
+    .pcard .pnum { font-size: 9px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--red); margin-bottom: 5px; }
+    .pcard .ptitle { font-size: 15px; font-weight: 700; line-height: 1.3; color: var(--white); margin-bottom: 8px; }
+    .pcard .pganche { font-size: 12px; font-weight: 400; color: var(--gray-blue); line-height: 1.5; border-left: 2px solid rgba(189,40,57,0.35); padding-left: 9px; font-style: italic; }
+    .expand-btn {
+      display: flex; align-items: center; justify-content: space-between;
+      width: 100%; padding: 14px 20px;
+      background: none; border: none; border-top: 1px solid rgba(255,255,255,0.06);
+      color: rgba(255,255,255,0.35); font-family: var(--font);
+      font-size: 11px; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase; cursor: pointer; margin-top: 14px;
+      transition: color 0.15s;
+    }
+    .expand-btn:hover { color: rgba(255,255,255,0.7); }
+    .expand-btn .chevron { transition: transform 0.25s; font-size: 14px; }
+    .expand-btn.open .chevron { transform: rotate(180deg); }
+    .brief { padding: 0 20px; max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.3s; }
+    .brief.open { max-height: 3000px; padding: 4px 20px 20px; }
+    .brief-section { margin-bottom: 18px; }
+    .brief-section:last-child { margin-bottom: 0; }
+    .brief-lbl { font-size: 9px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--red); margin-bottom: 6px; }
+    .brief-text { font-size: 13px; font-weight: 400; color: var(--gray-blue); line-height: 1.6; }
+    .brief-text strong { font-weight: 700; color: rgba(255,255,255,0.75); }
+    .brief-text em { color: var(--red); font-style: normal; font-weight: 700; }
+    .brief-main { font-size: 15px; font-weight: 700; color: var(--white); line-height: 1.45; }
+    .brief-note { font-size: 12px; color: rgba(255,255,255,0.25); line-height: 1.5; font-style: italic; }
+    .brief-cta { display: flex; align-items: center; gap: 7px; font-size: 13px; font-weight: 600; color: var(--red); line-height: 1.4; margin-top: 16px; padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.05); }
+    .brief-cta::before { content: '→'; flex-shrink: 0; }
+    .roteiro { width: 100%; border-collapse: collapse; margin-top: 8px; }
+    .roteiro th { font-size: 9px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.3); padding: 6px 8px; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .roteiro td { font-size: 12px; color: var(--gray-blue); padding: 8px 8px; border-bottom: 1px solid rgba(255,255,255,0.04); line-height: 1.45; vertical-align: top; }
+    .roteiro td:first-child { color: rgba(255,255,255,0.3); font-weight: 600; white-space: nowrap; width: 52px; }
+    .roteiro td:nth-child(2) { color: var(--red); font-weight: 700; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; width: 80px; }
+    .roteiro tr:last-child td { border-bottom: none; }
+
+    /* ─── RESUMO ─── */
+    #resumo { background: var(--dark); min-height: 80vh; }
+    .nums { display: flex; gap: 56px; margin-bottom: 64px; flex-wrap: wrap; }
+    .bnum span:first-child { display: block; font-size: clamp(60px, 8vw, 90px); font-weight: 900; line-height: 1; color: var(--red); letter-spacing: -0.04em; }
+    .bnum span:last-child { display: block; font-size: 11px; font-weight: 600; color: var(--gray-blue); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 4px; }
+    .closing { font-size: clamp(26px, 3.2vw, 44px); font-weight: 800; line-height: 1.15; letter-spacing: -0.02em; max-width: 680px; margin-bottom: 28px; }
+    .cta-final { display: inline-flex; align-items: center; gap: 8px; background: var(--red); color: white; font-size: 12px; font-family: var(--font); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 16px 32px; border-radius: 4px; text-decoration: none; transition: background 0.2s; }
+    .cta-final:hover { background: var(--red-dark); }
+    .foot { margin-top: 72px; padding-top: 28px; border-top: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+    .foot p { font-size: 12px; color: rgba(255,255,255,0.18); line-height: 1.5; }
+    .foot img { height: 18px; opacity: 0.25; filter: brightness(0) invert(1); }
+
+    /* ─── LIGHTBOX ─── */
+    .lb { position: fixed; inset: 0; z-index: 9999; background: rgba(0,0,0,0.92); display: none; align-items: center; justify-content: center; padding: 20px; }
+    .lb.open { display: flex; }
+    .lb-inner { position: relative; max-width: 420px; width: 100%; }
+    .lb-inner img { width: 100%; border-radius: 6px; display: block; }
+    .lb-close { position: absolute; top: -12px; right: -12px; width: 28px; height: 28px; border-radius: 50%; background: var(--red); border: none; cursor: pointer; color: white; font-size: 13px; display: flex; align-items: center; justify-content: center; }
+    .lb-nav { display: flex; justify-content: center; gap: 8px; margin-top: 10px; }
+    .lb-nav button { background: rgba(255,255,255,0.12); border: none; cursor: pointer; color: white; padding: 6px 16px; border-radius: 100px; font-family: var(--font); font-size: 11px; font-weight: 600; }
+    .lb-nav button:disabled { opacity: 0.3; cursor: default; }
+    .lb-ctr { text-align: center; font-size: 10px; color: rgba(255,255,255,0.35); margin-top: 6px; font-weight: 600; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 960px) {
+      section { padding: 100px 28px 64px; }
+      #hero .content { padding: 0 28px; }
+      #hero .photo-side { width: 44%; }
+      #feed .container { flex-direction: column; gap: 36px; align-items: center; }
+      .pillars { grid-template-columns: 1fr 1fr; }
+      .posts-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 680px) {
+      .nav { padding: 12px 20px; }
+      .nav-links { display: none; }
+      .nav-burger { display: flex; }
+      section { padding: 88px 20px 56px; }
+      #hero .content { padding: 0 20px; }
+      #hero .photo-side { display: none; }
+      #hero h1 { font-size: 44px; }
+      #hero .meta { gap: 24px; }
+      #hero .meta-item span:first-child { font-size: 28px; }
+      #feed .container { gap: 28px; }
+      .phone { width: 100%; max-width: 340px; }
+      .pillars { grid-template-columns: 1fr; }
+      .filter-bar { gap: 6px; }
+      .filter-btn { padding: 7px 13px; font-size: 10px; }
+      .posts-grid { grid-template-columns: 1fr; }
+      .nums { gap: 28px; }
+      .bnum span:first-child { font-size: 56px; }
+      .closing { font-size: 26px; }
+      .foot { flex-direction: column; align-items: flex-start; }
+      .roteiro { display: block; overflow-x: auto; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── NAV ─── -->
+<nav class="nav">
+  <img src="assets/logo.svg" alt="Fred Soares">
+  <div class="nav-links">
+    <a href="#feed">Feed</a>
+    <a href="#estrategia">Estratégia</a>
+    <a href="#conteudos">Conteúdos</a>
+    <a href="#resumo">Resumo</a>
+  </div>
+  <button class="nav-burger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <span class="nav-tag">Mês 4 · Setembro 2026</span>
+</nav>
+
+
+<!-- ─── HERO ─── -->
+<section id="hero">
+  <div class="dots"></div>
+  <div class="photo-side"><img src="assets/images/drfred.png" alt="Dr. Fred Soares"></div>
+  <div class="content">
+    <div class="eyebrow reveal">Calendário Editorial · Instagram · Setembro 2026</div>
+    <h1 class="reveal d1"><em class="red">Mês 4</em><br>Dr. Fred<br>Soares</h1>
+    <p class="sub reveal d2">Osteopata · Especialista em coluna<br>Intermares, Cabedelo</p>
+    <div class="meta reveal d3">
+      <div class="meta-item"><span>8</span><span>publicações</span></div>
+      <div class="meta-item"><span>4</span><span>cards</span></div>
+      <div class="meta-item"><span>2</span><span>reels</span></div>
+      <div class="meta-item"><span>2</span><span>carrosseis</span></div>
+    </div>
+    <p class="reveal d4" style="margin-top:36px;font-size:11px;color:rgba(255,255,255,0.2);letter-spacing:0.07em;">Apresentação por Arrive In Digital</p>
+  </div>
+  <div class="scroll-hint">scroll</div>
+</section>
+
+
+<!-- ─── FEED ─── -->
+<section id="feed">
+  <div class="container">
+    <div class="phone reveal">
+      <div class="phone-hd">
+        <div class="uname">dr.fredsoares</div>
+        <div class="row">
+          <img class="av" src="assets/images/drfred.png" alt="">
+          <div class="stats">
+            <div class="st"><span>8</span><span>posts</span></div>
+            <div class="st"><span>—</span><span>seguidores</span></div>
+            <div class="st"><span>—</span><span>seguindo</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-bio">
+        <div class="nm">Dr. Fred Soares</div>
+        <div class="sp">Osteopata · Especialista em coluna</div>
+        <div class="ph">Trata a causa, não o sintoma.</div>
+      </div>
+      <div class="pgrid">
+        <div class="cell" onclick="lb(['assets/images/mes4-b-c1.png'])"><img src="assets/images/mes4-b-c1.png" alt="C1"></div>
+        <div class="cell reel"><div class="reel-ic">▶</div><span>Reels</span><div class="prod-b">produção</div></div>
+        <div class="cell" onclick="lb(['assets/images/mes4-c3.png'])"><img src="assets/images/mes4-c3.png" alt="C3"></div>
+        <div class="cell" onclick="lb(['assets/images/mes4-b-c4.png'])"><img src="assets/images/mes4-b-c4.png" alt="C4"></div>
+        <div class="cell" onclick="lb(['assets/images/mes4-bc1-s1.png','assets/images/mes4-bc1-s2.png','assets/images/mes4-bc1-s3.png','assets/images/mes4-bc1-s4.png','assets/images/mes4-bc1-s5.png','assets/images/mes4-bc1-s6.png','assets/images/mes4-bc1-s7.png','assets/images/mes4-bc1-s8.png'])"><img src="assets/images/mes4-bc1-s1.png" alt="BC1"><span class="prod-b">8 slides</span></div>
+        <div class="cell reel"><div class="reel-ic">▶</div><span>Reels</span><div class="prod-b">produção</div></div>
+        <div class="cell" onclick="lb(['assets/images/mes4-b-c8.png'])"><img src="assets/images/mes4-b-c8.png" alt="C7"></div>
+        <div class="cell" onclick="lb(['assets/images/mes4-bc2-s1.png','assets/images/mes4-bc2-s2.png','assets/images/mes4-bc2-s3.png','assets/images/mes4-bc2-s4.png','assets/images/mes4-bc2-s5.png','assets/images/mes4-bc2-s6.png','assets/images/mes4-bc2-s7.png','assets/images/mes4-bc2-s8.png'])"><img src="assets/images/mes4-bc2-s1.png" alt="BC2"><span class="prod-b">8 slides</span></div>
+        <div class="cell foto" style="background:#0d0d14;"><span style="font-size:9px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.2);text-align:center;padding:8px;">Setembro<br>2026</span></div>
+      </div>
+    </div>
+
+    <div class="feed-side reveal d2">
+      <div class="section-head">
+        <span class="label">Prévia do perfil</span>
+        <h2>Como o feed<br>vai ficar</h2>
+        <p>Grade 3×3 · 8 publicações em ordem de postagem. Clique em qualquer imagem para ampliar.</p>
+      </div>
+      <div class="feed-legend">
+        <div class="fl-item"><div class="fl-dot" style="background:var(--navy-mid)"></div><div><strong>Cards</strong> — C1, C3, C4, C7: diagnóstico diferencial, mitos e datas especiais</div></div>
+        <div class="fl-item"><div class="fl-dot" style="background:#8B6914"></div><div><strong>Carrosseis</strong> — C5 e C8: mitos da coluna + remédio vs fisio</div></div>
+        <div class="fl-item"><div class="fl-dot" style="background:var(--red)"></div><div><strong>Reels</strong> — C2 e C6: alcance + autoridade técnica (em produção)</div></div>
+      </div>
+      <div class="cta-box reveal d3">
+        <div class="lbl">CTA único do mês</div>
+        <strong>Agendar avaliação pelo WhatsApp.</strong>
+        <small>Cards → "manda mensagem" · Reels e carrosseis → "agenda avaliação"</small>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ─── ESTRATÉGIA ─── -->
+<section id="estrategia">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="label">A ideia do mês</span>
+      <h2>Estratégia · Setembro</h2>
+      <p>Diagnóstico diferencial e desconstrução de mitos. Posicionamento inalterado.</p>
+    </div>
+    <div class="promise reveal d1">
+      <p>Promessa central</p>
+      <blockquote>"destravar a coluna. tratar a causa. 4–5 sessões. resolvido."</blockquote>
+    </div>
+    <div class="pillars">
+      <div class="pillar reveal d1">
+        <div class="p-num">01</div>
+        <h3>A causa, não o diagnóstico</h3>
+        <div class="quote">"A hérnia sumiu. A dor não. Isso tem explicação."</div>
+        <div class="desc">C1, C4 e C7 trabalham diagnóstico diferencial — o que o exame não mostra, a diferença entre ciática e dor referida, e os sinais que pedem avaliação antes de virar crise. O ICP não falta de dor: falta de causa identificada.</div>
+        <ul class="proofs">
+          <li>C1: hérnia que regride mas a restrição permanece — ciclo de recaída</li>
+          <li>C4: ciática real vs dor referida — tratamentos completamente diferentes</li>
+          <li>C7: 5 sinais de alerta que não devem ser ignorados</li>
+        </ul>
+      </div>
+      <div class="pillar reveal d2">
+        <div class="p-num">02</div>
+        <h3>Mitos que atrapalham</h3>
+        <div class="quote">"Repouso cura. Hérnia proíbe exercício. A dor passa sozinha."</div>
+        <div class="desc">BC1 desconstrui os 3 mitos mais comuns sobre coluna — crenças que levam o paciente a adiar o tratamento ou tratar o sintoma errado. C3 (Dia Mundial da Fisioterapia, 8/9) ancora a data no posicionamento sem parecer marketing de data.</div>
+        <ul class="proofs">
+          <li>BC1: 3 mitos + a realidade de cada um (8 slides, fundo escuro)</li>
+          <li>C3: 8 de setembro — reflexão sobre o que ficou por tratar</li>
+        </ul>
+      </div>
+      <div class="pillar reveal d3">
+        <div class="p-num">03</div>
+        <h3>Remédio vs Fisio</h3>
+        <div class="quote">"Eles não são concorrentes. São fases diferentes."</div>
+        <div class="desc">BC2 responde a pergunta que o ICP faz e ninguém responde claramente. Não é contra o remédio — é explicar que remédio trata inflamação e fisio trata a causa. Sem antagonismo. Com clareza técnica.</div>
+        <ul class="proofs">
+          <li>BC2: o ciclo do remédio sem fisio — e como sair dele (8 slides, fundo claro)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ─── CONTEÚDOS ─── -->
+<section id="conteudos" style="min-height:auto;">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="label">Os conteúdos</span>
+      <h2>8 publicações</h2>
+      <p>Filtre por formato. Clique em "Ver brief" para ver frase, legenda e instruções de design.</p>
+    </div>
+
+    <div class="filter-bar reveal d1">
+      <button class="filter-btn active" onclick="filter('todos', this)">Todos <span class="filter-count">8</span></button>
+      <button class="filter-btn" onclick="filter('card', this)">Cards <span class="filter-count">4</span></button>
+      <button class="filter-btn" onclick="filter('reel', this)">Reels <span class="filter-count">2</span></button>
+      <button class="filter-btn" onclick="filter('carrossel', this)">Carrosseis <span class="filter-count">2</span></button>
+    </div>
+
+    <div class="posts-grid">
+
+      <!-- ── C1: Card Hérnia que Some ── -->
+      <div class="pcard" data-format="card">
+        <div class="thumb" onclick="lb(['assets/images/mes4-b-c1.png'])">
+          <img src="assets/images/mes4-b-c1.png" alt="">
+          <span class="badge badge-card">Card</span>
+        </div>
+        <div class="cbody">
+          <div class="pnum">C1 · Card · Semana 1 · Todos os avatares</div>
+          <div class="ptitle">A hérnia sumiu no exame. A dor continua.</div>
+          <div class="pganche">"O exame mostrou melhora. O corpo não avisou. Isso não é contradição — é como a hérnia funciona."</div>
+        </div>
+        <button class="expand-btn" onclick="toggle(this)">Ver brief completo <span class="chevron">▾</span></button>
+        <div class="brief">
+          <div class="brief-section">
+            <div class="brief-lbl">Frase principal</div>
+            <div class="brief-main">A hérnia sumiu no exame.<br>A dor continua.<br><br>Isso não é contradição.<br><em>É como a hérnia funciona.</em></div>
+          </div>
+          <div class="brief-section">
+            <div class="brief-lbl">Copy de apoio</div>
+            <div class="brief-text">Hérnia pode regredir. O tecido pode ser reabsorvido. O corpo faz isso. O que não some junto é a restrição que gerou a sobrecarga do disco. Por isso a dor volta — com ou sem hérnia nova no exame.</div>
+          </div>
+          <div class="brief-section">
+            <div class="brief-lbl">Legenda Instagram</div>
+            <div class="brief-text">O exame mostrou que a hérnia regrediu. A dor não foi junto.<br><br>Hérnia de disco pode ser reabsorvida — isso é fisiologia, não exceção. O corpo tem mecanismos para isso.<br><br>O que o exame não mostra é o motivo. A hérnia apareceu porque um ponto da cadeia estava sobrecarregando o disco. Essa restrição continua ativa. O disco vai continuar sendo pressionado. O ciclo se repete.<br><br>Tratar a hérnia sem tratar a restrição é tratar o resultado sem tocar na causa.<br><br>📍 Intermares, Cabedelo. Manda mensagem.</div>
+          </div>
+          <div class="brief-section">
+            <div class="brief-lbl">Obs. para o designer</div>
+            <div class="brief-note">Fundo escuro (navy). Texto claro. Destaque vermelho em "É como a hérnia funciona." Tipografia forte, sem imagem ao fundo.</div>
+          </div>
+          <div class="brief-cta">Manda mensagem para agendar avaliação.</div>
+        </div>
+      </div>
+
+      <!-- ── C2: Reel A confirmar ── -->
+      <div class="pcard" data-format="reel">
+        <div class="thumb reel-th">
+          <div class="reel-bi">▶</div>
+          <span style="font-size:13px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:white;margin-top:4px;">REELS</span>
+          <div class="prod-label">Arte em produção</div>
+        </div>
+        <div class="cbody">
+          <div class="pnum">C2 · Reel · Semana 1 · A confirmar com Erik</div>
+          <div class="ptitle">Tema a definir</div>
+          <div class="pganche">"Reel sem frame no Figma — tema e roteiro a confirmar antes da produção."</div>
+        </div>
+        <button class="expand-btn" onclick="toggle(this)">Ver orientação <span class="chevron">▾</span></button>
+        <div class="brief">
+          <div class="brief-section">
+            <div class="brief-lbl">Status</div>
+            <div class="brief-text">Tema a confirmar com Erik. Sugestões: continuação do tema hérnia (diferença entre cirurgia indicada vs não indicada), ou diferencial técnico da osteopatia vs fisio convencional. Confirmar antes de gravar.</div>
+          </div>
+          <div class="brief-cta">Aguardar confirmação do tema antes de produzir.</div>
+        </div>
+      </div>
+
+      <!-- ── C3: Card Dia Mundial Fisioterapia ── -->
+      <div class="pcard" data-format="card">
+        <div class="thumb" onclick="lb(['assets/images/mes4-c3.png'])">
+          <img src="assets/images/mes4-c3.png" alt="">
+          <span class="badge badge-card">Card · Conexão</span>
+        </div>
+        <div class="cbody">
+          <div class="pnum">C3 · Card Conexão · Semana 2 · Dia Mundial da Fisioterapia (8/9)</div>
+          <div class="ptitle">8 de setembro. Dia Mundial da Fisioterapia.</div>
+          <div class="pganche">"A data importa menos do que o que ficou por tratar."</div>
+        </div>
+        <button class="expand-btn" onclick="toggle(this)">Ver brief completo <span class="chevron">▾</span></button>
+        <div class="brief">
+          <div class="brief-section">
+            <div class="brief-lbl">Frase principal</div>
+            <div class="brief-main">8 de setembro.<br>Dia Mundial da Fisioterapia.<br><br>A data importa menos<br><em>do que o que ficou por tratar.</em></div>
+          </div>
+          <div class="brief-section">
+            <div class="brief-lbl">Copy de apoio</div>
+            <div class="brief-text">O paciente que foi dez vezes e não melhorou — porque a causa não foi identificada. A dor que virou rotina. A postura que compensou tanto que parou de doer. A fisioterapia funciona quando vai na causa.</div>
+          </div>
+          <div class="brief-section">
+            <div class="brief-lbl">Legenda Instagram</div>
+            <div class="brief-text">8 de setembro. Dia Mundial da Fisioterapia.<br><br>Não é uma celebração de profissão. É um lembrete de que muita gente convive com dor que tem solução.<br><br>O paciente que foi dez vezes e não melhorou — porque nenhuma avaliação identificou a causa real. A pessoa que parou de agachar porque "sempre foi assim". O atleta que adaptou o treino para a dor caber dentro dele.<br><br>A fisioterapia funciona quando vai na causa. Quando o tratamento é baseado em avaliação, não em protocolo genérico.<br><br>20 anos resolvendo dor. 📍 Intermares, Cabedelo. Manda mensagem.</div>
+          </div>
+          <div class="brief-section">
+            <div class="brief-lbl">Obs. para o designer</div>
+            <div class="brief-note">Fundo claro (cream). Texto navy. Destaque vermelho em "do que o que ficou por tratar." Tom reflexivo — não comemorativo, não marketing de data.</div>
+          </div>
+          <div class="brief-cta">Manda mensagem para agendar avaliação.</div>
+        </div>
+      </div>
+
+      <!-- ── C4: Card Ciática vs Dor Referida ── -->
+      <div class="pcard" data-format="card">
+        <div class="thumb" onclick="lb(['assets/images/mes4-b-c4.png'])">
+          <img src="assets/images/mes4-b-c4.png" alt="">
+          <span class="badge badge-card">Card</span>
+        </div>
+        <div class="cbody">
+          <div class="pnum">C4 · Card · Semana 2 · Todos os avatares</div>
+          <div class="ptitle">Você acha que é ciática. Pode ser dor referida.</div>
+          <div class="pganche">"São coisas diferentes. E tratamentos completamente diferentes."</div>
+        </div>
+        <button class="expand-btn" onclick="toggle(this)">Ver brief completo <span class="chevron">▾</span></button>
+        <div class="brief">
+          <div class="brief-section">
+            <div class="brief-lbl">Frase principal</div>
+            <div class="brief-main">Você acha que é ciática.<br><br>Pode ser dor referida.<br><em>São coisas diferentes.<br>E tratamentos diferentes.</em></div>
+          </div>
+          <div class="brief-section">
+            <div class="brief-lbl">Copy de apoio</div>
+            <div class="brief-text">Ciática real: compressão do nervo ciático. Trajeto definido — lombar, nádega, coxa posterior, às vezes até o pé. Dor referida: músculo ou articulação irradiando para a perna. Mesmo caminho. Origem diferente. Tratamento diferente. O diagnóstico diferencial é o que define o que vai funcionar.</div>
+          </div>
+          <div class="brief-section">
+            <div class="brief-lbl">Legenda Instagram</div>
+            <div class="brief-text">Dor que desce pela perna: nem sempre é ciática.<br><br>A ciática real é compressão do nervo ciático — com trajeto definido: lombar, nádega, coxa posterior, às vezes até o pé. Formigamento. Fraqueza. Sinal neural claro.<br><br>A dor referida faz o mesmo caminho. Mas a origem é muscular ou articular. Sem envolvimento do nervo.<br><br>O tratamento muda completamente dependendo do diagnóstico. Tratar ciática como dor referida — ou o contrário — não funciona. Porque a causa é outra.<br><br>O primeiro passo é identificar de onde vem. 📍 Intermares, Cabedelo. Manda mensagem.</div>
+          </div>
+          <div class="brief-section">
+            <div class="brief-lbl">Obs. para o designer</div>
+            <div class="brief-note">Fundo escuro (navy). Texto claro. Destaque vermelho em "São coisas diferentes. E tratamentos diferentes." Tipografia seca e direta.</div>
+          </div>
+          <div class="brief-cta">Manda mensagem para agendar avaliação.</div>
+        </div>
+      </div>
+
+      <!-- ── C5: Carrossel BC1 - 3 Mitos ── -->
+      <div class="pcard" data-format="carrossel">
+        <div class="thumb" onclick="lb(['assets/images/mes4-bc1-s1.png','assets/images/mes4-bc1-s2.png','assets/images/mes4-bc1-s3.png','assets/images/mes4-bc1-s4.png','assets/images/mes4-bc1-s5.png','assets/images/mes4-bc1-s6.png','assets/images/mes4-bc1-s7.png','assets/images/mes4-bc1-s8.png'])">
+          <img src="assets/images/mes4-bc1-s1.png" alt="">
+          <span class="badge badge-carrossel">Carrossel</span>
+          <span class="scount">8 slides</span>
+        </div>
+        <div class="cbody">
+          <div class="pnum">C5 · Carrossel · Semana 3 · Todos os avatares</div>
+          <div class="ptitle">3 mitos sobre coluna que atrapalham o tratamento</div>
+          <div class="pganche">"Repouso cura. Hérnia proíbe exercício. A dor passa sozinha. Três crenças que a maioria tem — e que atrasam a resolução."</div>
+        </div>
+        <button class="expand-btn" onclick="toggle(this)">Ver brief completo <span class="chevron">▾</span></button>
+        <div class="brief">
+          <div class="brief-section">
+            <div class="brief-lbl">Slides</div>
+            <table class="roteiro">
+              <tr><th>#</th><th>Slide</th><th>Copy</th></tr>
+              <tr><td>1</td><td>Capa</td><td>3 mitos sobre coluna que a maioria acredita — e que atrapalham o tratamento.</td></tr>
+              <tr><td>2</td><td>Mito 1</td><td><strong>"Repouso cura a coluna."</strong> O repouso alivia a inflamação. A restrição que gerou o problema continua ativa. Quando você volta ao movimento — o ciclo recomeça. Tratar a dor e tratar a causa são coisas diferentes. <em>Repouso é um intervalo. Não é tratamento.</em></td></tr>
+              <tr><td>3</td><td>Mito 2</td><td><strong>"Quem tem hérnia não pode se exercitar."</strong> A hérnia não proíbe movimento — indica que algo está sobrecarregando o disco. Identificar o que está sobrecarregando define o que pode ou não pode. Com progressão correta, o exercício faz parte da recuperação. <em>A hérnia não é o limite. A avaliação define o caminho.</em></td></tr>
+              <tr><td>4</td><td>Mito 3</td><td><strong>"A dor nas costas vai passar sozinha."</strong> Pode passar. A restrição não. O corpo aprende a compensar o movimento limitado — até o dia em que a compensação chega no limite. Por isso a dor "volta do nada" depois de anos sem sentir. <em>A ausência de dor não é ausência de restrição.</em></td></tr>
+              <tr><td>5</td><td>Desdobramento</td><td>Os três mitos têm algo em comum: tratam o sintoma como se fosse a causa. A dor não é o problema — é o sinal de que há um problema. Quando o sinal para, a causa continua. Por isso o ciclo se repete.</td></tr>
+              <tr><td>6</td><td>A virada</td><td>A diferença entre tratar o sintoma e tratar a causa: o sintoma volta. A causa, quando tratada, não. A avaliação identifica onde está a restrição, o que está sobrecarregando e por quê. Esse é o ponto de partida.</td></tr>
+              <tr><td>7</td><td>O paciente certo</td><td>Quem está pronto para tratar: cansou de ciclo de melhora e recaída. Quer entender o que está gerando o problema. Está disposto a 4–5 sessões com foco na causa, não no alívio temporário.</td></tr>
+              <tr><td>8</td><td>CTA</td><td>Dr. Fred Soares · Osteopata especialista em coluna · Instituto de Madrid + Mestrado USP · +20 anos · +10.000 pacientes · 📍 Intermares, Cabedelo · Salva esse post. E se você reconheceu algum desses mitos na sua história: agenda uma avaliação.</td></tr>
+            </table>
+          </div>
+          <div class="brief-section">
+            <div class="brief-lbl">Legenda Instagram</div>
+            <div class="brief-text">3 mitos sobre coluna que a maioria acredita — e que atrapalham o tratamento:<br><br>1. "Repouso cura." O repouso alivia a inflamação. A restrição que gerou a dor continua. Por isso o ciclo se repete.<br>2. "Hérnia proíbe exercício." Hérnia indica sobrecarga. O exercício certo, com progressão, faz parte da recuperação.<br>3. "A dor vai passar sozinha." Pode passar. A restrição não. A ausência de dor não é ausência de problema.<br><br>Os três têm algo em comum: tratam o sintoma como se fosse a causa.<br><br>Salva esse post. 📍 Intermares, Cabedelo.</div>
+          </div>
+          <div class="brief-cta">Agenda uma avaliação. 4–5 sessões. Resolvido.</div>
+        </div>
+      </div>
+
+      <!-- ── C6: Reel A confirmar ── -->
+      <div class="pcard" data-format="reel">
+        <div class="thumb reel-th">
+          <div class="reel-bi">▶</div>
+          <span style="font-size:13px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:white;margin-top:4px;">REELS</span>
+          <div class="prod-label">Arte em produção</div>
+        </div>
+        <div class="cbody">
+          <div class="pnum">C6 · Reel · Semana 3 · A confirmar com Erik</div>
+          <div class="ptitle">Tema a definir</div>
+          <div class="pganche">"Reel sem frame no Figma — tema e roteiro a confirmar antes da produção."</div>
+        </div>
+        <button class="expand-btn" onclick="toggle(this)">Ver orientação <span class="chevron">▾</span></button>
+        <div class="brief">
+          <div class="brief-section">
+            <div class="brief-lbl">Status</div>
+            <div class="brief-text">Tema a confirmar com Erik. Sugestões: demonstração de avaliação osteopática, diferença entre osteopatia e quiropraxia, ou como funciona o tratamento nas primeiras 4–5 sessões. Confirmar antes de gravar.</div>
+          </div>
+          <div class="brief-cta">Aguardar confirmação do tema antes de produzir.</div>
+        </div>
+      </div>
+
+      <!-- ── C7: Card 5 Sinais de Alerta ── -->
+      <div class="pcard" data-format="card">
+        <div class="thumb" onclick="lb(['assets/images/mes4-b-c8.png'])">
+          <img src="assets/images/mes4-b-c8.png" alt="">
+          <span class="badge badge-card">Card</span>
+        </div>
+        <div class="cbody">
+          <div class="pnum">C7 · Card · Semana 4 · Todos os avatares</div>
+          <div class="ptitle">5 sinais de que sua coluna precisa de avaliação agora</div>
+          <div class="pganche">"Não de uma semana. Agora. Esses sinais mudam o cenário."</div>
+        </div>
+        <button class="expand-btn" onclick="toggle(this)">Ver brief completo <span class="chevron">▾</span></button>
+        <div class="brief">
+          <div class="brief-section">
+            <div class="brief-lbl">Frase principal</div>
+            <div class="brief-main">5 sinais de que sua coluna<br>precisa de avaliação.<br><br><em>Não de uma semana.<br>Agora.</em></div>
+          </div>
+          <div class="brief-section">
+            <div class="brief-lbl">Copy de apoio</div>
+            <div class="brief-text">A maioria espera a dor piorar. Mas tem sinais que pedem atenção antes disso — porque quanto mais tarde a avaliação, mais complexa a reabilitação. 1. Dor que vai para a perna com formigamento ou fraqueza. 2. Dor constante que não melhora em repouso. 3. Dor que acorda você à noite. 4. Perda de força em uma das pernas. 5. Dor que piora progressivamente semana a semana.</div>
+          </div>
+          <div class="brief-section">
+            <div class="brief-lbl">Legenda Instagram</div>
+            <div class="brief-text">Cinco sinais que merecem avaliação — sem esperar piorar:<br><br>1. Dor que vai para a perna, com formigamento ou fraqueza<br>2. Dor constante que não melhora em repouso<br>3. Dor que acorda você à noite<br>4. Perda de força em uma das pernas<br>5. Dor que piora progressivamente, semana a semana<br><br>Qualquer um desses muda o cenário. Deixar avançar não é esperar melhorar — é dar tempo para a restrição se instalar mais fundo.<br><br>O tratamento precoce é mais simples. E resolve mais rápido.<br><br>📍 Intermares, Cabedelo. Manda mensagem.</div>
+          </div>
+          <div class="brief-section">
+            <div class="brief-lbl">Obs. para o designer</div>
+            <div class="brief-note">Fundo escuro (navy). Texto claro. Lista dos 5 sinais com numeração em vermelho. Destaque na frase "Não de uma semana. Agora."</div>
+          </div>
+          <div class="brief-cta">Manda mensagem para agendar avaliação.</div>
+        </div>
+      </div>
+
+      <!-- ── C8: Carrossel BC2 - Remédio vs Fisio ── -->
+      <div class="pcard" data-format="carrossel">
+        <div class="thumb" onclick="lb(['assets/images/mes4-bc2-s1.png','assets/images/mes4-bc2-s2.png','assets/images/mes4-bc2-s3.png','assets/images/mes4-bc2-s4.png','assets/images/mes4-bc2-s5.png','assets/images/mes4-bc2-s6.png','assets/images/mes4-bc2-s7.png','assets/images/mes4-bc2-s8.png'])">
+          <img src="assets/images/mes4-bc2-s1.png" alt="">
+          <span class="badge badge-carrossel">Carrossel</span>
+          <span class="scount">8 slides</span>
+        </div>
+        <div class="cbody">
+          <div class="pnum">C8 · Carrossel · Semana 4 · Todos os avatares</div>
+          <div class="ptitle">Remédio ou Fisioterapia? A resposta que ninguém dá claramente.</div>
+          <div class="pganche">"Eles não são concorrentes. São fases diferentes. E confundir os dois mantém o ciclo."</div>
+        </div>
+        <button class="expand-btn" onclick="toggle(this)">Ver brief completo <span class="chevron">▾</span></button>
+        <div class="brief">
+          <div class="brief-section">
+            <div class="brief-lbl">Slides</div>
+            <table class="roteiro">
+              <tr><th>#</th><th>Slide</th><th>Copy</th></tr>
+              <tr><td>1</td><td>Capa</td><td>Remédio ou Fisioterapia? A pergunta que a maioria faz tarde demais.</td></tr>
+              <tr><td>2</td><td>O remédio</td><td>O remédio serve para isso: reduzir inflamação e aliviar dor. Ele faz isso bem. Mas não muda a restrição que causou a inflamação. <em>O remédio trata o alarme. Não o que disparou.</em></td></tr>
+              <tr><td>3</td><td>A fisio</td><td>A fisioterapia serve para isso: identificar a origem e tratar a causa. A restrição. O padrão de movimento. O que está sobrecarregando o tecido. <em>A fisio vai na fonte. Não no sinal.</em></td></tr>
+              <tr><td>4</td><td>A relação</td><td>Eles não são concorrentes. São fases diferentes. O remédio cria uma janela de alívio. A fisioterapia usa essa janela para tratar. Quando usados juntos, na ordem certa, o resultado é mais rápido e mais duradouro.</td></tr>
+              <tr><td>5</td><td>O problema</td><td>O problema é quando o remédio vira o tratamento. A dor passa. O corpo volta ao mesmo padrão. A restrição continua. A dor volta. O ciclo continua indefinidamente — porque a causa não foi tocada.</td></tr>
+              <tr><td>6</td><td>O ciclo</td><td>O ciclo do remédio sem fisio: Toma remédio → alivia → volta ao normal → dor retorna → toma remédio. Semanas, meses, anos. O padrão que gera a dor permanece intacto. Só o alarme é silenciado.</td></tr>
+              <tr><td>7</td><td>A saída</td><td>Quando a fisioterapia identifica a causa, o ciclo para. Não porque a dor desapareceu — mas porque o que a gerou foi tratado. Em média 4–5 sessões. A restrição identificada. O padrão corrigido. Resolvido.</td></tr>
+              <tr><td>8</td><td>CTA</td><td>Dr. Fred Soares · Osteopata especialista em coluna · Instituto de Madrid + Mestrado USP · +20 anos · +10.000 pacientes · 📍 Intermares, Cabedelo · Salva esse post. Quer tratar a causa, não o ciclo? Agenda uma avaliação.</td></tr>
+            </table>
+          </div>
+          <div class="brief-section">
+            <div class="brief-lbl">Legenda Instagram</div>
+            <div class="brief-text">Remédio ou Fisioterapia?<br><br>A resposta que ninguém dá claramente: eles não são concorrentes. São fases diferentes.<br><br>O remédio trata a inflamação. A fisioterapia trata a restrição que gerou a inflamação. Quando você usa só o remédio, o alívio vem. A causa continua. A dor volta. O ciclo se repete.<br><br>Quando a fisioterapia identifica a origem — e trata — o ciclo para. Não porque a dor sumiu. Porque o que a gerou foi resolvido.<br><br>Em média 4–5 sessões. 📍 Intermares, Cabedelo.</div>
+          </div>
+          <div class="brief-cta">Agenda uma avaliação. 4–5 sessões. Resolvido.</div>
+        </div>
+      </div>
+
+    </div><!-- /posts-grid -->
+  </div>
+</section>
+
+
+<!-- ─── RESUMO ─── -->
+<section id="resumo">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="label">Resumo do mês</span>
+      <h2>Setembro 2026<br>em números</h2>
+    </div>
+    <div class="nums reveal d1">
+      <div class="bnum"><span>8</span><span>publicações</span></div>
+      <div class="bnum"><span>4</span><span>cards</span></div>
+      <div class="bnum"><span>2</span><span>reels</span></div>
+      <div class="bnum"><span>2</span><span>carrosseis</span></div>
+    </div>
+    <div class="closing reveal d2">
+      Diagnóstico diferencial, desconstrução de mitos e clareza sobre tratamento.<br>
+      Cada peça conduz para um único ponto: <em class="red">agendar avaliação.</em>
+    </div>
+    <a class="cta-final reveal d3" href="https://wa.me/5516993939823">Agendar avaliação →</a>
+    <div class="foot reveal d4">
+      <p>Dr. Fred Soares · Calendário Editorial Mês 4 · Setembro 2026 · Arrive In Digital</p>
+      <img src="assets/logo.svg" alt="Arrive In Digital">
+    </div>
+  </div>
+</section>
+
+
+<!-- ─── LIGHTBOX ─── -->
+<div class="lb" id="lb" onclick="lbClose(event)">
+  <div class="lb-inner">
+    <button class="lb-close" onclick="closeLb()">✕</button>
+    <img id="lb-img" src="" alt="">
+    <div class="lb-nav">
+      <button id="lb-prev" onclick="lbStep(-1)">← Anterior</button>
+      <button id="lb-next" onclick="lbStep(1)">Próximo →</button>
+    </div>
+    <div class="lb-ctr" id="lb-ctr"></div>
+  </div>
+</div>
+
+
+<script>
+  /* Reveal on scroll */
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  /* Expand/collapse */
+  function toggle(btn) {
+    btn.classList.toggle('open');
+    btn.nextElementSibling.classList.toggle('open');
+  }
+
+  /* Filter */
+  function filter(fmt, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.pcard').forEach(c => {
+      c.classList.toggle('hidden', fmt !== 'todos' && c.dataset.format !== fmt);
+    });
+  }
+
+  /* Lightbox */
+  let lbImgs = [], lbIdx = 0;
+  function lb(imgs) {
+    lbImgs = imgs; lbIdx = 0; showLb();
+    document.getElementById('lb').classList.add('open');
+  }
+  function showLb() {
+    document.getElementById('lb-img').src = lbImgs[lbIdx];
+    document.getElementById('lb-ctr').textContent = lbImgs.length > 1 ? (lbIdx + 1) + ' / ' + lbImgs.length : '';
+    document.getElementById('lb-prev').disabled = lbIdx === 0;
+    document.getElementById('lb-next').disabled = lbIdx === lbImgs.length - 1;
+  }
+  function lbStep(d) { lbIdx = Math.max(0, Math.min(lbImgs.length - 1, lbIdx + d)); showLb(); }
+  function closeLb() { document.getElementById('lb').classList.remove('open'); }
+  function lbClose(e) { if (e.target === document.getElementById('lb')) closeLb(); }
+
+  /* Mobile menu */
+  function toggleMenu() {
+    const links = document.querySelector('.nav-links');
+    links.style.display = links.style.display === 'flex' ? 'none' : 'flex';
+    links.style.flexDirection = 'column';
+    links.style.position = 'absolute';
+    links.style.top = '56px';
+    links.style.left = '0';
+    links.style.right = '0';
+    links.style.background = 'rgba(18,19,31,0.97)';
+    links.style.padding = '20px 24px';
+    links.style.gap = '16px';
+  }
+</script>
+
+</body>
+</html>
