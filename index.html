@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dr. Fred Soares · Mês 1 · Planejamento de Conteúdo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy:      #353552;
+      --dark:      #1a1b2e;
+      --darker:    #12131f;
+      --navy-mid:  #474970;
+      --red:       #BD2839;
+      --red-dark:  #B12939;
+      --white:     #FFFFFF;
+      --offwhite:  #F0EFEF;
+      --gray:      #DAD9DF;
+      --gray-blue: #9091A4;
+      --text:      #3A3A4F;
+      --font: 'Montserrat', sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--darker); font-family: var(--font); color: var(--white); overflow-x: hidden; }
+
+    /* ─── NAV ─── */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 14px 48px;
+      display: flex; justify-content: space-between; align-items: center;
+      background: rgba(18,19,31,0.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .nav img { height: 20px; }
+    .nav-links { display: flex; gap: 24px; }
+    .nav-links a {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: rgba(255,255,255,0.4);
+      text-decoration: none; transition: color 0.2s;
+    }
+    .nav-links a:hover { color: white; }
+    .nav-tag {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--red);
+      padding: 4px 12px; border: 1px solid rgba(189,40,57,0.35);
+      border-radius: 100px;
+    }
+    .nav-burger {
+      display: none; flex-direction: column; gap: 5px;
+      background: none; border: none; cursor: pointer; padding: 4px;
+    }
+    .nav-burger span { display: block; width: 22px; height: 2px; background: rgba(255,255,255,0.6); border-radius: 2px; }
+
+    /* ─── UTILS ─── */
+    .red { color: var(--red); }
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.65s ease, transform 0.65s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+    .d1 { transition-delay: 0.08s; } .d2 { transition-delay: 0.16s; }
+    .d3 { transition-delay: 0.24s; } .d4 { transition-delay: 0.32s; }
+    section { min-height: 100vh; display: flex; align-items: center; padding: 120px 48px 80px; }
+    .container { max-width: 1200px; margin: 0 auto; width: 100%; }
+    .section-head { margin-bottom: 56px; }
+    .section-head .label { font-size: 10px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); margin-bottom: 10px; display: block; }
+    .section-head h2 { font-size: clamp(32px, 4vw, 52px); font-weight: 800; line-height: 1.08; letter-spacing: -0.025em; }
+    .section-head p { font-size: 16px; color: var(--gray-blue); margin-top: 10px; line-height: 1.5; max-width: 520px; }
+
+    /* ─── HERO ─── */
+    #hero { background: var(--dark); position: relative; overflow: hidden; padding: 0; align-items: stretch; }
+    #hero .photo-side { position: absolute; right: 0; top: 0; bottom: 0; width: 50%; overflow: hidden; }
+    #hero .photo-side img { width: 100%; height: 100%; object-fit: cover; object-position: center top; filter: saturate(0.75) brightness(0.6); }
+    #hero .photo-side::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to right, var(--dark) 0%, rgba(26,27,46,0.35) 55%, transparent 80%); }
+    #hero .dots { position: absolute; inset: 0; background-image: radial-gradient(circle, rgba(71,73,112,0.18) 1px, transparent 1px); background-size: 24px 24px; pointer-events: none; z-index: 1; }
+    #hero .content { position: relative; z-index: 2; max-width: 1200px; margin: 0 auto; width: 100%; padding: 0 48px; display: flex; flex-direction: column; justify-content: center; min-height: 100vh; }
+    #hero .eyebrow { font-size: 10px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); margin-bottom: 24px; display: flex; align-items: center; gap: 10px; }
+    #hero .eyebrow::before { content: ''; display: block; width: 24px; height: 2px; background: var(--red); }
+    #hero h1 { font-size: clamp(48px, 6vw, 84px); font-weight: 900; line-height: 1.02; letter-spacing: -0.03em; max-width: 580px; }
+    #hero .sub { font-size: clamp(14px, 1.6vw, 20px); font-weight: 400; color: var(--gray-blue); margin-top: 20px; line-height: 1.5; max-width: 440px; }
+    #hero .meta { display: flex; gap: 36px; margin-top: 48px; flex-wrap: wrap; }
+    #hero .meta-item span:first-child { display: block; font-size: 36px; font-weight: 900; color: var(--red); letter-spacing: -0.02em; line-height: 1; }
+    #hero .meta-item span:last-child { font-size: 11px; font-weight: 600; color: var(--gray-blue); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 4px; display: block; }
+    #hero .scroll-hint { position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%); font-size: 9px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.2); display: flex; flex-direction: column; align-items: center; gap: 6px; }
+    #hero .scroll-hint::after { content: ''; width: 1px; height: 28px; background: linear-gradient(to bottom, rgba(255,255,255,0.2), transparent); animation: ph 2s ease-in-out infinite; }
+    @keyframes ph { 0%,100%{opacity:.3} 50%{opacity:1} }
+
+    /* ─── FEED ─── */
+    #feed { background: var(--darker); }
+    #feed .container { display: flex; gap: 56px; align-items: flex-start; }
+    .phone {
+      background: #fff; border-radius: 22px; overflow: hidden; width: 340px; flex-shrink: 0;
+      box-shadow: 0 28px 80px rgba(0,0,0,0.65);
+      transition: transform 0.35s cubic-bezier(.22,1,.36,1), box-shadow 0.35s ease;
+      cursor: default;
+    }
+    .phone:hover {
+      transform: translateY(-10px) scale(1.025);
+      box-shadow: 0 44px 100px rgba(0,0,0,0.75), 0 0 0 1px rgba(189,40,57,0.18), 0 0 40px rgba(189,40,57,0.08);
+    }
+    .phone-hd { padding: 12px 16px 10px; border-bottom: 1px solid #eee; }
+    .phone-hd .uname { font-size: 14px; font-weight: 800; color: #000; }
+    .phone-hd .row { display: flex; align-items: center; gap: 14px; margin-top: 8px; }
+    .phone-hd .av { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; border: 2px solid var(--red); flex-shrink: 0; }
+    .phone-hd .stats { display: flex; gap: 16px; }
+    .phone-hd .st span:first-child { display: block; font-size: 13px; font-weight: 700; color: #000; text-align: center; }
+    .phone-hd .st span:last-child { font-size: 10px; color: #888; text-align: center; display: block; }
+    .phone-bio { padding: 6px 16px 10px; }
+    .phone-bio .nm { font-size: 12px; font-weight: 700; color: #000; }
+    .phone-bio .sp { font-size: 11px; color: #555; }
+    .phone-bio .ph { font-size: 11px; font-weight: 700; color: var(--red); margin-top: 2px; }
+    .pgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+    .pgrid .cell { aspect-ratio: 1/1; overflow: hidden; position: relative; cursor: pointer; }
+    .pgrid .cell img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.3s; }
+    .pgrid .cell:hover img { transform: scale(1.06); }
+    .pgrid .cell.reel { background: var(--dark); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; }
+    .reel-ic { width: 24px; height: 18px; border: 2px solid rgba(255,255,255,0.5); border-radius: 3px; position: relative; display: flex; align-items: center; justify-content: center; font-size: 9px; color: var(--red); }
+    .reel-ic::before { content:''; position:absolute; right:-7px; top:-5px; border:5px solid transparent; border-left:8px solid rgba(255,255,255,0.5); transform:rotate(-15deg); }
+    .pgrid .cell.reel span { font-size: 7px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.7); }
+    .prod-b { position: absolute; bottom: 5px; left: 50%; transform: translateX(-50%); background: var(--red); color: white; font-size: 6px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 2px 6px; border-radius: 100px; white-space: nowrap; }
+    .feed-side { flex: 1; }
+    .feed-legend { display: flex; flex-direction: column; gap: 12px; margin-top: 28px; }
+    .fl-item { display: flex; align-items: center; gap: 12px; font-size: 13px; font-weight: 500; color: var(--gray-blue); }
+    .fl-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+    .fl-item strong { font-weight: 700; color: white; }
+    .cta-box { margin-top: 28px; padding: 18px 22px; background: rgba(189,40,57,0.07); border: 1px solid rgba(189,40,57,0.15); border-radius: 10px; }
+    .cta-box .lbl { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--red); margin-bottom: 6px; }
+    .cta-box strong { display: block; font-size: 16px; font-weight: 700; color: white; line-height: 1.3; }
+    .cta-box small { font-size: 12px; color: var(--gray-blue); margin-top: 3px; display: block; }
+
+    /* ─── ESTRATÉGIA ─── */
+    #estrategia { background: var(--dark); }
+    .promise { background: rgba(189,40,57,0.08); border: 1px solid rgba(189,40,57,0.2); border-radius: 10px; padding: 24px 32px; margin-bottom: 44px; }
+    .promise p { font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--red); margin-bottom: 8px; }
+    .promise blockquote { font-size: clamp(20px, 2.4vw, 30px); font-weight: 800; line-height: 1.2; letter-spacing: -0.02em; font-style: normal; }
+    .pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .pillar { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; padding: 22px; border-top: 3px solid var(--red); }
+    .p-num { font-size: 38px; font-weight: 900; color: rgba(255,255,255,0.07); letter-spacing: -0.05em; line-height: 1; margin-bottom: 10px; }
+    .pillar h3 { font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--red); margin-bottom: 10px; }
+    .pillar .quote { font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.7); line-height: 1.4; margin-bottom: 10px; font-style: italic; }
+    .pillar .desc { font-size: 13px; color: var(--gray-blue); line-height: 1.55; }
+    .pillar .proofs { list-style: none; margin-top: 14px; padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.05); display: flex; flex-direction: column; gap: 7px; }
+    .pillar .proofs li { font-size: 11px; font-weight: 500; color: rgba(255,255,255,0.35); display: flex; gap: 7px; line-height: 1.4; }
+    .pillar .proofs li::before { content: '—'; color: var(--red); flex-shrink: 0; font-size: 10px; }
+
+    /* ─── CONTEÚDOS ─── */
+    #conteudos { background: var(--darker); min-height: auto; padding-bottom: 100px; }
+
+    /* Filter tabs */
+    .filter-bar { display: flex; gap: 8px; margin-bottom: 40px; flex-wrap: wrap; }
+    .filter-btn {
+      padding: 8px 18px; border-radius: 100px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.04);
+      color: rgba(255,255,255,0.45); font-family: var(--font);
+      font-size: 12px; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; cursor: pointer; transition: all 0.15s;
+    }
+    .filter-btn:hover { background: rgba(255,255,255,0.1); color: white; }
+    .filter-btn.active { background: var(--red); border-color: var(--red); color: white; }
+    .filter-count { display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; background: rgba(255,255,255,0.15); font-size: 10px; font-weight: 700; margin-left: 6px; }
+    .filter-btn.active .filter-count { background: rgba(255,255,255,0.25); }
+
+    /* Post cards */
+    .posts-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 20px; }
+
+    .pcard {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 14px; overflow: hidden;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .pcard.hidden { display: none; }
+    .pcard:hover { border-color: rgba(189,40,57,0.25); }
+
+    /* Thumb */
+    .pcard .thumb { aspect-ratio: 4/5; overflow: hidden; position: relative; background: var(--dark); cursor: pointer; }
+    .pcard .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s; }
+    .pcard .thumb:hover img { transform: scale(1.04); }
+    .pcard .thumb .badge { position: absolute; top: 10px; left: 10px; color: white; font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 9px; border-radius: 100px; }
+    .badge-card { background: var(--navy-mid); }
+    .badge-reel { background: var(--red); }
+    .badge-carrossel { background: #8B6914; }
+    .badge-fixado { background: #1a5c3a; }
+    .badge-story  { background: #5a1a6e; }
+    .pcard .thumb .scount { position: absolute; top: 10px; right: 10px; font-size: 9px; font-weight: 700; color: rgba(255,255,255,0.7); background: rgba(0,0,0,0.5); padding: 3px 8px; border-radius: 100px; }
+    .pcard .thumb.reel-th { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; background: linear-gradient(135deg, #12131f 0%, #2a2b40 100%); }
+    .reel-bi { width: 40px; height: 32px; border: 2.5px solid rgba(255,255,255,0.4); border-radius: 5px; display: flex; align-items: center; justify-content: center; font-size: 12px; color: var(--red); }
+    .reel-th .prod-label { position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); background: var(--red); color: white; font-size: 7px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 10px; border-radius: 100px; white-space: nowrap; }
+
+    /* Card body */
+    .pcard .cbody { padding: 18px 20px 0; }
+    .pcard .pnum { font-size: 9px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--red); margin-bottom: 5px; }
+    .pcard .ptitle { font-size: 15px; font-weight: 700; line-height: 1.3; color: var(--white); margin-bottom: 8px; }
+    .pcard .pganche { font-size: 12px; font-weight: 400; color: var(--gray-blue); line-height: 1.5; border-left: 2px solid rgba(189,40,57,0.35); padding-left: 9px; font-style: italic; }
+
+    /* Expand toggle */
+    .expand-btn {
+      display: flex; align-items: center; justify-content: space-between;
+      width: 100%; padding: 14px 20px;
+      background: none; border: none; border-top: 1px solid rgba(255,255,255,0.06);
+      color: rgba(255,255,255,0.35); font-family: var(--font);
+      font-size: 11px; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase; cursor: pointer; margin-top: 14px;
+      transition: color 0.15s;
+    }
+    .expand-btn:hover { color: rgba(255,255,255,0.7); }
+    .expand-btn .chevron { transition: transform 0.25s; font-size: 14px; }
+    .expand-btn.open .chevron { transform: rotate(180deg); }
+
+    /* Brief content */
+    .brief { padding: 0 20px; max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.3s; }
+    .brief.open { max-height: 2000px; padding: 4px 20px 20px; }
+
+    .brief-section { margin-bottom: 18px; }
+    .brief-section:last-child { margin-bottom: 0; }
+    .brief-lbl { font-size: 9px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--red); margin-bottom: 6px; }
+    .brief-text { font-size: 13px; font-weight: 400; color: var(--gray-blue); line-height: 1.6; }
+    .brief-text strong { font-weight: 700; color: rgba(255,255,255,0.75); }
+    .brief-text em { color: var(--red); font-style: normal; font-weight: 700; }
+    .brief-main { font-size: 15px; font-weight: 700; color: var(--white); line-height: 1.45; }
+    .brief-note { font-size: 12px; color: rgba(255,255,255,0.25); line-height: 1.5; font-style: italic; }
+    .brief-cta { display: flex; align-items: center; gap: 7px; font-size: 13px; font-weight: 600; color: var(--red); line-height: 1.4; margin-top: 16px; padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.05); }
+    .brief-cta::before { content: '→'; flex-shrink: 0; }
+
+    /* Reel roteiro table */
+    .roteiro { width: 100%; border-collapse: collapse; margin-top: 8px; }
+    .roteiro th { font-size: 9px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.3); padding: 6px 8px; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .roteiro td { font-size: 12px; color: var(--gray-blue); padding: 8px 8px; border-bottom: 1px solid rgba(255,255,255,0.04); line-height: 1.45; vertical-align: top; }
+    .roteiro td:first-child { color: rgba(255,255,255,0.3); font-weight: 600; white-space: nowrap; width: 52px; }
+    .roteiro td:nth-child(2) { color: var(--red); font-weight: 700; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; width: 80px; }
+    .roteiro tr:last-child td { border-bottom: none; }
+    .brief-div { height: 1px; background: rgba(255,255,255,0.05); margin: 14px 0; }
+
+    /* ─── RESUMO ─── */
+    #resumo { background: var(--dark); min-height: 80vh; }
+    .nums { display: flex; gap: 56px; margin-bottom: 64px; flex-wrap: wrap; }
+    .bnum span:first-child { display: block; font-size: clamp(60px, 8vw, 90px); font-weight: 900; line-height: 1; color: var(--red); letter-spacing: -0.04em; }
+    .bnum span:last-child { display: block; font-size: 11px; font-weight: 600; color: var(--gray-blue); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 4px; }
+    .closing { font-size: clamp(26px, 3.2vw, 44px); font-weight: 800; line-height: 1.15; letter-spacing: -0.02em; max-width: 680px; margin-bottom: 28px; }
+    .cta-final { display: inline-flex; align-items: center; gap: 8px; background: var(--red); color: white; font-size: 12px; font-family: var(--font); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 16px 32px; border-radius: 4px; text-decoration: none; transition: background 0.2s; }
+    .cta-final:hover { background: var(--red-dark); }
+    .foot { margin-top: 72px; padding-top: 28px; border-top: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+    .foot p { font-size: 12px; color: rgba(255,255,255,0.18); line-height: 1.5; }
+    .foot img { height: 18px; opacity: 0.25; filter: brightness(0) invert(1); }
+
+    /* ─── LIGHTBOX ─── */
+    .lb { position: fixed; inset: 0; z-index: 9999; background: rgba(0,0,0,0.92); display: none; align-items: center; justify-content: center; padding: 20px; }
+    .lb.open { display: flex; }
+    .lb-inner { position: relative; max-width: 420px; width: 100%; }
+    .lb-inner img { width: 100%; border-radius: 6px; display: block; }
+    .lb-close { position: absolute; top: -12px; right: -12px; width: 28px; height: 28px; border-radius: 50%; background: var(--red); border: none; cursor: pointer; color: white; font-size: 13px; display: flex; align-items: center; justify-content: center; }
+    .lb-nav { display: flex; justify-content: center; gap: 8px; margin-top: 10px; }
+    .lb-nav button { background: rgba(255,255,255,0.12); border: none; cursor: pointer; color: white; padding: 6px 16px; border-radius: 100px; font-family: var(--font); font-size: 11px; font-weight: 600; }
+    .lb-nav button:disabled { opacity: 0.3; cursor: default; }
+    .lb-ctr { text-align: center; font-size: 10px; color: rgba(255,255,255,0.35); margin-top: 6px; font-weight: 600; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 960px) {
+      section { padding: 100px 28px 64px; }
+      #hero .content { padding: 0 28px; }
+      #hero .photo-side { width: 44%; }
+      #feed .container { flex-direction: column; gap: 36px; align-items: center; }
+      .pillars { grid-template-columns: 1fr 1fr; }
+      .posts-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 680px) {
+      .nav { padding: 12px 20px; }
+      .nav-links { display: none; }
+      .nav-burger { display: flex; }
+
+      section { padding: 88px 20px 56px; }
+      #hero .content { padding: 0 20px; }
+      #hero .photo-side { display: none; }
+      #hero h1 { font-size: 44px; }
+      #hero .meta { gap: 24px; }
+      #hero .meta-item span:first-child { font-size: 28px; }
+
+      #feed .container { gap: 28px; }
+      .phone { width: 100%; max-width: 340px; }
+
+      .pillars { grid-template-columns: 1fr; }
+
+      .filter-bar { gap: 6px; }
+      .filter-btn { padding: 7px 13px; font-size: 10px; }
+
+      .posts-grid { grid-template-columns: 1fr; }
+
+      .nums { gap: 28px; }
+      .bnum span:first-child { font-size: 56px; }
+
+      .closing { font-size: 26px; }
+
+      .foot { flex-direction: column; align-items: flex-start; }
+
+      .roteiro { display: block; overflow-x: auto; }
+    }
+
+    @media (max-width: 400px) {
+      #hero h1 { font-size: 36px; }
+      .pcard .thumb { aspect-ratio: 3/4; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── NAV ─── -->
+<nav class="nav">
+  <img src="assets/logo.svg" alt="Fred Soares">
+  <div class="nav-links">
+    <a href="#feed">Feed</a>
+    <a href="#estrategia">Estratégia</a>
+    <a href="#conteudos">Conteúdos</a>
+    <a href="#resumo">Resumo</a>
+  </div>
+  <button class="nav-burger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <span class="nav-tag">Mês 1 · Instagram</span>
+</nav>
+
+
+<!-- ─── HERO ─── -->
+<section id="hero">
+  <div class="dots"></div>
+  <div class="photo-side"><img src="assets/images/drfred.png" alt="Dr. Fred Soares"></div>
+  <div class="content">
+    <div class="eyebrow reveal">Calendário Editorial · Instagram</div>
+    <h1 class="reveal d1"><em class="red">Mês 1</em><br>Dr. Fred<br>Soares</h1>
+    <p class="sub reveal d2">Osteopata · Especialista em coluna<br>Intermares, Cabedelo</p>
+    <div class="meta reveal d3">
+      <div class="meta-item"><span>13</span><span>publicações</span></div>
+      <div class="meta-item"><span>4</span><span>formatos</span></div>
+      <div class="meta-item"><span>2</span><span>personas</span></div>
+      <div class="meta-item"><span>1</span><span>CTA: WhatsApp</span></div>
+    </div>
+    <p class="reveal d4" style="margin-top:36px;font-size:11px;color:rgba(255,255,255,0.2);letter-spacing:0.07em;">Apresentação por Arrive In Digital</p>
+  </div>
+  <div class="scroll-hint">scroll</div>
+</section>
+
+
+<!-- ─── FEED ─── -->
+<section id="feed">
+  <div class="container">
+    <div class="phone reveal">
+      <div class="phone-hd">
+        <div class="uname">dr.fredsoares</div>
+        <div class="row">
+          <img class="av" src="assets/images/drfred.png" alt="">
+          <div class="stats">
+            <div class="st"><span>8</span><span>posts</span></div>
+            <div class="st"><span>2.840</span><span>seguidores</span></div>
+            <div class="st"><span>312</span><span>seguindo</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-bio">
+        <div class="nm">Dr. Fred Soares</div>
+        <div class="sp">Osteopata · Especialista em coluna</div>
+        <div class="ph">Trata a causa, não o sintoma.</div>
+      </div>
+      <div class="pgrid">
+        <div class="cell" onclick="lb(['assets/images/fixado-01.png','assets/images/fixado-01-s2.png','assets/images/fixado-01-s3.png','assets/images/fixado-01-s4.png','assets/images/fixado-01-s5.png'])"><img src="assets/images/fixado-01.png" alt=""></div>
+        <div class="cell" onclick="lb(['assets/images/card-01.png'])"><img src="assets/images/card-01.png" alt=""></div>
+        <div class="cell reel"><div class="reel-ic">▶</div><span>Reels</span><div class="prod-b">produção</div></div>
+        <div class="cell" onclick="lb(['assets/images/card-02.png'])"><img src="assets/images/card-02.png" alt=""></div>
+        <div class="cell" onclick="lb(['assets/images/carrossel-01.png','assets/images/carrossel-01-s2.png','assets/images/carrossel-01-s3.png','assets/images/carrossel-01-s4.png','assets/images/carrossel-01-s5.png'])"><img src="assets/images/carrossel-01.png" alt=""></div>
+        <div class="cell" onclick="lb(['assets/images/card-03.png'])"><img src="assets/images/card-03.png" alt=""></div>
+        <div class="cell" onclick="lb(['assets/images/fixado-02.png','assets/images/fixado-02-s2.png','assets/images/fixado-02-s3.png','assets/images/fixado-02-s4.png','assets/images/fixado-02-s5.png','assets/images/fixado-02-s6.png'])"><img src="assets/images/fixado-02.png" alt=""></div>
+        <div class="cell" onclick="lb(['assets/images/carrossel-02.png','assets/images/carrossel-02-s2.png','assets/images/carrossel-02-s3.png','assets/images/carrossel-02-s4.png','assets/images/carrossel-02-s5.png','assets/images/carrossel-02-s6.png'])"><img src="assets/images/carrossel-02.png" alt=""></div>
+        <div class="cell" onclick="lb(['assets/images/card-04.png'])"><img src="assets/images/card-04.png" alt=""></div>
+        <div class="cell reel"><div class="reel-ic">▶</div><span>Reels</span><div class="prod-b">produção</div></div>
+      </div>
+    </div>
+
+    <div class="feed-side reveal d2">
+      <div class="section-head">
+        <span class="label">Prévia do perfil</span>
+        <h2>Como o feed<br>vai ficar</h2>
+        <p>Grade 3×3 · 10 publicações em ordem de postagem. Clique em qualquer imagem para ampliar.</p>
+      </div>
+      <div class="feed-legend">
+        <div class="fl-item"><div class="fl-dot" style="background:#1a5c3a"></div><div><strong>Fixados</strong> — 2 carrosséis de apresentação</div></div>
+        <div class="fl-item"><div class="fl-dot" style="background:var(--gray-blue)"></div><div><strong>Cards</strong> — 4 mensagens diretas e provas</div></div>
+        <div class="fl-item"><div class="fl-dot" style="background:#8B6914"></div><div><strong>Carrosséis</strong> — 2 educação e salvamento</div></div>
+        <div class="fl-item"><div class="fl-dot" style="background:var(--red)"></div><div><strong>Reels</strong> — 2 alcance + rosto (em produção)</div></div>
+      </div>
+      <div class="cta-box reveal d3">
+        <div class="lbl">CTA único do mês</div>
+        <strong>Agendar a avaliação pelo WhatsApp.</strong>
+        <small>Tudo conduz para um único ponto de contato.</small>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ─── ESTRATÉGIA ─── -->
+<section id="estrategia">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="label">A ideia do mês</span>
+      <h2>Estratégia</h2>
+      <p>Uma única promessa, repetida de ângulos diferentes:</p>
+    </div>
+    <div class="promise reveal d1">
+      <p>Promessa central</p>
+      <blockquote>"trata a causa, não o sintoma."</blockquote>
+    </div>
+    <div class="pillars">
+      <div class="pillar reveal d1">
+        <div class="p-num">01</div>
+        <h3>Resolução real</h3>
+        <div class="quote">"Não é mais uma sessão. Em 4 a 5 consultas, o problema está resolvido."</div>
+        <div class="desc">A fisioterapia convencional trata o sintoma. A osteopatia avançada vai na causa.</div>
+        <ul class="proofs">
+          <li>Média de 4–5 sessões por protocolo</li>
+          <li>+10.000 pacientes em 20 anos</li>
+          <li>"Eu resolvo rápido. Não faço planos longos."</li>
+        </ul>
+      </div>
+      <div class="pillar reveal d2">
+        <div class="p-num">02</div>
+        <h3>Formação única em Intermares</h3>
+        <div class="quote">"Osteopatia de Madrid. Mestrado USP. 20 anos. Agora no seu bairro."</div>
+        <div class="desc">Formação de referência mundial no bairro. Não existe alternativa equivalente em Intermares.</div>
+        <ul class="proofs">
+          <li>Instituto de Madrid — referência mundial</li>
+          <li>Mestrado pela USP</li>
+          <li>10 anos de docência no SENAC</li>
+        </ul>
+      </div>
+      <div class="pillar reveal d3">
+        <div class="p-num">03</div>
+        <h3>Técnica suave, sem medo</h3>
+        <div class="quote">"Sem estralos. Sem trauma. Funciona para atletas, adultos e idosos."</div>
+        <div class="desc">A maior objeção antes do primeiro contato é o medo da manipulação. Este pilar elimina a barreira.</div>
+        <ul class="proofs">
+          <li>Osteopatia ≠ quiropraxia — sem manipulação brusca</li>
+          <li>Atende idosos 70+ com a mesma técnica</li>
+          <li>Case: paciente idosa com medo virou fiel</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ─── CONTEÚDOS ─── -->
+<section id="conteudos" style="min-height:auto;">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="label">Os conteúdos</span>
+      <h2>10 publicações</h2>
+      <p>Filtre por formato. Clique em "Ver brief" para ver frase, legenda e instruções de design.</p>
+    </div>
+
+    <div class="filter-bar reveal d1">
+      <button class="filter-btn active" onclick="filter('todos', this)">Todos <span class="filter-count">13</span></button>
+      <button class="filter-btn" onclick="filter('fixado', this)">Fixados <span class="filter-count">3</span></button>
+      <button class="filter-btn" onclick="filter('card', this)">Cards <span class="filter-count">4</span></button>
+      <button class="filter-btn" onclick="filter('reel', this)">Reels <span class="filter-count">3</span></button>
+      <button class="filter-btn" onclick="filter('carrossel', this)">Carrosséis <span class="filter-count">2</span></button>
+      <button class="filter-btn" onclick="filter('story', this)">Stories <span class="filter-count">2</span></button>
+    </div>
+
+    <div class="posts-grid">
+
+      <!-- ── FIXADO 1 ── -->
+      <div class="pcard" data-format="fixado">
+        <div class="thumb" onclick="lb(['assets/images/fixado-01.png','assets/images/fixado-01-s2.png','assets/images/fixado-01-s3.png','assets/images/fixado-01-s4.png','assets/images/fixado-01-s5.png'])">
+          <img src="assets/images/fixado-01.png" alt="">
+          <span class="badge badge-fixado">Carrossel · Fixado</span>
+          <span class="scount">5 slides</span>
+        </div>
+        <div class="cbody">
+          <div class="pnum">Post Fixado 1 · Ambos</div>
+          <div class="ptitle">Quem sou eu</div>
+          <div class="pganche">"Quem sou eu? Dr. Fred Soares — Osteopata, especialista em coluna."</div>
+        </div>
+        <button class="expand-btn" onclick="toggle(this)">Ver brief completo <span class="chevron">▾</span></button>
+        <div class="brief">
+          <div class="brief-section">
+            <div class="brief-lbl">Objetivo</div>
+            <div class="brief-text">Apresentar o Fred e ancorar autoridade logo na chegada ao perfil.</div>
+          </div>
+          <div class="brief-section">
+            <div class="brief-lbl">Por que funciona</div>
+            <div class="brief-text">É o primeiro post fixado no topo. Quem chega por anúncio ou indicação entende em 3 segundos quem é, o que faz e onde atende. Rosto + credencial = confiança imediata.</div>
+          </div>
+          <div class="brief-section">
+            <div class="brief-lbl">Legenda Instagram</div>
+            <div class="brief-text">Quem sou eu? Dr. Fred Soares — Osteopata, especialista em coluna. 20 anos resolvendo dores que outros tratamentos não conseguiram. Agora em Intermares, Cabedelo.</div>
+          </div>
+          <div class="brief-cta">Seguir o perfil e conhecer o trabalho.</div>
+        </div>
+      </div>
+
+      <!-- ── FIXADO 2 ── -->
+      <div class="pcard" data-format="fixado">
+        <div class="thumb" onclick="lb(['assets/images/fixado-02.png','assets/images/fixado-02-s2.png','assets/images/fixado-02-s3.png','assets/images/fixado-02-s4.png','assets/images/fixado-02-s5.png','assets/images/fixado-02-s6.png'])">
+          <img src="assets/images/fixado-02.png" alt="">
+          <span class="badge badge-fixado">Carrossel · Fixado</span>
+          <span class="scount">6 slides</span>
+        </div>
+        <div class="cbody">
+          <div class="pnum">Post Fixado 2 · Ambos</div>
+          <div class="ptitle">O que eu faço</div>
+          <div class="pganche">"A dor na coluna que melhora e volta não é falta de tratamento. É falta do tratamento certo."</div>
+        </div>
+        <button class="expand-btn" onclick="toggle(this)">Ver brief completo <span class="chevron">▾</span></button>
+        <div class="brief">
+          <div class="brief-section">
+            <div class="brief-lbl">Objetivo</div>
+            <div class="brief-text">Posicionar o diferencial central da marca: tratar a causa, não o sintoma.</div>
+          </div>
+          <div class="brief-section">
+            <div class="brief-lbl">Por que funciona</div>
+            <div class="brief-text">Define o território do Fred e dá um motivo racional para escolhê-lo em vez de "mais uma fisio". O "4 a 5 sessões, sem estalos" já planta as provas e quebra objeções.</div>
+          </div>
+          <div class="brief-section">
+            <div class="brief-lbl">Legenda Instagram</div>
+            <div class="brief-text">A dor que melhora e sempre volta não é falta de tratamento. É falta do tratamento certo. Tratar só onde dói melhora por um tempo — depois volta, porque a causa ainda está lá. É por isso que meus pacientes resolvem em média em 4 a 5 sessões. Sem estalos. Técnica suave — adequada para qualquer perfil, incluindo idosos.</div>
+          </div>
+          <div class="brief-cta">Manda mensagem para agendar uma avaliação.</div>
+        </div>
+      </div>
+
+      <!-- ── C1: Card Osteopatia ── -->
+      <div class="pcard" data-format="card">
+        <div class="thumb" onclick="lb(['assets/images/card-01.png'])">
+          <img src="assets/images/card-01.png" alt="">
+          <span class="badge badge-card">Card</span>
+        </div>
+        <div class="cbody">
+          <div class="pnum">Post 1 · Ambos · S1</div>
+          <div class="ptitle">O que é osteopatia (de verdade)</div>
+          <div class="pganche">"Fisioterapia trata onde dói. Osteopatia investiga por que dói. A diferença está no resultado."</div>
+        </div>
+        <button class="expand-btn" onclick="toggle(this)">Ver brief completo <span class="chevron">▾</span></button>
+        <div class="brief">
+          <div class="brief-section">
+            <div class="brief-lbl">Frase principal</div>
+            <div class="brief-main">Fisioterapia trata onde dói.<br>Osteopatia investiga por que dói.<br><em>A diferença está no resultado.</em></div>
+          </div>
+          <div class="brief-section">
+            <div class="brief-lbl">Copy de apoio</div>
+            <div class="brief-text">O corpo funciona como uma rede. Uma tensão no quadril pode causar dor na lombar. Uma rigidez torácica pode causar torcicolo crônico.<br><br>Quando eu trato a causa — a dor não precisa voltar.<br>Média: 4 a 5 sessões. Sem estalos. Sem manipulação brusca.</div>
+          </div>
+          <div class="brief-section">
+            <div class="brief-lbl">Legenda Instagram</div>
+            <div class="brief-text">A fisioterapia convencional trata onde dói. A osteopatia investiga por que dói. O corpo funciona como uma rede — tratar só o ponto de dor melhora por um tempo, depois a dor volta, porque a causa ainda está lá. É por isso que meus pacientes resolvem em média em 4 a 5 sessões. Sem estalos. Técnica suave — adequada para qualquer perfil, incluindo idosos. Intermares, Cabedelo.</div>
+          </div>
+          <div class="brief-section">
+            <div class="brief-lbl">Obs. para o designer</div>
+            <div class="brief-note">Fundo escuro (navy). Destaque vermelho em 'por que dói'. Visual limpo — tipografia forte, sem imagem de osso.</div>
+          </div>
+          <div class="brief-cta">Se quiser entender o que está causando sua dor, manda mensagem no WhatsApp para agendar uma avaliação.</div>
+        </div>
+      </div>
+
+      <!-- ── C2: Reel Primeira consulta ── -->
+      <div class="pcard" data-format="reel">
+        <div class="thumb reel-th">
+          <div class="reel-bi">▶</div>
+          <span style="font-size:13px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:white;margin-top:4px;">REELS</span>
+          <div class="prod-label">Arte em produção</div>
+        </div>
+        <div class="cbody">
+          <div class="pnum">Post 2 · Atleta Ativa 35–50 · S1</div>
+          <div class="ptitle">O que acontece na primeira consulta</div>
+          <div class="pganche">"Você sabe o que acontece na primeira consulta comigo? Não é o que a maioria espera."</div>
+        </div>
+        <button class="expand-btn" onclick="toggle(this)">Ver roteiro <span class="chevron">▾</span></button>
+        <div class="brief">
+          <div class="brief-section">
+            <div class="brief-lbl">Duração · Formato</div>
+            <div class="brief-text">50–60 segundos. Fred falando para a câmera no consultório, sem jaleco. Cortes de apoio mostrando mesa de atendimento. Tom conversacional.</div>
+          </div>
+          <div class="brief-section">
+            <div class="brief-lbl">Roteiro</div>
+            <table class="roteiro">
+              <tr><th>Tempo</th><th>Bloco</th><th>Fala</th></tr>
+              <tr><td>0–3s</td><td>Gancho</td><td>Você sabe o que acontece na primeira consulta comigo? Não é o que a maioria espera.</td></tr>
+              <tr><td>3–14s</td><td>Contexto</td><td>Muita gente chega com medo de não saber o que vai encontrar. Chega, diz onde dói — e aí o que vem?</td></tr>
+              <tr><td>14–32s</td><td>Processo</td><td>A primeira coisa que faço é te ouvir. De verdade. Quero entender como é o seu dia a dia, o que você faz, como você dorme, o que mudou quando a dor apareceu. Porque a causa da dor raramente está só onde você sente.</td></tr>
+              <tr><td>32–46s</td><td>Avaliação</td><td>Depois vem a avaliação completa — postura, mobilidade, tensão muscular. E na maioria dos casos, a gente já inicia o tratamento na mesma consulta.</td></tr>
+              <tr><td>46–55s</td><td>Resultado</td><td>Na saída, você sai com um plano. O que encontrei, o que vou fazer — e quantas sessões vai precisar. Sem promessa vaga. Sem 'volta semana que vem'.</td></tr>
+              <tr><td>55–62s</td><td>CTA</td><td>Se você quer entender a causa da sua dor — manda uma mensagem. A avaliação é o primeiro passo. Estou em Intermares.</td></tr>
+            </table>
+          </div>
+          <div class="brief-section">
+            <div class="brief-lbl">Textos de tela</div>
+            <div class="brief-text">"O que acontece na primeira consulta?" · "Avaliação completa no mesmo dia." · "Você sai com o plano." · "Não é sessão. É resolução."</div>
+          </div>
+          <div class="brief-section">
+            <div class="brief-lbl">Legenda Instagram</div>
+            <div class="brief-text">Antes de qualquer coisa, eu quero te ouvir. De verdade. Como é seu dia a dia, o que você faz, como dorme, o que mudou quando a dor apareceu. Depois vem a avaliação completa — e na maioria dos casos, já iniciamos o tratamento na mesma consulta. Na saída: o que encontrei, o que vou fazer e quantas sessões você vai precisar. Sem promessa vaga.</div>
+          </div>
+          <div class="brief-cta">Se é isso que você quer — manda mensagem. Estou em Intermares.</div>
+        </div>
+      </div>
+
+      <!-- ── C3: Card Torcicolo ── -->
+      <div class="pcard" data-format="card">
+        <div class="thumb" onclick="lb(['assets/images/card-02.png'])">
+          <img src="assets/images/card-02.png" alt="">
+          <span class="badge badge-card">Card</span>
+        </div>
+        <div class="cbody">
+          <div class="pnum">Post 3 · Atleta Ativa 35–50 · S2</div>
+          <div class="ptitle">Torcicolo que sempre volta</div>
+          <div class="pganche">"Torcicolo que sempre volta não é azar. É sinal de que a causa ainda não foi investigada."</div>
+        </div>
+        <button class="expand-btn" onclick="toggle(this)">Ver brief completo <span class="chevron">▾</span></button>
+        <div class="brief">
+          <div class="brief-section">
+            <div class="brief-lbl">Frase principal</div>
+            <div class="brief-main">Torcicolo que sempre volta não é azar.<br><em>É sinal de que a causa ainda não foi investigada.</em></div>
+          </div>
+          <div class="brief-section">
+            <div class="brief-lbl">Copy de apoio</div>
+            <div class="brief-text">A cervical geralmente não é onde o problema começou — ela está compensando outra coisa.<br><br>Encontrar a causa é o que faz a diferença entre melhorar por alguns dias e resolver de vez.</div>
+          </div>
+          <div class="brief-section">
+            <div class="brief-lbl">Legenda Instagram</div>
+            <div class="brief-text">Torcicolo que volta não é azar. A maioria das pessoas que me procura com dor cervical já fez de tudo: pomada, massagem, relaxante muscular, fisioterapia. Melhorou um pouco — voltou. O que quase sempre encontro na avaliação é que a causa não está no pescoço. A cervical está compensando outra coisa — rigidez torácica, tensão nos ombros, postura acumulada. Nenhuma pomada resolve compensação. Em média 4 a 5 sessões quando a causa é encontrada.</div>
+          </div>
+          <div class="brief-section">
+            <div class="brief-lbl">Obs. para o designer</div>
+            <div class="brief-note">Fundo claro (cream). Destaque vermelho em 'não foi investigada'. Imagem sutil de cervical ao fundo.</div>
+          </div>
+          <div class="brief-cta">Agenda uma avaliação. Link no bio ou direto no WhatsApp.</div>
+        </div>
+      </div>
+
+      <!-- ── C4: Carrossel Medo de estalo ── -->
+      <div class="pcard" data-format="carrossel">
+        <div class="thumb" onclick="lb(['assets/images/carrossel-01.png','assets/images/carrossel-01-s2.png','assets/images/carrossel-01-s3.png','assets/images/carrossel-01-s4.png','assets/images/carrossel-01-s5.png'])">
+          <img src="assets/images/carrossel-01.png" alt="">
+          <span class="badge badge-carrossel">Carrossel</span>
+          <span class="scount">5 slides</span>
+        </div>
+        <div class="cbody">
+          <div class="pnum">Post 4 · Idoso Sério 60–75 · S2</div>
+          <div class="ptitle">Osteopatia precisa estalar?</div>
+          <div class="pganche">"Você evita tratar a coluna por medo de estalo? Entendo. E posso explicar por que isso não vai acontecer aqui."</div>
+        </div>
+        <button class="expand-btn" onclick="toggle(this)">Ver brief completo <span class="chevron">▾</span></button>
+        <div class="brief">
+          <div class="brief-section">
+            <div class="brief-lbl">Objetivo</div>
+            <div class="brief-text">Derrubar a objeção nº 1 que trava o agendamento: o medo do estalo.</div>
+          </div>
+          <div class="brief-section">
+            <div class="brief-lbl">Slides</div>
+            <table class="roteiro">
+              <tr><th>#</th><th>Slide</th><th>Copy</th></tr>
+              <tr><td>1</td><td>Capa</td><td>Você evita tratar a coluna por medo de estalo? Entendo. E posso explicar por que isso não vai acontecer aqui.</td></tr>
+              <tr><td>2</td><td>Diferença</td><td>Osteopatia ≠ Quiropraxia. A quiropraxia usa manipulação de alta velocidade — daí vem o estalo. A osteopatia usa técnicas suaves de mobilização. Sem impacto. Sem trauma. Sem estalos.</td></tr>
+              <tr><td>3</td><td>Prova</td><td>Funciona sem estalo? Funciona. O estalo não é o tratamento — é efeito de uma técnica específica. Minha abordagem chega no mesmo resultado. Funciona para qualquer perfil.</td></tr>
+              <tr><td>4</td><td>Idosos</td><td>Para idosos, especialmente. Tenho pacientes com mais de 70 anos que se tratam regularmente comigo. A avaliação vem primeiro — só depois defino a técnica adequada.</td></tr>
+              <tr><td>5</td><td>CTA</td><td>Dr. Fred Soares · Osteopata especialista em coluna · Instituto de Madrid + Mestrado USP · Intermares, Cabedelo.</td></tr>
+            </table>
+          </div>
+          <div class="brief-section">
+            <div class="brief-lbl">Legenda Instagram</div>
+            <div class="brief-text">O maior medo antes de vir ao consultório é o estalo. Entendo — é uma objeção legítima. Mas osteopatia e quiropraxia são técnicas diferentes. A quiropraxia usa manipulação de alta velocidade — é daí que vem o estalo. A osteopatia usa mobilização suave. Não precisa de estalo para funcionar. Tenho pacientes com mais de 70 anos que se tratam comigo regularmente.</div>
+          </div>
+          <div class="brief-section">
+            <div class="brief-lbl">Obs. para o designer</div>
+            <div class="brief-note">Capa: tipografia direta. Slide 'Osteopatia ≠ Quiropraxia': visual e didático. Último slide: foto Fred + localização.</div>
+          </div>
+          <div class="brief-cta">Intermares, Cabedelo — WhatsApp no bio. Me manda mensagem antes de agendar — respondo pessoalmente.</div>
+        </div>
+      </div>
+
+      <!-- ── C5: Card Ciática ── -->
+      <div class="pcard" data-format="card">
+        <div class="thumb" onclick="lb(['assets/images/card-03.png'])">
+          <img src="assets/images/card-03.png" alt="">
+          <span class="badge badge-card">Card</span>
+        </div>
+        <div class="cbody">
+          <div class="pnum">Post 5 · Atleta Ativa 35–50 · S3</div>
+          <div class="ptitle">Ciática — a dor que desce pela perna</div>
+          <div class="pganche">"A dor começa na lombar e desce pela perna? Isso tem causa. E causa tem tratamento."</div>
+        </div>
+        <button class="expand-btn" onclick="toggle(this)">Ver brief completo <span class="chevron">▾</span></button>
+        <div class="brief">
+          <div class="brief-section">
+            <div class="brief-lbl">Frase principal</div>
+            <div class="brief-main">A dor começa na lombar e desce pela perna?<br>Isso tem causa.<br><em>E causa tem tratamento.</em></div>
+          </div>
+          <div class="brief-section">
+            <div class="brief-lbl">Copy de apoio</div>
+            <div class="brief-text">Ciática não é uma doença — é um sintoma. O que importa é entender o que está comprimindo o nervo.<br><br>Sem avaliação, qualquer protocolo é chute. Com avaliação correta — dá para resolver.</div>
+          </div>
+          <div class="brief-section">
+            <div class="brief-lbl">Legenda Instagram</div>
+            <div class="brief-text">Dor que desce pela perna precisa ser investigada com critério. Ciática não é uma doença — é um sintoma. Pode ser protrusão de disco, tensão no piriforme, problema no sacroilíaco. Cada causa tem um tratamento diferente. Sem avaliação, qualquer protocolo é chute. Já atendi casos de ciática com perda de força na perna — com tratamento correto, recuperação completa. Não é inevitável.</div>
+          </div>
+          <div class="brief-section">
+            <div class="brief-lbl">Obs. para o designer</div>
+            <div class="brief-note">Fundo escuro. Imagem de coluna lombar ao fundo. Destaque vermelho em 'causa tem tratamento'.</div>
+          </div>
+          <div class="brief-cta">Se a dor está descendo pela perna, não ignora. Manda mensagem — a avaliação é o primeiro passo.</div>
+        </div>
+      </div>
+
+      <!-- ── C6: Reel Dor depois dos 60 ── -->
+      <div class="pcard" data-format="reel">
+        <div class="thumb reel-th">
+          <div class="reel-bi">▶</div>
+          <span style="font-size:13px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:white;margin-top:4px;">REELS</span>
+          <div class="prod-label">Arte em produção</div>
+        </div>
+        <div class="cbody">
+          <div class="pnum">Post 6 · Idoso Sério 60–75 · S3</div>
+          <div class="ptitle">Dor na coluna não é inevitável depois dos 60</div>
+          <div class="pganche">"Se alguém já te disse que sua dor na coluna é da idade e você vai ter que conviver — eu preciso te contar uma coisa."</div>
+        </div>
+        <button class="expand-btn" onclick="toggle(this)">Ver roteiro <span class="chevron">▾</span></button>
+        <div class="brief">
+          <div class="brief-section">
+            <div class="brief-lbl">Duração · Formato</div>
+            <div class="brief-text">60–70 segundos. Fred sentado, tom calmo e direto. Consultório ao fundo. Narrativa contínua — sem cortes bruscos.</div>
+          </div>
+          <div class="brief-section">
+            <div class="brief-lbl">Roteiro</div>
+            <table class="roteiro">
+              <tr><th>Tempo</th><th>Bloco</th><th>Fala</th></tr>
+              <tr><td>0–4s</td><td>Gancho</td><td>Se alguém já te disse que sua dor na coluna é da idade e você vai ter que conviver — eu preciso te contar uma coisa.</td></tr>
+              <tr><td>4–18s</td><td>Validação</td><td>Eu entendo de onde vem essa conclusão. O médico pede raio-x. Aparece desgaste, artrose. 'É natural para a sua idade.' E você vai embora sem resposta real.</td></tr>
+              <tr><td>18–38s</td><td>Reframe</td><td>Mas desgaste na coluna e dor na coluna são coisas diferentes. A maioria dos meus pacientes acima dos 60 que chegam com 'dor da idade' tem tensão muscular acumulada, rigidez articular, compensações que o corpo foi criando ao longo de anos. Isso não é irreversível. Tem tratamento.</td></tr>
+              <tr><td>38–58s</td><td>Prova</td><td>Já atendi pacientes com mais de 70 anos que não conseguiam subir uma escada sem dor, que tinham parado de caminhar. Em poucas sessões — com técnica suave, sem estalos — voltaram à rotina.</td></tr>
+              <tr><td>58–70s</td><td>CTA</td><td>Se você está nessa situação — ou conhece alguém assim — me chama. Estou aqui em Intermares, perto de você.</td></tr>
+            </table>
+          </div>
+          <div class="brief-section">
+            <div class="brief-lbl">Textos de tela</div>
+            <div class="brief-text">"Dor da idade?" · "Desgaste ≠ dor inevitável." · "A causa existe." · "E causa tem tratamento." · "Técnica suave. Sem estalos."</div>
+          </div>
+          <div class="brief-section">
+            <div class="brief-lbl">Legenda Instagram</div>
+            <div class="brief-text">Desgaste na coluna e dor na coluna são coisas diferentes. A maioria dos meus pacientes acima dos 60 que chegam com 'dor da idade' tem tensão muscular acumulada e compensações que o corpo foi criando ao longo de anos. Isso não é desgaste irreversível. Tem tratamento. Já atendi pacientes com mais de 70 anos que voltaram à rotina em poucas sessões — com técnica suave, sem estalos.</div>
+          </div>
+          <div class="brief-cta">Se você está nessa situação — ou conhece alguém assim — me chama. Estou em Intermares.</div>
+        </div>
+      </div>
+
+      <!-- ── C7: Carrossel 3 sinais ── -->
+      <div class="pcard" data-format="carrossel">
+        <div class="thumb" onclick="lb(['assets/images/carrossel-02.png','assets/images/carrossel-02-s2.png','assets/images/carrossel-02-s3.png','assets/images/carrossel-02-s4.png','assets/images/carrossel-02-s5.png','assets/images/carrossel-02-s6.png'])">
+          <img src="assets/images/carrossel-02.png" alt="">
+          <span class="badge badge-carrossel">Carrossel</span>
+          <span class="scount">6 slides</span>
+        </div>
+        <div class="cbody">
+          <div class="pnum">Post 7 · Ambos · S4</div>
+          <div class="ptitle">3 sinais de que sua coluna precisa de avaliação</div>
+          <div class="pganche">"3 sinais de que sua dor na coluna não é 'normal' e precisa de avaliação."</div>
+        </div>
+        <button class="expand-btn" onclick="toggle(this)">Ver brief completo <span class="chevron">▾</span></button>
+        <div class="brief">
+          <div class="brief-section">
+            <div class="brief-lbl">Objetivo</div>
+            <div class="brief-text">Entregar conteúdo de diagnóstico rápido e altamente "salvável". Lista prática = salva e compartilha → tende a ser o post de maior alcance orgânico do mês.</div>
+          </div>
+          <div class="brief-section">
+            <div class="brief-lbl">Slides</div>
+            <table class="roteiro">
+              <tr><th>#</th><th>Slide</th><th>Copy</th></tr>
+              <tr><td>1</td><td>Capa</td><td>3 sinais de que sua dor na coluna não é 'normal' e precisa de avaliação.</td></tr>
+              <tr><td>2</td><td>Sinal 1</td><td>A dor sempre volta. Você melhora com repouso ou remédio. Depois de alguns dias voltou. Isso não é azar — a causa nunca foi investigada.</td></tr>
+              <tr><td>3</td><td>Sinal 2</td><td>A dor vai além do ponto de origem. Começa na lombar e desce para a perna, ou começa no pescoço e vai para o ombro. Quando a dor irradia, pode estar envolvendo nervo.</td></tr>
+              <tr><td>4</td><td>Sinal 3</td><td>Você começou a evitar movimentos. Parou de se abaixar, de virar o pescoço. O corpo está se protegendo — mas piora a mobilidade a longo prazo.</td></tr>
+              <tr><td>5</td><td>Resolução</td><td>Nenhum desses sinais é coisa da idade. Todos têm causa — e causa tem tratamento. A maioria dos meus pacientes resolve em 4 a 5 sessões.</td></tr>
+              <tr><td>6</td><td>CTA</td><td>Dr. Fred Soares · Osteopata especialista em coluna · Instituto de Madrid + Mestrado USP · Intermares. Salva esse post e manda mensagem se se identificou.</td></tr>
+            </table>
+          </div>
+          <div class="brief-section">
+            <div class="brief-lbl">Legenda Instagram</div>
+            <div class="brief-text">Sua dor na coluna tem padrão?<br>1. Se melhora e sempre volta — a causa ainda está lá.<br>2. Se irradia para braço ou perna — pode estar envolvendo nervo.<br>3. Se você começou a evitar movimentos — o corpo está compensando de um jeito que piora.<br><br>Nenhum desses sinais é 'da idade'. Todos têm causa — e causa tem tratamento.</div>
+          </div>
+          <div class="brief-section">
+            <div class="brief-lbl">Obs. para o designer</div>
+            <div class="brief-note">Um sinal por slide — visual clean. Bom para salvamento. Slide final: Fred + localização.</div>
+          </div>
+          <div class="brief-cta">Intermares, Cabedelo | WhatsApp no bio. Salva este post e manda mensagem se você se identificou.</div>
+        </div>
+      </div>
+
+      <!-- ── C8: Card Sessões ── -->
+      <div class="pcard" data-format="card">
+        <div class="thumb" onclick="lb(['assets/images/card-04.png'])">
+          <img src="assets/images/card-04.png" alt="">
+          <span class="badge badge-card">Card</span>
+        </div>
+        <div class="cbody">
+          <div class="pnum">Post 8 · Atleta Ativa 35–50 · S4</div>
+          <div class="ptitle">Por que não dou número de sessões antes de avaliar</div>
+          <div class="pganche">"Eu não consigo te dizer quantas sessões você precisa antes de te avaliar."</div>
+        </div>
+        <button class="expand-btn" onclick="toggle(this)">Ver brief completo <span class="chevron">▾</span></button>
+        <div class="brief">
+          <div class="brief-section">
+            <div class="brief-lbl">Frase principal</div>
+            <div class="brief-main">Eu não consigo te dizer quantas sessões você precisa antes de te avaliar.</div>
+          </div>
+          <div class="brief-section">
+            <div class="brief-lbl">Copy de apoio</div>
+            <div class="brief-text">Dores iguais têm causas diferentes. Quem dá um número antes de avaliar está chutando.<br><br>Em média, meus pacientes resolvem em 4 a 5 sessões. Porque eu não faço plano longo por fazer. Quando o problema foi embora, não tem por que você continuar pagando consulta.</div>
+          </div>
+          <div class="brief-section">
+            <div class="brief-lbl">Legenda Instagram</div>
+            <div class="brief-text">É a primeira pergunta que todo mundo faz. E faz total sentido — você quer saber o comprometimento antes de entrar. Mas dores iguais têm causas diferentes. Quem dá número antes de avaliar está chutando. O que eu posso te dizer: em média, meus pacientes resolvem em 4 a 5 sessões. Porque eu não faço plano longo por fazer. Esse número sai da avaliação — não da intuição.</div>
+          </div>
+          <div class="brief-section">
+            <div class="brief-lbl">Obs. para o designer</div>
+            <div class="brief-note">Fundo escuro. Tipografia grande e direta. Destaque em '4 a 5 sessões' e 'É resolução.' Sem imagem.</div>
+          </div>
+          <div class="brief-cta">A avaliação é onde tudo começa. Manda mensagem para agendar. Intermares.</div>
+        </div>
+      </div>
+
+      <!-- ── REEL FIXADO: Caso Marcelo Cahú ── -->
+      <div class="pcard" data-format="fixado reel">
+        <div class="thumb reel-th">
+          <div class="reel-bi">▶</div>
+          <span style="font-size:13px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:white;margin-top:4px;">REELS</span>
+          <div class="prod-label">Arte em produção</div>
+        </div>
+        <div class="cbody">
+          <div class="pnum">Post Fixado 3 · Ambos · Prova Social</div>
+          <div class="ptitle">Caso Marcelo Cahú — Ele não conseguia calçar os próprios sapatos</div>
+          <div class="pganche">"Dor na coluna não afeta só a coluna. Afeta sua autonomia."</div>
+        </div>
+        <button class="expand-btn" onclick="toggle(this)">Ver roteiro <span class="chevron">▾</span></button>
+        <div class="brief">
+          <div class="brief-section">
+            <div class="brief-lbl">Objetivo</div>
+            <div class="brief-text">Prova social + conexão emocional + conversão. Base: depoimento real do Marcelo Cahú.</div>
+          </div>
+          <div class="brief-section">
+            <div class="brief-lbl">Duração · Formato</div>
+            <div class="brief-text">45–60 segundos. Dr. Fred falando diretamente para a câmera, narrando o caso com tom humano e direto.</div>
+          </div>
+          <div class="brief-section">
+            <div class="brief-lbl">Roteiro</div>
+            <table class="roteiro">
+              <tr><th>Tempo</th><th>Bloco</th><th>Fala</th></tr>
+              <tr><td>0–3s</td><td>Gancho</td><td>Ele não conseguia calçar os próprios sapatos.</td></tr>
+              <tr><td>3–10s</td><td>Contexto</td><td>Parece uma coisa simples. Mas quem já teve uma crise forte de coluna sabe: quando a dor trava, até o básico fica difícil.</td></tr>
+              <tr><td>10–22s</td><td>História</td><td>Levantar da cama. Sentar. Entrar no carro. Abaixar. Calçar um sapato. Foi assim que o Marcelo chegou. Era a primeira crise de coluna dele. Além da dor, tinha a insegurança: o que está acontecendo? Vai passar? O que eu posso ou não fazer?</td></tr>
+              <tr><td>22–38s</td><td>Diferencial</td><td>E é justamente por isso que o atendimento não pode ser automático. Antes de qualquer técnica, é preciso ouvir, avaliar e explicar. No caso dele, o tratamento ajudou a recuperar movimento, reduzir a limitação e devolver confiança para a rotina.</td></tr>
+              <tr><td>38–50s</td><td>Mensagem</td><td>Mas o ponto principal desse caso não é só a melhora. É o que acontece quando o paciente entende o que está acontecendo com o próprio corpo e se sente seguro durante o processo.</td></tr>
+              <tr><td>50–57s</td><td>Fechamento</td><td>Dor na coluna não afeta só a coluna. Afeta sua autonomia.</td></tr>
+              <tr><td>57–62s</td><td>CTA</td><td>Se uma dor está limitando movimentos simples da sua rotina, agende uma avaliação.</td></tr>
+            </table>
+          </div>
+          <div class="brief-section">
+            <div class="brief-lbl">Textos de tela</div>
+            <div class="brief-text">"Ele não conseguia calçar os sapatos." · "Crise de coluna." · "Avaliação + tratamento individualizado." · "Dor na coluna também tira autonomia."</div>
+          </div>
+          <div class="brief-section">
+            <div class="brief-lbl">Legenda Instagram</div>
+            <div class="brief-text">Uma crise de coluna pode transformar movimentos simples em grandes dificuldades. O caso do Marcelo mostra algo muito comum: a dor não limita apenas o corpo, ela também gera insegurança. Por isso, o atendimento precisa unir avaliação, explicação clara e tratamento direcionado para cada paciente.</div>
+          </div>
+          <div class="brief-cta">Se a sua dor está atrapalhando movimentos básicos da rotina, agende uma avaliação.</div>
+        </div>
+      </div>
+
+      <!-- ── STORY 1: Dúvida sobre fisioterapia ── -->
+      <div class="pcard" data-format="story">
+        <div class="thumb" onclick="lb(['assets/images/story-01.png'])" style="aspect-ratio:9/16;">
+          <img src="assets/images/story-01.png" alt="">
+          <span class="badge badge-story">Story</span>
+        </div>
+        <div class="cbody">
+          <div class="pnum">Story 1 · Ambos · Engajamento</div>
+          <div class="ptitle">Você tem alguma dúvida sobre fisioterapia?</div>
+          <div class="pganche">"Me manda aqui. que eu respondo você"</div>
+        </div>
+        <button class="expand-btn" onclick="toggle(this)">Ver brief completo <span class="chevron">▾</span></button>
+        <div class="brief">
+          <div class="brief-section">
+            <div class="brief-lbl">Objetivo</div>
+            <div class="brief-text">Gerar engajamento direto na caixa de perguntas do Story. Abre conversa com quem tem dúvida mas ainda não marcou.</div>
+          </div>
+          <div class="brief-section">
+            <div class="brief-lbl">Formato</div>
+            <div class="brief-text">Story 9:16 com caixa de perguntas do Instagram. Fundo navy + coluna vertebral ao fundo.</div>
+          </div>
+          <div class="brief-section">
+            <div class="brief-lbl">Por que funciona</div>
+            <div class="brief-text">Quem tem dúvida mas ainda não converteu encontra uma porta aberta. Fred responde pessoalmente — isso quebra a barreira do desconhecido e aproxima o paciente antes mesmo do agendamento.</div>
+          </div>
+          <div class="brief-cta">Me manda aqui — que eu respondo você.</div>
+        </div>
+      </div>
+
+      <!-- ── STORY 2: Dor Lombar — 50-70% ── -->
+      <div class="pcard" data-format="story">
+        <div class="thumb" onclick="lb(['assets/images/story-02.png'])" style="aspect-ratio:9/16;">
+          <img src="assets/images/story-02.png" alt="">
+          <span class="badge badge-story">Story</span>
+        </div>
+        <div class="cbody">
+          <div class="pnum">Story 2 · Ambos · Alcance</div>
+          <div class="ptitle">1 em cada 3 brasileiros tem dor nas costas</div>
+          <div class="pganche">"Causa identificável tem solução."</div>
+        </div>
+        <button class="expand-btn" onclick="toggle(this)">Ver brief completo <span class="chevron">▾</span></button>
+        <div class="brief">
+          <div class="brief-section">
+            <div class="brief-lbl">Frase principal</div>
+            <div class="brief-main">1 em cada 3 brasileiros tem dor nas costas.<br>A maioria não sabe a causa.<br><em>Causa identificável tem solução.</em></div>
+          </div>
+          <div class="brief-section">
+            <div class="brief-lbl">Objetivo</div>
+            <div class="brief-text">Ampliar alcance com dado de impacto. Quem se identifica salva ou compartilha. Reforça o pilar central da marca: ir na causa.</div>
+          </div>
+          <div class="brief-section">
+            <div class="brief-lbl">Por que funciona</div>
+            <div class="brief-text">Estatística real + presença do rosto do Fred = autoridade + conexão. O reframe "causa identificável tem solução" transforma um dado assustador em esperança — e direciona para o CTA naturalmente.</div>
+          </div>
+          <div class="brief-cta">Me chama no WhatsApp e a gente descobre qual é a sua.</div>
+        </div>
+      </div>
+
+    </div><!-- /posts-grid -->
+  </div>
+</section>
+
+
+<!-- ─── RESUMO ─── -->
+<section id="resumo">
+  <div class="container">
+    <div class="nums">
+      <div class="bnum reveal"><span>13</span><span>publicações</span></div>
+      <div class="bnum reveal d1"><span>4</span><span>formatos</span></div>
+      <div class="bnum reveal d2"><span>2</span><span>personas</span></div>
+      <div class="bnum reveal d3"><span>1</span><span>CTA: WhatsApp</span></div>
+    </div>
+    <h2 class="closing reveal">
+      Mês 1: autoridade, diferencial<br>
+      e quebra de objeções —<br>
+      tudo levando o paciente certo<br>
+      até a <span class="red">avaliação.</span>
+    </h2>
+    <div class="foot reveal">
+      <p>Dr. Fred Soares · Osteopata especialista em coluna · Intermares, Cabedelo<br>
+      <strong style="color:rgba(255,255,255,0.35)">Calendário editorial produzido por Arrive In Digital</strong></p>
+      <img src="assets/logo.svg" alt="Fred Soares">
+    </div>
+  </div>
+</section>
+
+
+<!-- ─── LIGHTBOX ─── -->
+<div class="lb" id="lbox" onclick="lbBg(event)">
+  <div class="lb-inner">
+    <button class="lb-close" onclick="lbClose()">✕</button>
+    <img id="lbimg" src="" alt="">
+    <div class="lb-nav">
+      <button id="lbprev" onclick="lbNav(-1)">← Anterior</button>
+      <button id="lbnext" onclick="lbNav(1)">Próximo →</button>
+    </div>
+    <p class="lb-ctr" id="lbctr"></p>
+  </div>
+</div>
+
+
+<script>
+  /* ── Reveal ── */
+  const obs = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } }), { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  /* ── Filter ── */
+  function filter(fmt, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.pcard').forEach(c => {
+      const formats = c.dataset.format.split(' ');
+      c.classList.toggle('hidden', fmt !== 'todos' && !formats.includes(fmt));
+    });
+  }
+
+  /* ── Expand brief ── */
+  function toggle(btn) {
+    const brief = btn.nextElementSibling;
+    const open = brief.classList.toggle('open');
+    btn.classList.toggle('open', open);
+    btn.querySelector('.chevron').textContent = open ? '▴' : '▾';
+    btn.textContent = '';
+    btn.innerHTML = (open ? 'Fechar brief ' : 'Ver brief completo ') + '<span class="chevron">' + (open ? '▴' : '▾') + '</span>';
+    if (btn.textContent.includes('roteiro') || btn.innerHTML.includes('roteiro')) {
+      btn.innerHTML = (open ? 'Fechar roteiro ' : 'Ver roteiro ') + '<span class="chevron">' + (open ? '▴' : '▾') + '</span>';
+    }
+  }
+
+  /* ── Lightbox ── */
+  let imgs = [], idx = 0;
+  function lb(arr) { imgs = arr; idx = 0; lbRender(); document.getElementById('lbox').classList.add('open'); document.body.style.overflow='hidden'; }
+  function lbRender() {
+    document.getElementById('lbimg').src = imgs[idx];
+    document.getElementById('lbprev').disabled = idx === 0;
+    document.getElementById('lbnext').disabled = idx === imgs.length - 1;
+    document.getElementById('lbctr').textContent = imgs.length > 1 ? (idx+1)+' / '+imgs.length : '';
+  }
+  function lbNav(d) { idx = Math.max(0, Math.min(imgs.length-1, idx+d)); lbRender(); }
+  function lbClose() { document.getElementById('lbox').classList.remove('open'); document.body.style.overflow=''; }
+  function lbBg(e) { if (e.target === document.getElementById('lbox')) lbClose(); }
+  document.addEventListener('keydown', e => { if (!document.getElementById('lbox').classList.contains('open')) return; if (e.key==='Escape') lbClose(); if (e.key==='ArrowLeft') lbNav(-1); if (e.key==='ArrowRight') lbNav(1); });
+
+  /* ── Mobile menu (placeholder) ── */
+  function toggleMenu() {
+    const links = document.querySelector('.nav-links');
+    links.style.display = links.style.display === 'flex' ? 'none' : 'flex';
+    links.style.flexDirection = 'column';
+    links.style.position = 'absolute';
+    links.style.top = '56px'; links.style.left = '0'; links.style.right = '0';
+    links.style.background = 'rgba(18,19,31,0.98)';
+    links.style.padding = '16px 20px';
+    links.style.gap = '16px';
+  }
+</script>
+
+</body>
+</html>
