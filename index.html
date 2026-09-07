@@ -3,7 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dr. Fred Soares · Mês 1 · Planejamento de Conteúdo</title>
+  <title>Dr. Fred Soares · Mês 1 · Junho 2026</title>
+  <script>
+    (function () {
+      var months = [
+        { file: 'index.html', y: 2026, m: 6 },
+        { file: 'mes-2.html', y: 2026, m: 7 },
+        { file: 'mes-3.html', y: 2026, m: 8 },
+        { file: 'mes-4.html', y: 2026, m: 9 }
+      ];
+      var now = new Date();
+      var cur = now.getFullYear() * 12 + now.getMonth();
+      var best = months[0];
+      for (var i = 0; i < months.length; i++) {
+        var val = months[i].y * 12 + (months[i].m - 1);
+        if (val <= cur) best = months[i];
+      }
+      if (best.file !== 'index.html') window.location.replace(best.file);
+    })();
+  </script>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -328,7 +346,7 @@
   <button class="nav-burger" onclick="toggleMenu()" aria-label="Menu">
     <span></span><span></span><span></span>
   </button>
-  <span class="nav-tag">Mês 1 · Instagram</span>
+  <span class="nav-tag">Mês 1 · Junho 2026</span>
 </nav>
 
 
@@ -338,7 +356,7 @@
   <div class="photo-side"><img src="assets/images/drfred.png" alt="Dr. Fred Soares"></div>
   <div class="content">
     <div class="eyebrow reveal">Calendário Editorial · Instagram</div>
-    <h1 class="reveal d1"><em class="red">Mês 1</em><br>Dr. Fred<br>Soares</h1>
+    <h1 class="reveal d1"><em class="red">Junho</em><br>Dr. Fred<br>Soares</h1>
     <p class="sub reveal d2">Osteopata · Especialista em coluna<br>Intermares, Cabedelo</p>
     <div class="meta reveal d3">
       <div class="meta-item"><span>13</span><span>publicações</span></div>
