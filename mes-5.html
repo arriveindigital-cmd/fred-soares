@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dr. Fred Soares · Mês 5 · Outubro 2026</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy:      #353552;
+      --dark:      #1a1b2e;
+      --darker:    #12131f;
+      --navy-mid:  #474970;
+      --red:       #BD2839;
+      --red-dark:  #B12939;
+      --white:     #FFFFFF;
+      --offwhite:  #F0EFEF;
+      --gray:      #DAD9DF;
+      --gray-blue: #9091A4;
+      --text:      #3A3A4F;
+      --font: 'Montserrat', sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--darker); font-family: var(--font); color: var(--white); overflow-x: hidden; }
+
+    /* ─── NAV ─── */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 14px 48px;
+      display: flex; justify-content: space-between; align-items: center;
+      background: rgba(18,19,31,0.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .nav img { height: 20px; }
+    .nav-links { display: flex; gap: 24px; }
+    .nav-links a {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: rgba(255,255,255,0.4);
+      text-decoration: none; transition: color 0.2s;
+    }
+    .nav-links a:hover { color: white; }
+    .nav-tag {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--red);
+      padding: 4px 12px; border: 1px solid rgba(189,40,57,0.35);
+      border-radius: 100px;
+    }
+    .nav-burger {
+      display: none; flex-direction: column; gap: 5px;
+      background: none; border: none; cursor: pointer; padding: 4px;
+    }
+    .nav-burger span { display: block; width: 22px; height: 2px; background: rgba(255,255,255,0.6); border-radius: 2px; }
+    .mes-switch { display: flex; gap: 4px; }
+    .mes-switch a { font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; padding: 5px 12px; border-radius: 100px; border: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.35); transition: all 0.15s; }
+    .mes-switch a:hover { color: white; border-color: rgba(255,255,255,0.3); }
+    .mes-switch a.active { background: var(--red); border-color: var(--red); color: white; }
+
+    /* ─── UTILS ─── */
+    .red { color: var(--red); }
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.65s ease, transform 0.65s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+    .d1 { transition-delay: 0.08s; } .d2 { transition-delay: 0.16s; }
+    .d3 { transition-delay: 0.24s; } .d4 { transition-delay: 0.32s; }
+    section { min-height: 100vh; display: flex; align-items: center; padding: 120px 48px 80px; }
+    .container { max-width: 1200px; margin: 0 auto; width: 100%; }
+    .section-head { margin-bottom: 56px; }
+    .section-head .label { font-size: 10px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); margin-bottom: 10px; display: block; }
+    .section-head h2 { font-size: clamp(32px, 4vw, 52px); font-weight: 800; line-height: 1.08; letter-spacing: -0.025em; }
+    .section-head p { font-size: 16px; color: var(--gray-blue); margin-top: 10px; line-height: 1.5; max-width: 520px; }
+
+    /* ─── HERO ─── */
+    #hero { background: var(--dark); position: relative; overflow: hidden; padding: 0; align-items: stretch; }
+    #hero .photo-side { position: absolute; right: 0; top: 0; bottom: 0; width: 50%; overflow: hidden; }
+    #hero .photo-side img { width: 100%; height: 100%; object-fit: cover; object-position: center top; filter: saturate(0.75) brightness(0.6); }
+    #hero .photo-side::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to right, var(--dark) 0%, rgba(26,27,46,0.35) 55%, transparent 80%); }
+    #hero .dots { position: absolute; inset: 0; background-image: radial-gradient(circle, rgba(71,73,112,0.18) 1px, transparent 1px); background-size: 24px 24px; pointer-events: none; z-index: 1; }
+    #hero .content { position: relative; z-index: 2; max-width: 1200px; margin: 0 auto; width: 100%; padding: 0 48px; display: flex; flex-direction: column; justify-content: center; min-height: 100vh; }
+    #hero .eyebrow { font-size: 10px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); margin-bottom: 24px; display: flex; align-items: center; gap: 10px; }
+    #hero .eyebrow::before { content: ''; display: block; width: 24px; height: 2px; background: var(--red); }
+    #hero h1 { font-size: clamp(48px, 6vw, 84px); font-weight: 900; line-height: 1.02; letter-spacing: -0.03em; max-width: 580px; }
+    #hero .sub { font-size: clamp(14px, 1.6vw, 20px); font-weight: 400; color: var(--gray-blue); margin-top: 20px; line-height: 1.5; max-width: 440px; }
+    #hero .meta { display: flex; gap: 36px; margin-top: 48px; flex-wrap: wrap; }
+    #hero .meta-item span:first-child { display: block; font-size: 36px; font-weight: 900; color: var(--red); letter-spacing: -0.02em; line-height: 1; }
+    #hero .meta-item span:last-child { font-size: 11px; font-weight: 600; color: var(--gray-blue); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 4px; display: block; }
+    #hero .scroll-hint { position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%); font-size: 9px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.2); display: flex; flex-direction: column; align-items: center; gap: 6px; }
+    #hero .scroll-hint::after { content: ''; width: 1px; height: 28px; background: linear-gradient(to bottom, rgba(255,255,255,0.2), transparent); animation: ph 2s ease-in-out infinite; }
+    @keyframes ph { 0%,100%{opacity:.3} 50%{opacity:1} }
+
+    /* ─── FEED ─── */
+    #feed { background: var(--darker); }
+    #feed .container { display: flex; gap: 56px; align-items: flex-start; }
+    .phone {
+      background: #fff; border-radius: 22px; overflow: hidden; width: 340px; flex-shrink: 0;
+      box-shadow: 0 28px 80px rgba(0,0,0,0.65);
+      transition: transform 0.35s cubic-bezier(.22,1,.36,1), box-shadow 0.35s ease;
+    }
+    .phone:hover {
+      transform: translateY(-10px) scale(1.025);
+      box-shadow: 0 44px 100px rgba(0,0,0,0.75), 0 0 0 1px rgba(189,40,57,0.18), 0 0 40px rgba(189,40,57,0.08);
+    }
+    .phone-hd { padding: 12px 16px 10px; border-bottom: 1px solid #eee; }
+    .phone-hd .uname { font-size: 14px; font-weight: 800; color: #000; }
+    .phone-hd .row { display: flex; align-items: center; gap: 14px; margin-top: 8px; }
+    .phone-hd .av { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; border: 2px solid var(--red); flex-shrink: 0; }
+    .phone-hd .stats { display: flex; gap: 16px; }
+    .phone-hd .st span:first-child { display: block; font-size: 13px; font-weight: 700; color: #000; text-align: center; }
+    .phone-hd .st span:last-child { font-size: 10px; color: #888; text-align: center; display: block; }
+    .phone-bio { padding: 6px 16px 10px; }
+    .phone-bio .nm { font-size: 12px; font-weight: 700; color: #000; }
+    .phone-bio .sp { font-size: 11px; color: #555; }
+    .phone-bio .ph { font-size: 11px; font-weight: 700; color: var(--red); margin-top: 2px; }
+    .pgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+    .pgrid .cell { aspect-ratio: 1/1; overflow: hidden; position: relative; cursor: pointer; }
+    .pgrid .cell img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.3s; }
+    .pgrid .cell:hover img { transform: scale(1.06); }
+    .pgrid .cell.reel { background: var(--dark); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; }
+    .pgrid .cell.foto { background: linear-gradient(135deg, #1a2030, #2a2b40); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; }
+    .reel-ic { width: 24px; height: 18px; border: 2px solid rgba(255,255,255,0.5); border-radius: 3px; position: relative; display: flex; align-items: center; justify-content: center; font-size: 9px; color: var(--red); }
+    .reel-ic::before { content:''; position:absolute; right:-7px; top:-5px; border:5px solid transparent; border-left:8px solid rgba(255,255,255,0.5); transform:rotate(-15deg); }
+    .pgrid .cell.reel span, .pgrid .cell.foto span { font-size: 7px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.7); }
+    .prod-b { position: absolute; bottom: 5px; left: 50%; transform: translateX(-50%); background: var(--red); color: white; font-size: 6px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 2px 6px; border-radius: 100px; white-space: nowrap; }
+    .feed-side { flex: 1; }
+    .feed-legend { display: flex; flex-direction: column; gap: 12px; margin-top: 28px; }
+    .fl-item { display: flex; align-items: center; gap: 12px; font-size: 13px; font-weight: 500; color: var(--gray-blue); }
+    .fl-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+    .fl-item strong { font-weight: 700; color: white; }
+    .cta-box { margin-top: 28px; padding: 18px 22px; background: rgba(189,40,57,0.07); border: 1px solid rgba(189,40,57,0.15); border-radius: 10px; }
+    .cta-box .lbl { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--red); margin-bottom: 6px; }
+    .cta-box strong { display: block; font-size: 16px; font-weight: 700; color: white; line-height: 1.3; }
+    .cta-box small { font-size: 12px; color: var(--gray-blue); margin-top: 3px; display: block; }
+
+    /* ─── ESTRATÉGIA ─── */
+    #estrategia { background: var(--dark); }
+    .promise { background: rgba(189,40,57,0.08); border: 1px solid rgba(189,40,57,0.2); border-radius: 10px; padding: 24px 32px; margin-bottom: 44px; }
+    .promise p { font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--red); margin-bottom: 8px; }
+    .promise blockquote { font-size: clamp(20px, 2.4vw, 30px); font-weight: 800; line-height: 1.2; letter-spacing: -0.02em; font-style: normal; }
+    .pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .pillar { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; padding: 22px; border-top: 3px solid var(--red); }
+    .p-num { font-size: 38px; font-weight: 900; color: rgba(255,255,255,0.07); letter-spacing: -0.05em; line-height: 1; margin-bottom: 10px; }
+    .pillar h3 { font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--red); margin-bottom: 10px; }
+    .pillar .quote { font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.7); line-height: 1.4; margin-bottom: 10px; font-style: italic; }
+    .pillar .desc { font-size: 13px; color: var(--gray-blue); line-height: 1.55; }
+    .pillar .proofs { list-style: none; margin-top: 14px; padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.05); display: flex; flex-direction: column; gap: 7px; }
+    .pillar .proofs li { font-size: 11px; font-weight: 500; color: rgba(255,255,255,0.35); display: flex; gap: 7px; line-height: 1.4; }
+    .pillar .proofs li::before { content: '—'; color: var(--red); flex-shrink: 0; font-size: 10px; }
+
+    /* ─── CONTEÚDOS ─── */
+    #conteudos { background: var(--darker); min-height: auto; padding-bottom: 100px; }
+    .filter-bar { display: flex; gap: 8px; margin-bottom: 40px; flex-wrap: wrap; }
+    .filter-btn {
+      padding: 8px 18px; border-radius: 100px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.04);
+      color: rgba(255,255,255,0.45); font-family: var(--font);
+      font-size: 12px; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; cursor: pointer; transition: all 0.15s;
+    }
+    .filter-btn:hover { background: rgba(255,255,255,0.1); color: white; }
+    .filter-btn.active { background: var(--red); border-color: var(--red); color: white; }
+    .filter-count { display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; background: rgba(255,255,255,0.15); font-size: 10px; font-weight: 700; margin-left: 6px; }
+    .filter-btn.active .filter-count { background: rgba(255,255,255,0.25); }
+    .posts-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 20px; }
+    .pcard {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 14px; overflow: hidden;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .pcard.hidden { display: none; }
+    .pcard:hover { border-color: rgba(189,40,57,0.25); }
+    .pcard .thumb { aspect-ratio: 4/5; overflow: hidden; position: relative; background: var(--dark); cursor: pointer; }
+    .pcard .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s; }
+    .pcard .thumb:hover img { transform: scale(1.04); }
+    .pcard .thumb .badge { position: absolute; top: 10px; left: 10px; color: white; font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 9px; border-radius: 100px; }
+    .badge-card { background: var(--navy-mid); }
+    .badge-reel { background: var(--red); }
+    .badge-carrossel { background: #8B6914; }
+    .badge-foto { background: #1a5c3a; }
+    .pcard .thumb .scount { position: absolute; top: 10px; right: 10px; font-size: 9px; font-weight: 700; color: rgba(255,255,255,0.7); background: rgba(0,0,0,0.5); padding: 3px 8px; border-radius: 100px; }
+    .pcard .thumb.reel-th { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; background: linear-gradient(135deg, #12131f 0%, #2a2b40 100%); }
+    .reel-bi { width: 40px; height: 32px; border: 2.5px solid rgba(255,255,255,0.4); border-radius: 5px; display: flex; align-items: center; justify-content: center; font-size: 12px; color: var(--red); }
+    .reel-th .prod-label { position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); background: var(--red); color: white; font-size: 7px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 10px; border-radius: 100px; white-space: nowrap; }
+    .pcard .cbody { padding: 18px 20px 0; }
+    .pcard .pnum { font-size: 9px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--red); margin-bottom: 5px; }
+    .pcard .ptitle { font-size: 15px; font-weight: 700; line-height: 1.3; color: var(--white); margin-bottom: 8px; }
+    .pcard .pganche { font-size: 12px; font-weight: 400; color: var(--gray-blue); line-height: 1.5; border-left: 2px solid rgba(189,40,57,0.35); padding-left: 9px; font-style: italic; }
+    .expand-btn {
+      display: flex; align-items: center; justify-content: space-between;
+      width: 100%; padding: 14px 20px;
+      background: none; border: none; border-top: 1px solid rgba(255,255,255,0.06);
+      color: rgba(255,255,255,0.35); font-family: var(--font);
+      font-size: 11px; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase; cursor: pointer; margin-top: 14px;
+      transition: color 0.15s;
+    }
+    .expand-btn:hover { color: rgba(255,255,255,0.7); }
+    .expand-btn .chevron { transition: transform 0.25s; font-size: 14px; }
+    .expand-btn.open .chevron { transform: rotate(180deg); }
+    .brief { padding: 0 20px; max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.3s; }
+    .brief.open { max-height: 3000px; padding: 4px 20px 20px; }
+    .brief-section { margin-bottom: 18px; }
+    .brief-section:last-child { margin-bottom: 0; }
+    .brief-lbl { font-size: 9px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--red); margin-bottom: 6px; }
+    .brief-text { font-size: 13px; font-weight: 400; color: var(--gray-blue); line-height: 1.6; }
+    .brief-text strong { font-weight: 700; color: rgba(255,255,255,0.75); }
+    .brief-text em { color: var(--red); font-style: normal; font-weight: 700; }
+    .brief-main { font-size: 15px; font-weight: 700; color: var(--white); line-height: 1.45; }
+    .brief-note { font-size: 12px; color: rgba(255,255,255,0.25); line-height: 1.5; font-style: italic; }
+    .brief-cta { display: flex; align-items: center; gap: 7px; font-size: 13px; font-weight: 600; color: var(--red); line-height: 1.4; margin-top: 16px; padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.05); }
+    .brief-cta::before { content: '→'; flex-shrink: 0; }
+    .roteiro { width: 100%; border-collapse: collapse; margin-top: 8px; }
+    .roteiro th { font-size: 9px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.3); padding: 6px 8px; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .roteiro td { font-size: 12px; color: var(--gray-blue); padding: 8px 8px; border-bottom: 1px solid rgba(255,255,255,0.04); line-height: 1.45; vertical-align: top; }
+    .roteiro td:first-child { color: rgba(255,255,255,0.3); font-weight: 600; white-space: nowrap; width: 52px; }
+    .roteiro td:nth-child(2) { color: var(--red); font-weight: 700; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; width: 80px; }
+    .roteiro tr:last-child td { border-bottom: none; }
+
+    /* ─── RESUMO ─── */
+    #resumo { background: var(--dark); min-height: 80vh; }
+    .nums { display: flex; gap: 56px; margin-bottom: 64px; flex-wrap: wrap; }
+    .bnum span:first-child { display: block; font-size: clamp(60px, 8vw, 90px); font-weight: 900; line-height: 1; color: var(--red); letter-spacing: -0.04em; }
+    .bnum span:last-child { display: block; font-size: 11px; font-weight: 600; color: var(--gray-blue); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 4px; }
+    .closing { font-size: clamp(26px, 3.2vw, 44px); font-weight: 800; line-height: 1.15; letter-spacing: -0.02em; max-width: 680px; margin-bottom: 28px; }
+    .cta-final { display: inline-flex; align-items: center; gap: 8px; background: var(--red); color: white; font-size: 12px; font-family: var(--font); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 16px 32px; border-radius: 4px; text-decoration: none; transition: background 0.2s; }
+    .cta-final:hover { background: var(--red-dark); }
+    .foot { margin-top: 72px; padding-top: 28px; border-top: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+    .foot p { font-size: 12px; color: rgba(255,255,255,0.18); line-height: 1.5; }
+    .foot img { height: 18px; opacity: 0.25; filter: brightness(0) invert(1); }
+
+    /* ─── LIGHTBOX ─── */
+    .lb { position: fixed; inset: 0; z-index: 9999; background: rgba(0,0,0,0.92); display: none; align-items: center; justify-content: center; padding: 20px; }
+    .lb.open { display: flex; }
+    .lb-inner { position: relative; max-width: 420px; width: 100%; }
+    .lb-inner img { width: 100%; border-radius: 6px; display: block; }
+    .lb-close { position: absolute; top: -12px; right: -12px; width: 28px; height: 28px; border-radius: 50%; background: var(--red); border: none; cursor: pointer; color: white; font-size: 13px; display: flex; align-items: center; justify-content: center; }
+    .lb-nav { display: flex; justify-content: center; gap: 8px; margin-top: 10px; }
+    .lb-nav button { background: rgba(255,255,255,0.12); border: none; cursor: pointer; color: white; padding: 6px 16px; border-radius: 100px; font-family: var(--font); font-size: 11px; font-weight: 600; }
+    .lb-nav button:disabled { opacity: 0.3; cursor: default; }
+    .lb-ctr { text-align: center; font-size: 10px; color: rgba(255,255,255,0.35); margin-top: 6px; font-weight: 600; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 960px) {
+      section { padding: 100px 28px 64px; }
+      #hero .content { padding: 0 28px; }
+      #hero .photo-side { width: 44%; }
+      #feed .container { flex-direction: column; gap: 36px; align-items: center; }
+      .pillars { grid-template-columns: 1fr 1fr; }
+      .posts-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 680px) {
+      .nav { padding: 12px 20px; }
+      .nav-links { display: none; }
+      .nav-burger { display: flex; }
+      .mes-switch { display: none; }
+      .nav-tag { display: none; }
+      section { padding: 88px 20px 56px; }
+      #hero .content { padding: 0 20px; }
+      #hero .photo-side { display: none; }
+      #hero h1 { font-size: 44px; }
+      #hero .meta { gap: 24px; }
+      #hero .meta-item span:first-child { font-size: 28px; }
+      #feed .container { gap: 28px; }
+      .phone { width: 100%; max-width: 340px; }
+      .pillars { grid-template-columns: 1fr; }
+      .filter-bar { gap: 6px; }
+      .filter-btn { padding: 7px 13px; font-size: 10px; }
+      .posts-grid { grid-template-columns: 1fr; }
+      .nums { gap: 28px; }
+      .bnum span:first-child { font-size: 56px; }
+      .closing { font-size: 26px; }
+      .foot { flex-direction: column; align-items: flex-start; }
+      .roteiro { display: block; overflow-x: auto; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── NAV ─── -->
+<nav class="nav">
+  <img src="assets/logo.svg" alt="Fred Soares">
+  <div class="nav-links">
+    <a href="#feed">Feed</a>
+    <a href="#estrategia">Estratégia</a>
+    <a href="#conteudos">Conteúdos</a>
+    <a href="#resumo">Resumo</a>
+  </div>
+  <div class="mes-switch">
+    <a href="index.html">Mês 1</a>
+    <a href="mes-2.html">Mês 2</a>
+    <a href="mes-3.html">Mês 3</a>
+    <a href="mes-4.html">Mês 4</a>
+    <a href="mes-5.html" class="active">Mês 5</a>
+  </div>
+  <button class="nav-burger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <span class="nav-tag">Mês 5 · Outubro 2026</span>
+</nav>
+
+
+<!-- ─── HERO ─── -->
+<section id="hero">
+  <div class="dots"></div>
+  <div class="photo-side"><img src="assets/images/drfred.png" alt="Dr. Fred Soares"></div>
+  <div class="content">
+    <div class="eyebrow reveal">Calendário Editorial · Instagram · Outubro 2026</div>
+    <h1 class="reveal d1"><em class="red">Outubro</em><br>Dr. Fred<br>Soares</h1>
+    <p class="sub reveal d2">Osteopata · Especialista em coluna<br>Intermares, Cabedelo</p>
+    <div class="meta reveal d3">
+      <div class="meta-item"><span>8</span><span>publicações</span></div>
+      <div class="meta-item"><span>4</span><span>cards</span></div>
+      <div class="meta-item"><span>2</span><span>reels</span></div>
+      <div class="meta-item"><span>2</span><span>carrosseis</span></div>
+    </div>
+    <p class="reveal d4" style="margin-top:36px;font-size:11px;color:rgba(255,255,255,0.2);letter-spacing:0.07em;">Apresentação por Arrive In Digital</p>
+  </div>
+  <div class="scroll-hint">scroll</div>
+</section>
+
+
+<!-- ─── FEED ─── -->
+<section id="feed">
+  <div class="container">
+    <div class="phone reveal">
+      <div class="phone-hd">
+        <div class="uname">dr.fredsoares</div>
+        <div class="row">
+          <img class="av" src="assets/images/drfred.png" alt="">
+          <div class="stats">
+            <div class="st"><span>8</span><span>posts</span></div>
+            <div class="st"><span>—</span><span>seguidores</span></div>
+            <div class="st"><span>—</span><span>seguindo</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-bio">
+        <div class="nm">Dr. Fred Soares</div>
+        <div class="sp">Osteopata · Especialista em coluna</div>
+        <div class="ph">Trata a causa, não o sintoma.</div>
+      </div>
+      <div class="pgrid">
+        <div class="cell" onclick="lb(['assets/images/mes5-cd1.png'])"><img src="assets/images/mes5-cd1.png" alt=""></div>
+        <div class="cell" onclick="lb(['assets/images/mes5-ca1-s1.png','assets/images/mes5-ca1-s2.png','assets/images/mes5-ca1-s3.png','assets/images/mes5-ca1-s4.png','assets/images/mes5-ca1-s5.png','assets/images/mes5-ca1-s6.png'])"><img src="assets/images/mes5-ca1-s1.png" alt=""></div>
+        <div class="cell" onclick="lb(['assets/images/mes5-cd2.png'])"><img src="assets/images/mes5-cd2.png" alt=""></div>
+        <div class="cell" onclick="lb(['assets/images/mes5-cd3.png'])"><img src="assets/images/mes5-cd3.png" alt=""></div>
+        <div class="cell reel"><div class="reel-ic">&#9654;</div><span>Reels</span><div class="prod-b">produção</div></div>
+        <div class="cell" onclick="lb(['assets/images/mes5-ca2-s1.png','assets/images/mes5-ca2-s2.png','assets/images/mes5-ca2-s3.png','assets/images/mes5-ca2-s4.png','assets/images/mes5-ca2-s5.png','assets/images/mes5-ca2-s6.png'])"><img src="assets/images/mes5-ca2-s1.png" alt=""></div>
+        <div class="cell reel"><div class="reel-ic">&#9654;</div><span>Reels</span><div class="prod-b">produção</div></div>
+        <div class="cell" onclick="lb(['assets/images/mes5-cd4.png'])"><img src="assets/images/mes5-cd4.png" alt=""></div>
+      </div>
+    </div>
+
+    <div class="feed-side reveal d2">
+      <div class="section-head">
+        <span class="label">Prévia do perfil</span>
+        <h2>Como o feed<br>vai ficar</h2>
+        <p>Grade 3×3 · 8 publicações em ordem de postagem. Clique em qualquer imagem para ampliar.</p>
+      </div>
+      <div class="feed-legend">
+        <div class="fl-item"><div class="fl-dot" style="background:var(--navy-mid)"></div><div><strong>Cards</strong> — C1, C3, C4, C7: diagnóstico diferencial, mitos e datas especiais</div></div>
+        <div class="fl-item"><div class="fl-dot" style="background:#8B6914"></div><div><strong>Carrosseis</strong> — C5 e C8: mitos da coluna + remédio vs fisio</div></div>
+        <div class="fl-item"><div class="fl-dot" style="background:var(--red)"></div><div><strong>Reels</strong> — C2 e C6: alcance + autoridade técnica (em produção)</div></div>
+      </div>
+      <div class="cta-box reveal d3">
+        <div class="lbl">CTA único do mês</div>
+        <strong>Agendar avaliação pelo WhatsApp.</strong>
+        <small>Cards → "manda mensagem" · Reels e carrosseis → "agenda avaliação"</small>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ─── ESTRATÉGIA ─── -->
+<section id="estrategia">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="label">A ideia do mês</span>
+      <h2>Estratégia · Outubro</h2>
+      <p>Diagnóstico diferencial aplicado ao que o paciente já tem na mão: a dor que desce e o laudo que ele não sabe ler.</p>
+    </div>
+    <div class="promise reveal d1">
+      <p>Promessa central</p>
+      <blockquote>"destravar a coluna. tratar a causa. 4–5 sessões. resolvido."</blockquote>
+    </div>
+    <div class="pillars">
+      <div class="pillar reveal d1">
+        <div class="p-num">01</div>
+        <h3>A dor desce. A causa não está onde dói.</h3>
+        <div class="quote">"Todo mundo chama de ciática. Mas tratar só onde dói traz melhora curta."</div>
+        <div class="desc">CA1 é a peça central do mês: separa três origens possíveis para a mesma dor na perna — coluna, glúteo e bacia. É o ângulo que já tinha convergência entre o criativo pago de melhor custo por conversa e o que circula no nicho.</div>
+        <ul class="proofs">
+          <li>CA1: 3 origens da dor que desce pela perna (6 slides, fundo navy)</li>
+          <li>CD4: duas posições pra dormir hoje — com limite claro de quando procurar médico</li>
+        </ul>
+      </div>
+      <div class="pillar reveal d2">
+        <div class="p-num">02</div>
+        <h3>Traduzir o laudo</h3>
+        <div class="quote">"L4-L5 ou L5-S1? Cada nível desenha um caminho diferente da dor."</div>
+        <div class="desc">CA2 pega o documento que o paciente já tem no celular e ensina a lê-lo. Não substitui a avaliação: mostra o que observar na perna e no pé, e por que o relato orienta mais do que o nome do exame.</div>
+        <ul class="proofs">
+          <li>CA2: o que o código do laudo diz sobre o nervo envolvido (6 slides, fundo creme)</li>
+        </ul>
+      </div>
+      <div class="pillar reveal d3">
+        <div class="p-num">03</div>
+        <h3>Datas que ancoram autoridade</h3>
+        <div class="quote">"Eu sou fisioterapeuta. E decidi ir além."</div>
+        <div class="desc">Três datas no mês, todas usadas como gancho de posicionamento e não como post de calendário: autonomia depois dos 60, a formação além da base, e a coluna que só é lembrada quando dói.</div>
+        <ul class="proofs">
+          <li>CD1: 01/10 — Dia Internacional da Pessoa Idosa</li>
+          <li>CD3: 13/10 — Dia Nacional do Fisioterapeuta, com Madrid, USP e SENAC</li>
+          <li>CD2: 16/10 — Dia Mundial da Coluna</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ─── CONTEÚDOS ─── -->
+<section id="conteudos" style="min-height:auto;">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="label">Os conteúdos</span>
+      <h2>8 publicações</h2>
+      <p>Filtre por formato. Clique em "Ver brief" para ver frase, legenda e instruções de design.</p>
+    </div>
+
+    <div class="filter-bar reveal d1">
+      <button class="filter-btn active" onclick="filter('todos', this)">Todos <span class="filter-count">8</span></button>
+      <button class="filter-btn" onclick="filter('card', this)">Cards <span class="filter-count">4</span></button>
+      <button class="filter-btn" onclick="filter('reel', this)">Reels <span class="filter-count">2</span></button>
+      <button class="filter-btn" onclick="filter('carrossel', this)">Carrosseis <span class="filter-count">2</span></button>
+    </div>
+
+    <div class="posts-grid">
+
+      <!-- ── CD1 ── -->
+      <div class="pcard" data-format="card">
+        <div class="thumb" onclick="lb(['assets/images/mes5-cd1.png'])">
+          <img src="assets/images/mes5-cd1.png" alt="">
+          <span class="badge badge-card">Card</span>
+        </div>
+        <div class="cbody">
+          <div class="pnum">CD1 &middot; Card &middot; 01/10 &middot; Dia Internacional da Pessoa Idosa</div>
+          <div class="ptitle">Levantar da cadeira sem se apoiar.</div>
+          <div class="pganche">"Depois dos 60, mover-se sem ajuda &eacute; o que mant&eacute;m a rotina de p&eacute;."</div>
+        </div>
+        <button class="expand-btn" onclick="toggle(this)">Ver brief completo <span class="chevron">&#9662;</span></button>
+        <div class="brief">
+          <div class="brief-section">
+            <div class="brief-lbl">Frase principal</div>
+            <div class="brief-main">Levantar da cadeira<br>sem se apoiar.<br><br>Cal&ccedil;ar o sapato sem precisar sentar.<br><br><em class='red'>A dor na coluna tira isso aos poucos.</em></div>
+          </div>
+          <div class="brief-section">
+            <div class="brief-lbl">Copy de apoio</div>
+            <div class="brief-text">Depois dos 60, mover-se sem ajuda &eacute; o que mant&eacute;m a rotina. T&eacute;cnica suave, sem estalo.</div>
+          </div>
+          <div class="brief-section">
+            <div class="brief-lbl">Legenda Instagram</div>
+            <div class="brief-text">Levantar da cadeira sem se apoiar. Cal&ccedil;ar o sapato sem precisar sentar. Subir no &ocirc;nibus sem pensar duas vezes.<br><br>S&atilde;o coisas pequenas, e s&atilde;o exatamente as que a dor na coluna tira primeiro &mdash; aos poucos, sem aviso.<br><br>Depois dos 60, mover-se sem ajuda n&atilde;o &eacute; vaidade: &eacute; o que mant&eacute;m a rotina, a autonomia e a seguran&ccedil;a.<br><br>A avalia&ccedil;&atilde;o olha o movimento, n&atilde;o s&oacute; o exame. E a t&eacute;cnica &eacute; suave, sem estalo.<br><br>&#128205; Intermares, Cabedelo. Manda mensagem.</div>
+          </div>
+          <div class="brief-section">
+            <div class="brief-lbl">Obs. para o designer</div>
+            <div class="brief-text">Fundo IA escuro, anatomia de quadril e coluna em ciano. Hero ExtraBold 64. Destaque carmim na terceira linha.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── CA1 ── -->
+      <div class="pcard" data-format="carrossel">
+        <div class="thumb" onclick="lb(['assets/images/mes5-ca1-s1.png','assets/images/mes5-ca1-s2.png','assets/images/mes5-ca1-s3.png','assets/images/mes5-ca1-s4.png','assets/images/mes5-ca1-s5.png','assets/images/mes5-ca1-s6.png'])">
+          <img src="assets/images/mes5-ca1-s1.png" alt="">
+          <span class="badge badge-carrossel">Carrossel</span>
+        </div>
+        <div class="cbody">
+          <div class="pnum">CA1 &middot; Carrossel &middot; 6 slides &middot; Resolu&ccedil;&atilde;o real</div>
+          <div class="ptitle">A dor est&aacute; na perna. A causa pode estar em outro lugar.</div>
+          <div class="pganche">"Nem toda dor que desce &eacute; ci&aacute;tica &mdash; e tratar s&oacute; onde d&oacute;i costuma trazer melhora curta."</div>
+        </div>
+        <button class="expand-btn" onclick="toggle(this)">Ver brief completo <span class="chevron">&#9662;</span></button>
+        <div class="brief">
+          <div class="brief-section">
+            <div class="brief-lbl">Frase principal</div>
+            <div class="brief-main"><em>01</em> A dor est&aacute; na perna. A causa pode estar em <span class='red'>outro lugar.</span><br><em>02</em> Pontada na lombar. Queima&ccedil;&atilde;o no gl&uacute;teo. A dor desce pela perna e n&atilde;o para.<br><em>03</em> Origem 1 &middot; A coluna<br><em>04</em> Origem 2 &middot; O gl&uacute;teo<br><em>05</em> Origem 3 &middot; A bacia<br><em>06</em> S&oacute; a avalia&ccedil;&atilde;o separa uma origem da outra.</div>
+          </div>
+          <div class="brief-section">
+            <div class="brief-lbl">Copy de apoio</div>
+            <div class="brief-text">Tr&ecirc;s origens poss&iacute;veis para a mesma dor: coluna, gl&uacute;teo e bacia. Cada uma pede um tratamento diferente.</div>
+          </div>
+          <div class="brief-section">
+            <div class="brief-lbl">Legenda Instagram</div>
+            <div class="brief-text">Pontada na lombar. Queima&ccedil;&atilde;o no gl&uacute;teo. A dor desce pela perna e n&atilde;o para.<br><br>Todo mundo chama de ci&aacute;tica. Mas tratar s&oacute; onde d&oacute;i costuma trazer uma melhora curta, porque ali &eacute; o fim do caminho, n&atilde;o a origem.<br><br>A causa pode estar em tr&ecirc;s lugares diferentes:<br><br>A coluna &mdash; um nervo pressionado na lombar pode mandar a dor at&eacute; o p&eacute;. &Eacute; a origem mais conhecida, e a que o exame de imagem costuma mostrar.<br><br>O gl&uacute;teo &mdash; um m&uacute;sculo profundo, tenso, pode irritar o nervo e imitar a ci&aacute;tica. A dor costuma piorar ao sentar e ao cruzar as pernas.<br><br>A bacia &mdash; a articula&ccedil;&atilde;o sacroil&iacute;aca tamb&eacute;m espalha dor para o gl&uacute;teo e a coxa. Quando ela trava, a lombar e a perna compensam.<br><br>S&oacute; a avalia&ccedil;&atilde;o separa uma da outra. Eu n&atilde;o alivio. Eu vou na causa.<br><br>&#128205; Intermares, Cabedelo. Manda mensagem.</div>
+          </div>
+          <div class="brief-section">
+            <div class="brief-lbl">Obs. para o designer</div>
+            <div class="brief-text">Panorama &uacute;nico de 6480&times;1350 composto no Photoshop, aplicado em sextos no Figma. Fundo navy, texto creme.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── CD2 ── -->
+      <div class="pcard" data-format="card">
+        <div class="thumb" onclick="lb(['assets/images/mes5-cd2.png'])">
+          <img src="assets/images/mes5-cd2.png" alt="">
+          <span class="badge badge-card">Card</span>
+        </div>
+        <div class="cbody">
+          <div class="pnum">CD2 &middot; Card &middot; 16/10 &middot; Dia Mundial da Coluna</div>
+          <div class="ptitle">Sua coluna trabalha o dia todo.</div>
+          <div class="pganche">"Voc&ecirc; s&oacute; lembra dela quando d&oacute;i."</div>
+        </div>
+        <button class="expand-btn" onclick="toggle(this)">Ver brief completo <span class="chevron">&#9662;</span></button>
+        <div class="brief">
+          <div class="brief-section">
+            <div class="brief-lbl">Frase principal</div>
+            <div class="brief-main">Sua coluna trabalha <span class='red'>o dia todo.</span><br><br>16 de outubro &middot; Dia Mundial da Coluna<br><br><em class='red'>Voc&ecirc; s&oacute; lembra dela quando d&oacute;i.</em></div>
+          </div>
+          <div class="brief-section">
+            <div class="brief-lbl">Copy de apoio</div>
+            <div class="brief-text">Avaliar o movimento agora &eacute; mais simples do que descobrir a restri&ccedil;&atilde;o na crise.</div>
+          </div>
+          <div class="brief-section">
+            <div class="brief-lbl">Legenda Instagram</div>
+            <div class="brief-text">Hoje &eacute; o Dia Mundial da Coluna.<br><br>Ela trabalha o dia todo: sustenta, distribui carga, absorve impacto, permite que voc&ecirc; se vire, se abaixe e levante. E voc&ecirc; s&oacute; lembra que ela existe quando d&oacute;i.<br><br>A maior parte das restri&ccedil;&otilde;es que eu encontro no consult&oacute;rio j&aacute; estava l&aacute; muito antes da crise. S&oacute; n&atilde;o doía ainda.<br><br>Avaliar o movimento agora &eacute; mais simples &mdash; e mais r&aacute;pido &mdash; do que descobrir a restri&ccedil;&atilde;o quando ela j&aacute; virou dor.<br><br>&#128205; Intermares, Cabedelo. Manda mensagem.</div>
+          </div>
+          <div class="brief-section">
+            <div class="brief-lbl">Obs. para o designer</div>
+            <div class="brief-text">Fundo IA escuro com coluna inteira em ciano e foco vermelho na lombar. Data em 28px Bold, mesmo peso das demais linhas de apoio.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── CD3 ── -->
+      <div class="pcard" data-format="card">
+        <div class="thumb" onclick="lb(['assets/images/mes5-cd3.png'])">
+          <img src="assets/images/mes5-cd3.png" alt="">
+          <span class="badge badge-card">Card</span>
+        </div>
+        <div class="cbody">
+          <div class="pnum">CD3 &middot; Card &middot; 13/10 &middot; Dia Nacional do Fisioterapeuta</div>
+          <div class="ptitle">Hoje &eacute; o dia do fisioterapeuta.</div>
+          <div class="pganche">"Eu sou um deles. E decidi ir al&eacute;m."</div>
+        </div>
+        <button class="expand-btn" onclick="toggle(this)">Ver brief completo <span class="chevron">&#9662;</span></button>
+        <div class="brief">
+          <div class="brief-section">
+            <div class="brief-lbl">Frase principal</div>
+            <div class="brief-main">Hoje &eacute; o dia <span class='red'>do fisioterapeuta.</span><br><br>13 de outubro.<br><br>Eu sou um deles.<br><em class='red'>E decidi ir al&eacute;m.</em></div>
+          </div>
+          <div class="brief-section">
+            <div class="brief-lbl">Copy de apoio</div>
+            <div class="brief-text">Osteopatia pelo Instituto de Madrid. Mestrado pela USP. 10 anos de doc&ecirc;ncia no SENAC. 20 anos tratando dor para chegar at&eacute; voc&ecirc;, em Cabedelo.</div>
+          </div>
+          <div class="brief-section">
+            <div class="brief-lbl">Legenda Instagram</div>
+            <div class="brief-text">13 de outubro &eacute; o Dia Nacional do Fisioterapeuta.<br><br>Eu sou um deles. E, em algum momento, decidi que a forma&ccedil;&atilde;o base n&atilde;o ia dar conta do que eu queria resolver.<br><br>Osteopatia pelo Instituto de Madrid. Mestrado pela USP. 10 anos de doc&ecirc;ncia no SENAC. 20 anos tratando dor.<br><br>Nada disso &eacute; t&iacute;tulo de parede. &Eacute; o que me permite olhar uma dor na perna e procurar a causa na bacia &mdash; e acertar.<br><br>Parab&eacute;ns a quem escolheu essa profiss&atilde;o.<br><br>&#128205; Intermares, Cabedelo. Manda mensagem.</div>
+          </div>
+          <div class="brief-section">
+            <div class="brief-lbl">Obs. para o designer</div>
+            <div class="brief-text">Fundo claro (creme), &uacute;nico do m&ecirc;s nessa variante. Coluna em ciano correndo de cima a baixo na borda direita, m&atilde;o tocando com ponto carmim no contato. Texto em navy.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── R1 ── -->
+      <div class="pcard" data-format="reel">
+        <div class="thumb thumb-reel">
+          <div class="reel-ic">&#9654;</div><span>Reel</span>
+          <span class="badge badge-reel">Reel</span>
+        </div>
+        <div class="cbody">
+          <div class="pnum">R1 &middot; Reel &middot; Caso real &middot; Resolu&ccedil;&atilde;o</div>
+          <div class="ptitle">A dor come&ccedil;ou na lombar e terminou na ponta do p&eacute;</div>
+          <div class="pganche">"Caso cl&iacute;nico real &mdash; o sintoma concreto que mudou a conduta."</div>
+        </div>
+        <button class="expand-btn" onclick="toggle(this)">Ver brief completo <span class="chevron">&#9662;</span></button>
+        <div class="brief">
+          <div class="brief-section">
+            <div class="brief-lbl">Frase principal</div>
+            <div class="brief-main">Reel em produ&ccedil;&atilde;o. Roteiro no calend&aacute;rio do m&ecirc;s.</div>
+          </div>
+          <div class="brief-section">
+            <div class="brief-lbl">Copy de apoio</div>
+            <div class="brief-text">Pendente de confirma&ccedil;&atilde;o do Dr. Fred: autoriza&ccedil;&atilde;o da paciente e uma frase sobre o que ele encontrou e fez no caso.</div>
+          </div>
+          <div class="brief-section">
+            <div class="brief-lbl">Legenda Instagram</div>
+            <div class="brief-text">Roteiro final depois da confirma&ccedil;&atilde;o do caso.</div>
+          </div>
+          <div class="brief-section">
+            <div class="brief-lbl">Obs. para o designer</div>
+            <div class="brief-text">Grava&ccedil;&atilde;o: ele falando direto pra c&acirc;mera. Obrigat&oacute;rio incluir a ressalva de que cada caso &eacute; &uacute;nico.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── CA2 ── -->
+      <div class="pcard" data-format="carrossel">
+        <div class="thumb" onclick="lb(['assets/images/mes5-ca2-s1.png','assets/images/mes5-ca2-s2.png','assets/images/mes5-ca2-s3.png','assets/images/mes5-ca2-s4.png','assets/images/mes5-ca2-s5.png','assets/images/mes5-ca2-s6.png'])">
+          <img src="assets/images/mes5-ca2-s1.png" alt="">
+          <span class="badge badge-carrossel">Carrossel</span>
+        </div>
+        <div class="cbody">
+          <div class="pnum">CA2 &middot; Carrossel &middot; 6 slides &middot; Desmistifica&ccedil;&atilde;o</div>
+          <div class="ptitle">Seu laudo diz L4-L5 ou L5-S1?</div>
+          <div class="pganche">"Os dois n&iacute;veis mais comuns de h&eacute;rnia lombar &mdash; e cada um desenha um caminho diferente da dor."</div>
+        </div>
+        <button class="expand-btn" onclick="toggle(this)">Ver brief completo <span class="chevron">&#9662;</span></button>
+        <div class="brief">
+          <div class="brief-section">
+            <div class="brief-lbl">Frase principal</div>
+            <div class="brief-main"><em>01</em> Seu laudo diz <span class='red'>L4-L5</span> ou <span class='red'>L5-S1</span>?<br><em>02</em> O que o c&oacute;digo diz<br><em>03</em> Nervo L5 &mdash; dor pela lateral da perna<br><em>04</em> Nervo S1 &mdash; dor por tr&aacute;s, at&eacute; o calcanhar<br><em>05</em> O que fazer com isso<br><em>06</em> A avalia&ccedil;&atilde;o traduz o laudo para o seu corpo.</div>
+          </div>
+          <div class="brief-section">
+            <div class="brief-lbl">Copy de apoio</div>
+            <div class="brief-text">O c&oacute;digo mostra o n&iacute;vel do disco. Cada n&iacute;vel fica perto de um nervo diferente, e cada nervo desenha um caminho pr&oacute;prio da dor.</div>
+          </div>
+          <div class="brief-section">
+            <div class="brief-lbl">Legenda Instagram</div>
+            <div class="brief-text">Seu laudo diz L4-L5 ou L5-S1? Esses c&oacute;digos dizem onde est&aacute; o disco, e cada n&iacute;vel fica perto de um nervo diferente.<br><br>L4-L5 costuma envolver o nervo L5: dor pela lateral da perna, at&eacute; o peito do p&eacute; e o ded&atilde;o. Pode vir com dificuldade de levantar a ponta do p&eacute;.<br><br>L5-S1 costuma envolver o nervo S1: dor pela parte de tr&aacute;s da perna, at&eacute; o calcanhar e a sola. Pode vir com dificuldade de ficar na ponta dos p&eacute;s.<br><br>Saber o n&iacute;vel te diz o que observar na perna e no p&eacute;. Anote onde a dor chega, onde formiga e se a for&ccedil;a mudou &mdash; &eacute; esse relato que orienta a avalia&ccedil;&atilde;o, mais do que o nome do exame.<br><br>Leve isso anotado. A avalia&ccedil;&atilde;o traduz o laudo para o seu corpo.<br><br>&#128205; Intermares, Cabedelo. Manda mensagem.</div>
+          </div>
+          <div class="brief-section">
+            <div class="brief-lbl">Obs. para o designer</div>
+            <div class="brief-text">Panorama de 6480&times;1350 composto pelo Erik no Photoshop, aplicado em sextos. Fundo creme, texto navy.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── R2 ── -->
+      <div class="pcard" data-format="reel">
+        <div class="thumb thumb-reel">
+          <div class="reel-ic">&#9654;</div><span>Reel</span>
+          <span class="badge badge-reel">Reel</span>
+        </div>
+        <div class="cbody">
+          <div class="pnum">R2 &middot; Reel &middot; Rea&ccedil;&atilde;o &middot; Desmistifica&ccedil;&atilde;o</div>
+          <div class="ptitle">Rea&ccedil;&atilde;o: &ldquo;cirurgia j&aacute;&rdquo; vs &ldquo;ativar os gl&uacute;teos&rdquo;</div>
+          <div class="pganche">"Os dois extremos do conselho de internet &mdash; e por que nenhum dos dois &eacute; avalia&ccedil;&atilde;o."</div>
+        </div>
+        <button class="expand-btn" onclick="toggle(this)">Ver brief completo <span class="chevron">&#9662;</span></button>
+        <div class="brief">
+          <div class="brief-section">
+            <div class="brief-lbl">Frase principal</div>
+            <div class="brief-main">Reel em produ&ccedil;&atilde;o. Roteiro no calend&aacute;rio do m&ecirc;s.</div>
+          </div>
+          <div class="brief-section">
+            <div class="brief-lbl">Copy de apoio</div>
+            <div class="brief-text">Pendente de confirma&ccedil;&atilde;o do Dr. Fred: aceite de usar o print da thread real. Vers&atilde;o sem print como plano B.</div>
+          </div>
+          <div class="brief-section">
+            <div class="brief-lbl">Legenda Instagram</div>
+            <div class="brief-text">Roteiro final depois da confirma&ccedil;&atilde;o do formato.</div>
+          </div>
+          <div class="brief-section">
+            <div class="brief-lbl">Obs. para o designer</div>
+            <div class="brief-text">Se o print n&atilde;o for aprovado, reescrever como fala direta, sem citar a fonte.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── CD4 ── -->
+      <div class="pcard" data-format="card">
+        <div class="thumb" onclick="lb(['assets/images/mes5-cd4.png'])">
+          <img src="assets/images/mes5-cd4.png" alt="">
+          <span class="badge badge-card">Card</span>
+        </div>
+        <div class="cbody">
+          <div class="pnum">CD4 &middot; Card &middot; Livre &middot; Resolu&ccedil;&atilde;o pr&aacute;tica</div>
+          <div class="ptitle">Dor na coluna e a noite inteira virando?</div>
+          <div class="pganche">"Duas posi&ccedil;&otilde;es que ajudam hoje &mdash; e o limite claro de quando procurar m&eacute;dico."</div>
+        </div>
+        <button class="expand-btn" onclick="toggle(this)">Ver brief completo <span class="chevron">&#9662;</span></button>
+        <div class="brief">
+          <div class="brief-section">
+            <div class="brief-lbl">Frase principal</div>
+            <div class="brief-main">Dor na coluna e <span class='red'>a noite inteira virando?</span><br><br>Duas posi&ccedil;&otilde;es que ajudam hoje.<br><br>De lado: travesseiro entre os joelhos.<br>De costas: travesseiro sob os joelhos.</div>
+          </div>
+          <div class="brief-section">
+            <div class="brief-lbl">Copy de apoio</div>
+            <div class="brief-text">As duas posi&ccedil;&otilde;es reduzem a tens&atilde;o na coluna hoje &agrave; noite. A causa continua precisando de avalia&ccedil;&atilde;o. Dor que acorda voc&ecirc; ou vem com febre: procure um m&eacute;dico.</div>
+          </div>
+          <div class="brief-section">
+            <div class="brief-lbl">Legenda Instagram</div>
+            <div class="brief-text">Dor na coluna e a noite inteira virando na cama?<br><br>Duas posi&ccedil;&otilde;es que ajudam hoje:<br><br>De lado, com um travesseiro entre os joelhos &mdash; alinha o quadril e tira a tor&ccedil;&atilde;o da lombar.<br><br>De costas, com um travesseiro sob os joelhos &mdash; reduz a tens&atilde;o na regi&atilde;o lombar.<br><br>Isso diminui a tens&atilde;o hoje &agrave; noite. N&atilde;o resolve a causa: a restri&ccedil;&atilde;o que gerou a dor continua l&aacute;, e continua precisando de avalia&ccedil;&atilde;o.<br><br>E um limite importante: dor que acorda voc&ecirc; durante a noite, ou que vem acompanhada de febre, pede m&eacute;dico &mdash; n&atilde;o posi&ccedil;&atilde;o de dormir.<br><br>&#128205; Intermares, Cabedelo. Manda mensagem.</div>
+          </div>
+          <div class="brief-section">
+            <div class="brief-lbl">Obs. para o designer</div>
+            <div class="brief-text">Fundo IA escuro, figura deitada de lado com foco vermelho na lombar. Posi&ccedil;&otilde;es em 28px, mesmo peso da linha de apoio &mdash; o hero manda no card.</div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /posts-grid -->
+  </div>
+</section>
+
+
+<!-- ─── RESUMO ─── -->
+<section id="resumo">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="label">Resumo do mês</span>
+      <h2>Outubro 2026<br>em números</h2>
+    </div>
+    <div class="nums reveal d1">
+      <div class="bnum"><span>8</span><span>publicações</span></div>
+      <div class="bnum"><span>4</span><span>cards</span></div>
+      <div class="bnum"><span>2</span><span>reels</span></div>
+      <div class="bnum"><span>2</span><span>carrosseis</span></div>
+    </div>
+    <div class="closing reveal d2">
+      Três origens para a mesma dor, o laudo traduzido e três datas usadas como posicionamento.<br>
+      Cada peça conduz para um único ponto: <em class="red">agendar avaliação.</em>
+    </div>
+    <a class="cta-final reveal d3" href="https://wa.me/5516993939823">Agendar avaliação →</a>
+    <div class="foot reveal d4">
+      <p>Dr. Fred Soares · Calendário Editorial Mês 5 · Outubro 2026 · Arrive In Digital</p>
+      <img src="assets/logo.svg" alt="Arrive In Digital">
+    </div>
+  </div>
+</section>
+
+
+<!-- ─── LIGHTBOX ─── -->
+<div class="lb" id="lb" onclick="lbClose(event)">
+  <div class="lb-inner">
+    <button class="lb-close" onclick="closeLb()">✕</button>
+    <img id="lb-img" src="" alt="">
+    <div class="lb-nav">
+      <button id="lb-prev" onclick="lbStep(-1)">← Anterior</button>
+      <button id="lb-next" onclick="lbStep(1)">Próximo →</button>
+    </div>
+    <div class="lb-ctr" id="lb-ctr"></div>
+  </div>
+</div>
+
+
+<script>
+  /* Reveal on scroll */
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  /* Expand/collapse */
+  function toggle(btn) {
+    btn.classList.toggle('open');
+    btn.nextElementSibling.classList.toggle('open');
+  }
+
+  /* Filter */
+  function filter(fmt, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.pcard').forEach(c => {
+      c.classList.toggle('hidden', fmt !== 'todos' && c.dataset.format !== fmt);
+    });
+  }
+
+  /* Lightbox */
+  let lbImgs = [], lbIdx = 0;
+  function lb(imgs) {
+    lbImgs = imgs; lbIdx = 0; showLb();
+    document.getElementById('lb').classList.add('open');
+  }
+  function showLb() {
+    document.getElementById('lb-img').src = lbImgs[lbIdx];
+    document.getElementById('lb-ctr').textContent = lbImgs.length > 1 ? (lbIdx + 1) + ' / ' + lbImgs.length : '';
+    document.getElementById('lb-prev').disabled = lbIdx === 0;
+    document.getElementById('lb-next').disabled = lbIdx === lbImgs.length - 1;
+  }
+  function lbStep(d) { lbIdx = Math.max(0, Math.min(lbImgs.length - 1, lbIdx + d)); showLb(); }
+  function closeLb() { document.getElementById('lb').classList.remove('open'); }
+  function lbClose(e) { if (e.target === document.getElementById('lb')) closeLb(); }
+
+  /* Mobile menu */
+  function toggleMenu() {
+    const links = document.querySelector('.nav-links');
+    links.style.display = links.style.display === 'flex' ? 'none' : 'flex';
+    links.style.flexDirection = 'column';
+    links.style.position = 'absolute';
+    links.style.top = '56px';
+    links.style.left = '0';
+    links.style.right = '0';
+    links.style.background = 'rgba(18,19,31,0.97)';
+    links.style.padding = '20px 24px';
+    links.style.gap = '16px';
+  }
+</script>
+
+</body>
+</html>
